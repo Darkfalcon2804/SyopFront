@@ -1,0 +1,290 @@
+import { Link } from "react-router-dom";
+import { Container, Row, Col, Card, Button, Badge, ProgressBar } from "react-bootstrap";
+
+export default function Dashboard() {
+  const stats = [
+    { number: "47", label: "Days Tracked", icon: "fas fa-calendar", change: "+3 this week", color: "primary" },
+    { number: "23", label: "Symptoms Logged", icon: "fas fa-notes-medical", change: "This week", color: "success" },
+    { number: "8", label: "AI Insights", icon: "fas fa-brain", change: "2 new", color: "info" },
+    { number: "15%", label: "Improvement", icon: "fas fa-chart-line", change: "This month", color: "warning" }
+  ];
+
+  const recentActivity = [
+    {
+      type: "symptom",
+      title: "Logged fatigue level: 7/10",
+      time: "Today, 2:30 PM",
+      badge: "High",
+      badgeColor: "warning"
+    },
+    {
+      type: "insight",
+      title: "AI detected sleep quality improvement", 
+      time: "Yesterday, 9:15 AM",
+      badge: "Insight",
+      badgeColor: "info"
+    },
+    {
+      type: "medication",
+      title: "Medication reminder: Methotrexate taken",
+      time: "2 days ago, 8:00 AM", 
+      badge: "Completed",
+      badgeColor: "success"
+    }
+  ];
+
+  const todaysGoals = [
+    { task: "Symptom Check-in", progress: 66, current: "2/3", status: "In Progress" },
+    { task: "Water Intake", progress: 75, current: "6/8 glasses", status: "Good" },
+    { task: "Medication", progress: 100, current: "Complete", status: "Done" }
+  ];
+
+  return (
+    <div style={{ paddingTop: '100px', backgroundColor: '#f8f9fa', minHeight: '100vh' }}>
+      <Container>
+        <Row className="mb-4">
+          <Col>
+            <div className="d-flex justify-content-between align-items-center">
+              <div>
+                <h1 className="display-4 fw-bold text-gradient-primary mb-2">
+                  Welcome back, Sarah
+                </h1>
+                <p className="text-muted fs-5">
+                  Your health overview for {new Date().toLocaleDateString('en-US', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                  })}
+                </p>
+              </div>
+              <div className="d-flex gap-2">
+                <Link to="/journal" className="text-decoration-none">
+                  <Button className="btn-medical-primary">
+                    <i className="fas fa-plus me-2"></i>
+                    Quick Log
+                  </Button>
+                </Link>
+                <Button variant="outline-primary">
+                  <i className="fas fa-camera me-2"></i>
+                  Photo Log
+                </Button>
+              </div>
+            </div>
+          </Col>
+        </Row>
+
+        {/* Stats Cards */}
+        <Row className="g-4 mb-5">
+          {stats.map((stat, index) => (
+            <Col md={6} lg={3} key={index}>
+              <Card className="medical-card h-100 text-center">
+                <Card.Body className="p-4">
+                  <div className={`bg-${stat.color} rounded-3 d-inline-flex p-3 mb-3`}>
+                    <i className={`${stat.icon} text-white`} style={{ fontSize: '1.5rem' }}></i>
+                  </div>
+                  <h3 className="fw-bold">{stat.number}</h3>
+                  <p className="text-muted mb-1">{stat.label}</p>
+                  <small className="text-success">{stat.change}</small>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+
+        <Row>
+          {/* Main Content */}
+          <Col lg={8}>
+            {/* Quick Actions */}
+            <Card className="medical-card mb-4">
+              <Card.Header>
+                <h4 className="mb-0">
+                  <i className="fas fa-bolt text-warning me-2"></i>
+                  Quick Actions
+                </h4>
+              </Card.Header>
+              <Card.Body>
+                <Row className="g-3">
+                  <Col md={6} lg={3}>
+                    <Link to="/journal" className="text-decoration-none">
+                      <div className="d-grid">
+                        <Button className="btn-medical-primary py-3">
+                          <i className="fas fa-plus d-block mb-2" style={{ fontSize: '1.5rem' }}></i>
+                          Log Symptoms
+                        </Button>
+                      </div>
+                    </Link>
+                  </Col>
+                  <Col md={6} lg={3}>
+                    <div className="d-grid">
+                      <Button variant="outline-primary" className="py-3">
+                        <i className="fas fa-microphone d-block mb-2" style={{ fontSize: '1.5rem' }}></i>
+                        Voice Log
+                      </Button>
+                    </div>
+                  </Col>
+                  <Col md={6} lg={3}>
+                    <Link to="/analysis" className="text-decoration-none">
+                      <div className="d-grid">
+                        <Button variant="outline-primary" className="py-3">
+                          <i className="fas fa-chart-bar d-block mb-2" style={{ fontSize: '1.5rem' }}></i>
+                          View Analysis
+                        </Button>
+                      </div>
+                    </Link>
+                  </Col>
+                  <Col md={6} lg={3}>
+                    <div className="d-grid">
+                      <Button variant="outline-primary" className="py-3">
+                        <i className="fas fa-file-pdf d-block mb-2" style={{ fontSize: '1.5rem' }}></i>
+                        Generate Report
+                      </Button>
+                    </div>
+                  </Col>
+                </Row>
+              </Card.Body>
+            </Card>
+
+            {/* Recent Activity */}
+            <Card className="medical-card">
+              <Card.Header>
+                <h4 className="mb-0">
+                  <i className="fas fa-clock text-info me-2"></i>
+                  Recent Activity
+                </h4>
+              </Card.Header>
+              <Card.Body>
+                {recentActivity.map((activity, index) => (
+                  <div key={index} className="d-flex align-items-center p-3 rounded glassmorphism mb-3">
+                    <div className="me-3">
+                      <i className={`fas fa-circle text-${activity.badgeColor}`}></i>
+                    </div>
+                    <div className="flex-grow-1">
+                      <div className="d-flex justify-content-between align-items-start">
+                        <div>
+                          <p className="mb-1 fw-medium">{activity.title}</p>
+                          <small className="text-muted">
+                            <i className="fas fa-clock me-1"></i>
+                            {activity.time}
+                          </small>
+                        </div>
+                        <Badge bg={activity.badgeColor}>{activity.badge}</Badge>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </Card.Body>
+            </Card>
+          </Col>
+
+          {/* Sidebar */}
+          <Col lg={4}>
+            {/* Today's Goals */}
+            <Card className="medical-card mb-4">
+              <Card.Header>
+                <h5 className="mb-0">
+                  <i className="fas fa-target text-success me-2"></i>
+                  Today's Goals
+                </h5>
+              </Card.Header>
+              <Card.Body>
+                {todaysGoals.map((goal, index) => (
+                  <div key={index} className="mb-4">
+                    <div className="d-flex justify-content-between mb-2">
+                      <span className="fw-medium">{goal.task}</span>
+                      <small className="text-muted">{goal.current}</small>
+                    </div>
+                    <ProgressBar 
+                      now={goal.progress} 
+                      variant={goal.progress === 100 ? 'success' : goal.progress > 50 ? 'info' : 'warning'}
+                      className="mb-1"
+                    />
+                    <small className={`text-${goal.progress === 100 ? 'success' : 'muted'}`}>
+                      {goal.status}
+                    </small>
+                  </div>
+                ))}
+              </Card.Body>
+            </Card>
+
+            {/* AI Insights */}
+            <Card className="medical-card mb-4">
+              <Card.Header>
+                <h5 className="mb-0">
+                  <i className="fas fa-brain text-primary me-2"></i>
+                  AI Insights
+                  <Badge bg="warning" className="ms-2">Live</Badge>
+                </h5>
+              </Card.Header>
+              <Card.Body>
+                <div className="bg-primary bg-opacity-10 p-3 rounded mb-3">
+                  <div className="d-flex align-items-start">
+                    <i className="fas fa-lightbulb text-primary me-2 mt-1"></i>
+                    <div>
+                      <h6 className="fw-bold mb-1">Sleep Quality Impact</h6>
+                      <p className="small text-muted mb-0">
+                        Quality sleep reduces symptoms by 40% on average
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-success bg-opacity-10 p-3 rounded mb-3">
+                  <div className="d-flex align-items-start">
+                    <i className="fas fa-chart-line text-success me-2 mt-1"></i>
+                    <div>
+                      <h6 className="fw-bold mb-1">Improving Trend</h6>
+                      <p className="small text-muted mb-0">
+                        Overall symptom severity decreased by 23% this month
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="d-grid">
+                  <Button variant="outline-primary" size="sm">
+                    View All Insights
+                    <i className="fas fa-arrow-right ms-2"></i>
+                  </Button>
+                </div>
+              </Card.Body>
+            </Card>
+
+            {/* Upcoming */}
+            <Card className="medical-card">
+              <Card.Header>
+                <h5 className="mb-0">
+                  <i className="fas fa-calendar text-warning me-2"></i>
+                  Upcoming
+                </h5>
+              </Card.Header>
+              <Card.Body>
+                <div className="d-flex align-items-center p-2 rounded glassmorphism mb-3">
+                  <div className="me-3">
+                    <i className="fas fa-circle text-primary"></i>
+                  </div>
+                  <div className="flex-grow-1">
+                    <p className="mb-1 fw-medium">Doctor Appointment</p>
+                    <small className="text-muted">Dr. Smith - Rheumatology</small>
+                    <div className="text-warning small">Tomorrow, 2:00 PM</div>
+                  </div>
+                </div>
+                
+                <div className="d-flex align-items-center p-2 rounded glassmorphism">
+                  <div className="me-3">
+                    <i className="fas fa-circle text-success"></i>
+                  </div>
+                  <div className="flex-grow-1">
+                    <p className="mb-1 fw-medium">Lab Results Due</p>
+                    <small className="text-muted">Blood work analysis</small>
+                    <div className="text-muted small">Friday, 10:00 AM</div>
+                  </div>
+                </div>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+    </div>
+  );
+}
