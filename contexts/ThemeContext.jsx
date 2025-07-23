@@ -3,9 +3,14 @@ import { createContext, useContext, useState, useEffect } from 'react';
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    // Check localStorage on initial load
+    const savedTheme = localStorage.getItem('isDarkMode');
+    return savedTheme ? JSON.parse(savedTheme) : false;
+  });
 
   useEffect(() => {
+    // Apply the theme classes to the body
     if (isDarkMode) {
       document.body.classList.add('dark-mode');
       document.body.classList.remove('light-mode');
@@ -13,10 +18,13 @@ export const ThemeProvider = ({ children }) => {
       document.body.classList.add('light-mode');
       document.body.classList.remove('dark-mode');
     }
+
+    // Save to localStorage whenever theme changes
+    localStorage.setItem('isDarkMode', JSON.stringify(isDarkMode));
   }, [isDarkMode]);
 
   const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
+    setIsDarkMode(prev => !prev);
   };
 
   return (

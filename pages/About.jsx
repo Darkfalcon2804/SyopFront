@@ -57,19 +57,6 @@ export default function About() {
           <Row className="align-items-center">
             <Col lg={8} className="hero-content">
               <div className="animate-fade-in">
-                <Badge
-                  className="mb-4 px-4 py-2 border-0 shadow-sm"
-                  style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                    color: '#ffffff',
-                    fontSize: '0.95rem',
-                    fontWeight: '500',
-                    backdropFilter: 'blur(10px)'
-                  }}
-                >
-                  <i className="fas fa-heart me-2" style={{ color: '#ef4444' }}></i>
-                  Empowering Patients Since 2019
-                </Badge>
                 <h1 className="display-2 fw-bold mb-4" style={{ color: '#ffffff', lineHeight: '1.2' }}>
                   Revolutionizing Rare Disease
                   <span className="d-block" style={{ color: '#fbbf24' }}>Healthcare with AI</span>

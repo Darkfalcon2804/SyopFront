@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import { Container, Row, Col, Card, Button, Badge, Carousel } from "react-bootstrap";
-
+import { useTheme } from "../contexts/ThemeContext";
+import SymptoScopeLogo  from "../public/SymptoScopeLogo.png";
 export default function Index() {
+  const { isDarkMode} = useTheme();
+  
   const features = [
     {
       icon: "fas fa-brain",
@@ -21,24 +24,24 @@ export default function Index() {
       description: "Comprehensive visualizations and insights that help you understand your health trends and share meaningful data with your healthcare team.",
       benefits: ["Trend visualization", "Custom reports", "Doctor sharing", "Progress tracking"]
     },
-    {
-      icon: "fas fa-shield-alt",
-      title: "Medical-Grade Security",
-      description: "HIPAA compliant platform with enterprise-level security ensuring your sensitive health information is always protected.",
-      benefits: ["HIPAA compliant", "End-to-end encryption", "Secure cloud storage", "Regular audits"]
-    },
-    {
-      icon: "fas fa-users-medical",
-      title: "Healthcare Integration",
-      description: "Seamlessly share comprehensive reports with your medical team and integrate with existing healthcare workflows.",
-      benefits: ["Doctor collaboration", "Report generation", "EHR integration", "Telemedicine support"]
-    },
-    {
-      icon: "fas fa-globe",
-      title: "Research Contribution",
-      description: "Optionally contribute anonymized data to advance rare disease research and help improve treatments for future patients.",
-      benefits: ["Anonymous participation", "Research advancement", "Community impact", "Medical breakthroughs"]
-    }
+    // {
+    //   icon: "fas fa-shield-alt",
+    //   title: "Medical-Grade Security",
+    //   description: "HIPAA compliant platform with enterprise-level security ensuring your sensitive health information is always protected.",
+    //   benefits: ["HIPAA compliant", "End-to-end encryption", "Secure cloud storage", "Regular audits"]
+    // },
+    // {
+    //   icon: "fas fa-users-medical",
+    //   title: "Healthcare Integration",
+    //   description: "Seamlessly share comprehensive reports with your medical team and integrate with existing healthcare workflows.",
+    //   benefits: ["Doctor collaboration", "Report generation", "EHR integration", "Telemedicine support"]
+    // },
+    // {
+    //   icon: "fas fa-globe",
+    //   title: "Research Contribution",
+    //   description: "Optionally contribute anonymized data to advance rare disease research and help improve treatments for future patients.",
+    //   benefits: ["Anonymous participation", "Research advancement", "Community impact", "Medical breakthroughs"]
+    // }
   ];
 
   const testimonials = [
@@ -96,7 +99,7 @@ export default function Index() {
     },
     {
       step: 4,
-      title: "Share with Doctors",
+      title: "Get Health Report",
       description: "Generate comprehensive reports to share with your healthcare team for better treatment decisions.",
       icon: "fas fa-user-md"
     }
@@ -110,26 +113,12 @@ export default function Index() {
           <Row className="align-items-center">
             <Col lg={8} className="hero-content">
               <div className="animate-fade-in">
-                <Badge
-                  className="mb-4 px-4 py-2 border-0 shadow-sm"
-                  style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                    color: '#ffffff',
-                    fontSize: '0.95rem',
-                    fontWeight: '500',
-                    backdropFilter: 'blur(10px)'
-                  }}
-                >
-                  <i className="fas fa-award me-2" style={{ color: '#fbbf24' }}></i>
-                  FDA Breakthrough Device Designation
-                </Badge>
                 <h1 className="display-2 fw-bold mb-4" style={{ color: '#ffffff', lineHeight: '1.2' }}>
                   Transform Your
                   <span className="d-block" style={{ color: '#fbbf24' }}>Health Journey</span>
                 </h1>
-                <p className="lead mb-5" style={{ color: 'rgba(255, 255, 255, 0.9)', fontSize: '1.25rem', lineHeight: '1.6' }}>
-                  Revolutionary AI platform that understands rare conditions, tracks symptoms intelligently,
-                  and provides personalized insights to empower your healthcare decisions.
+                <p className="lead mb-5 text-justify" style={{ color: 'rgba(255, 255, 255, 0.9)', fontSize: '1.25rem', lineHeight: '1.6' }}>
+                  Navigating a rare condition can feel like walking in the dark. Our AI-powered journal helps you document your symptoms, analyze patterns, and discover possible conditions before they become critical.
                 </p>
                 <div className="d-flex flex-wrap gap-3">
                   <Button
@@ -146,22 +135,7 @@ export default function Index() {
                     }}
                   >
                     <i className="fas fa-rocket me-2"></i>
-                    Start Free Trial
-                  </Button>
-                  <Button
-                    size="lg"
-                    className="px-5 py-3 shadow-sm"
-                    style={{
-                      borderRadius: '50px',
-                      fontWeight: '600',
-                      background: 'transparent',
-                      border: '2px solid rgba(255, 255, 255, 0.5)',
-                      color: '#ffffff',
-                      backdropFilter: 'blur(10px)'
-                    }}
-                  >
-                    <i className="fas fa-play me-2"></i>
-                    View Demo
+                    Get Started <i className="fas fa-arrow-right "></i>
                   </Button>
                 </div>
               </div>
@@ -171,19 +145,19 @@ export default function Index() {
                 <div
                   className="p-5 rounded-4 shadow-lg"
                   style={{
-                    background: 'linear-gradient(145deg, #ffffff, #f8f9fa)',
+                    ... (isDarkMode ? { background: 'linear-gradient(145deg, #1e293b, #334155)', color: '#1976d2' } : { background: '#f8f9fa', color: '#212529' }),
                     border: '1px solid #e9ecef'
                   }}
                 >
-                  <i className="fas fa-brain mb-4" style={{ fontSize: '5rem', color: '#1976d2' }}></i>
-                  <h3 className="mb-3 fw-bold" style={{ color: '#1976d2', fontSize: '2.5rem' }}>10,000+</h3>
-                  <p className="mb-0 fw-semibold" style={{ color: '#495057', fontSize: '1.1rem' }}>
-                    Patients Empowered
+                  {/* <i className="fas fa-brain mb-4" style={{ fontSize: '5rem', color: '#1976d2' }}></i> */}
+                  <img src={SymptoScopeLogo} alt="SymptoScope Logo" className="bg-transparent" style={{ height: "90px",background:"transparent" ,fontSize: '5rem', color: '#1976d2' }} />
+                  <p className="mb-0 " style={{ color: '#495057', fontSize: '1.1rem' }}>
+                    AI Symptom Journal for Rare Conditions
                   </p>
                   <div className="mt-3">
-                    <small className="text-success fw-semibold">
+                    <small className="text-success">
                       <i className="fas fa-arrow-up me-1"></i>
-                      Growing Daily
+                      Enpowering Health
                     </small>
                   </div>
                 </div>
@@ -304,7 +278,7 @@ export default function Index() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-5 bg-light">
+      {/* <section className="py-5 bg-light">
         <Container>
           <Row className="justify-content-center mb-5">
             <Col lg={8} className="text-center">
@@ -351,10 +325,10 @@ export default function Index() {
             </Col>
           </Row>
         </Container>
-      </section>
+      </section> */}
 
       {/* Trust & Security */}
-      <section className="py-5">
+      {/* <section className="py-5">
         <Container>
           <Row className="justify-content-center mb-5">
             <Col lg={8} className="text-center">
@@ -404,7 +378,7 @@ export default function Index() {
             </Col>
           </Row>
         </Container>
-      </section>
+      </section> */}
 
       {/* CTA Section */}
       <section className="py-5 bg-primary text-white">
@@ -416,45 +390,23 @@ export default function Index() {
                 Ready to Transform Your Health Management?
               </h2>
               <p className="lead mb-5 opacity-90">
-                Join thousands of patients who are taking control of their rare conditions 
-                with intelligent tracking and AI-powered insights. Start your free trial today.
+                Navigating a rare condition can feel like walking in the dark. Our AI-powered journal helps you document your symptoms, analyze patterns, and discover possible conditions before they become critical.
               </p>
               
               <div className="d-flex flex-column flex-md-row justify-content-center gap-3 mb-5">
                 <Link to="/register" className="text-decoration-none">
                   <Button variant="warning" size="lg" className="px-5 py-3">
                     <i className="fas fa-rocket me-2"></i>
-                    Start Free 30-Day Trial
+                    Get Started  <i className="fas fa-arrow-right "></i>
                   </Button>
                 </Link>
-                <Link to="/contact" className="text-decoration-none">
+                {/* <Link to="/contact" className="text-decoration-none">
                   <Button variant="outline-light" size="lg" className="px-5 py-3">
                     <i className="fas fa-calendar me-2"></i>
                     Schedule Demo
                   </Button>
-                </Link>
+                </Link> */}
               </div>
-
-              <Row className="justify-content-center">
-                <Col lg={8}>
-                  <div className="bg-white bg-opacity-10 rounded-3 p-4">
-                    <Row className="text-center">
-                      <Col xs={4}>
-                        <div className="fw-bold">✓ No Credit Card</div>
-                        <small className="opacity-75">Required</small>
-                      </Col>
-                      <Col xs={4}>
-                        <div className="fw-bold">✓ 30-Day Trial</div>
-                        <small className="opacity-75">Full Access</small>
-                      </Col>
-                      <Col xs={4}>
-                        <div className="fw-bold">✓ Cancel Anytime</div>
-                        <small className="opacity-75">No Commitment</small>
-                      </Col>
-                    </Row>
-                  </div>
-                </Col>
-              </Row>
             </Col>
           </Row>
         </Container>
@@ -466,12 +418,11 @@ export default function Index() {
           <Row className="g-4">
             <Col lg={4}>
               <div className="d-flex align-items-center mb-4">
-                <div className="gradient-primary rounded-3 p-2 me-3">
-                  <i className="fas fa-brain text-white" style={{ fontSize: '1.5rem' }}></i>
+                <div className="rounded-3 p-2">
+                  <img src={SymptoScopeLogo} alt="SymptoScope Logo" style={{ width: '65px'}} />
                 </div>
                 <div>
-                  <div className="fw-bold text-white fs-4">SymptomAI</div>
-                  <small className="text-white-50">Rare Conditions Journal</small>
+                  <div className="fw-bold text-primary fs-4">SymptoScope</div>
                 </div>
               </div>
               <p className="text-white-50 mb-4">
@@ -495,7 +446,6 @@ export default function Index() {
               <h5 className="text-white fw-bold mb-3">Product</h5>
               <ul className="list-unstyled">
                 <li className="mb-2"><Link to="/features" className="text-white-50 text-decoration-none">Features</Link></li>
-                <li className="mb-2"><Link to="/pricing" className="text-white-50 text-decoration-none">Pricing</Link></li>
                 <li className="mb-2"><Link to="/security" className="text-white-50 text-decoration-none">Security</Link></li>
                 <li className="mb-2"><Link to="/mobile" className="text-white-50 text-decoration-none">Mobile Apps</Link></li>
               </ul>
@@ -505,19 +455,9 @@ export default function Index() {
               <h5 className="text-white fw-bold mb-3">Company</h5>
               <ul className="list-unstyled">
                 <li className="mb-2"><Link to="/about" className="text-white-50 text-decoration-none">About</Link></li>
-                <li className="mb-2"><Link to="/careers" className="text-white-50 text-decoration-none">Careers</Link></li>
+               
                 <li className="mb-2"><Link to="/press" className="text-white-50 text-decoration-none">Press</Link></li>
                 <li className="mb-2"><Link to="/contact" className="text-white-50 text-decoration-none">Contact</Link></li>
-              </ul>
-            </Col>
-            
-            <Col md={6} lg={2}>
-              <h5 className="text-white fw-bold mb-3">Support</h5>
-              <ul className="list-unstyled">
-                <li className="mb-2"><Link to="/help" className="text-white-50 text-decoration-none">Help Center</Link></li>
-                <li className="mb-2"><Link to="/docs" className="text-white-50 text-decoration-none">Documentation</Link></li>
-                <li className="mb-2"><Link to="/community" className="text-white-50 text-decoration-none">Community</Link></li>
-                <li className="mb-2"><Link to="/status" className="text-white-50 text-decoration-none">Status</Link></li>
               </ul>
             </Col>
             
@@ -526,7 +466,6 @@ export default function Index() {
               <ul className="list-unstyled">
                 <li className="mb-2"><Link to="/privacy" className="text-white-50 text-decoration-none">Privacy</Link></li>
                 <li className="mb-2"><Link to="/terms" className="text-white-50 text-decoration-none">Terms</Link></li>
-                <li className="mb-2"><Link to="/hipaa" className="text-white-50 text-decoration-none">HIPAA</Link></li>
                 <li className="mb-2"><Link to="/cookies" className="text-white-50 text-decoration-none">Cookies</Link></li>
               </ul>
             </Col>

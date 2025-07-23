@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Navbar, Nav, Container, Badge, Dropdown } from "react-bootstrap";
 import { ThemeToggle } from "./ThemeToggle.jsx";
 import { useTheme } from "../contexts/ThemeContext.jsx";
+import SymptoScopeLogo  from "../public/SymptoScopeLogo.png";
 
 export function Header() {
   const { isDarkMode } = useTheme();
@@ -18,12 +19,11 @@ export function Header() {
     <Navbar expand="lg" className="navbar-medical fixed-top" style={{ zIndex: 1000 }}>
       <Container>
         <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
-          <div className="rounded-3 p-2 me-3 bg-primary">
-            <i className="fas fa-brain text-white" style={{ fontSize: '1.5rem' }}></i>
+          <div className="rounded-3 p-2 bg-transparent">
+            <img src={SymptoScopeLogo} alt="SymptoScope Logo" style={{ width: '65px'}} />
           </div>
           <div>
-            <div className="fw-bold fs-4 mb-0 text-primary">SymptomAI</div>
-            <small className={isDarkMode ? 'text-light' : 'text-muted'}>Rare Conditions Journal</small>
+            <div className="fw-bold fs-4 mb-0 text-primary">SymptoScope</div>
           </div>
         </Navbar.Brand>
 
@@ -42,7 +42,7 @@ export function Header() {
             </div>
 
             <Dropdown className="me-3">
-              <Dropdown.Toggle variant="outline-primary" className="position-relative border-0 bg-transparent">
+              <Dropdown.Toggle variant="outline-primary" className="position-relative border-0">
                 <i className="fas fa-bell"></i>
                 {unreadCount > 0 && (
                   <Badge bg="danger" className="position-absolute top-0 start-100 translate-middle rounded-pill" style={{ fontSize: '0.7rem' }}>

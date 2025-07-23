@@ -62,7 +62,7 @@ export default function Register() {
 
   if (showSuccess) {
     return (
-      <div style={{ paddingTop: '80px', minHeight: '100vh' }} className="bg-light d-flex align-items-center">
+      <div style={{ paddingTop: '100px', minHeight: '100vh' }} className="bg-light d-flex align-items-center">
         <Container>
           <Row className="justify-content-center">
             <Col lg={6}>
@@ -88,7 +88,7 @@ export default function Register() {
   }
 
   return (
-    <div style={{ paddingTop: '80px', minHeight: '100vh' }} className="bg-light">
+    <div style={{ paddingTop: '120px', minHeight: '100vh' }} className="bg-light">
       <Container>
         <Row className="justify-content-center">
           <Col lg={6}>

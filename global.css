@@ -493,9 +493,12 @@
 }
 
 .dark-mode .fw-bold {
-  color: #f1f5f9 !important;
+  color: #e2e8f0 !important;
 }
-
+.dark-mode .background-dark{
+  color: #0066cc;
+  background-color: #1e293b !important;
+}
 .dark-mode .fs-4 {
   color: #60a5fa !important;
 }
@@ -584,4 +587,9 @@
     transform: translateY(-10px) rotate(1deg);
     opacity: 0.14;
   }
+}
+
+
+.bg-blue{
+  background-color: #0b5ed7 !important;
 }

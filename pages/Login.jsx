@@ -72,7 +72,7 @@ export default function Login() {
   ];
 
   return (
-    <div style={{ paddingTop: '80px', minHeight: '100vh', backgroundColor: '#f8f9fa' }}>
+    <div style={{ paddingTop: '90px', minHeight: '100vh', backgroundColor: '#f8f9fa' }}>
       <Container fluid>
         <Row className="min-vh-100">
           {/* Left Side - Login Form */}
