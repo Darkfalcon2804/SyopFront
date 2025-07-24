@@ -135,7 +135,7 @@ export default function Index() {
                     }}
                   >
                     <i className="fas fa-rocket me-2"></i>
-                    Get Started <i className="fas fa-arrow-right "></i>
+                    <Link to="/register" style={{ textDecoration:"none", color:"#fff"}}>Get Started <i className="fas fa-arrow-right "></i></Link>
                   </Button>
                 </div>
               </div>
