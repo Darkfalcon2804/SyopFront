@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Container, Row, Col, Card, Form, Button, Badge, Alert, Modal } from "react-bootstrap";
+import SymptoScopeLogo  from "../public/SymptoScopeLogo.png";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -66,14 +67,6 @@ export default function Contact() {
       hours: "Mon-Fri: 9AM-6PM EST",
       color: "info"
     },
-    {
-      icon: "fas fa-video",
-      title: "Video Call",
-      description: "Schedule a video meeting",
-      detail: "Book online",
-      hours: "By appointment",
-      color: "warning"
-    }
   ];
 
   const officeLocations = [
@@ -124,13 +117,9 @@ export default function Contact() {
       {/* Hero Section */}
       <section className="hero-section" style={{ color: '#ffffff' }}>
         <Container>
-          <Row className="align-items-center">
+          <Row className="flex align-items-center justify-content-between">
             <Col lg={6} className="hero-content">
               <div className="animate-fade-in">
-                <Badge bg="light" text="dark" className="mb-3 px-3 py-2">
-                  <i className="fas fa-headset me-2"></i>
-                  24/7 Support Available
-                </Badge>
                 <h1 className="display-2 fw-bold mb-4">
                   We're Here to
                   <span className="d-block text-warning">Help You</span>
@@ -149,19 +138,17 @@ export default function Contact() {
                     <i className="fas fa-comments me-2"></i>
                     Start Live Chat
                   </Button>
-                  <Button variant="outline-light" size="lg" className="px-4 py-3">
-                    <i className="fas fa-phone me-2"></i>
-                    Call Now
-                  </Button>
                 </div>
               </div>
             </Col>
-            <Col lg={6} className="text-center">
+            <Col lg={4} className="text-center">
               <div className="animate-slide-up">
-                <div className="glassmorphism p-5 rounded-4">
-                  <i className="fas fa-user-md display-1 text-warning mb-3"></i>
-                  <h3 className="mb-3">Expert Support</h3>
-                  <p className="mb-0">Medical professionals ready to help</p>
+                <div className="p-5 rounded-4 shadow-lg" style={{
+                  background: '#f8f9fa', color: '#212529'
+                }}>
+                  <img src={SymptoScopeLogo} alt="SymptoScope Logo" style={{ width: '95px'}} />
+                  <h3 className="mb-3">AI support</h3>
+                  <p className="mb-0">User-friendly healthcare provider</p>
                 </div>
               </div>
             </Col>
@@ -182,7 +169,7 @@ export default function Contact() {
             </Col>
           </Row>
           
-          <Row className="g-4">
+          <Row className="g-4 flex justify-content-evenly">
             {contactMethods.map((method, index) => (
               <Col md={6} lg={3} key={index}>
                 <Card className="medical-card h-100 border-0 text-center">
@@ -261,7 +248,7 @@ export default function Contact() {
                             name="phone"
                             value={formData.phone}
                             onChange={handleInputChange}
-                            placeholder="+1 (555) 123-4567"
+                            placeholder="+91 98XXXXXXXX"
                           />
                         </Form.Group>
                       </Col>
@@ -354,7 +341,7 @@ export default function Contact() {
             <Col lg={4}>
               {/* Quick Contact Info */}
               <Card className="medical-card border-0 mb-4">
-                <Card.Body className="p-4">
+                {/* <Card.Body className="p-4">
                   <h5 className="fw-bold mb-3">
                     <i className="fas fa-clock text-primary me-2"></i>
                     Response Times
@@ -377,7 +364,7 @@ export default function Contact() {
                       <Badge bg="success">&lt; 24 hours</Badge>
                     </div>
                   </div>
-                </Card.Body>
+                </Card.Body> */}
               </Card>
 
               {/* Emergency Contact */}
@@ -393,14 +380,14 @@ export default function Contact() {
                   </p>
                   <Button variant="danger" className="w-100">
                     <i className="fas fa-phone me-2"></i>
-                    Emergency: 911
+                    Emergency: 108
                   </Button>
                 </Card.Body>
               </Card>
 
               {/* FAQ Quick Links */}
               <Card className="medical-card border-0">
-                <Card.Body className="p-4">
+                {/* <Card.Body className="p-4">
                   <h5 className="fw-bold mb-3">
                     <i className="fas fa-question-circle text-info me-2"></i>
                     Quick Help
@@ -423,7 +410,7 @@ export default function Contact() {
                       Privacy & Security
                     </Button>
                   </div>
-                </Card.Body>
+                </Card.Body> */}
               </Card>
             </Col>
           </Row>
@@ -431,7 +418,7 @@ export default function Contact() {
       </section>
 
       {/* Office Locations */}
-      <section className="py-5">
+      {/* <section className="py-5">
         <Container>
           <Row className="justify-content-center mb-5">
             <Col lg={8} className="text-center">
@@ -471,7 +458,7 @@ export default function Contact() {
             ))}
           </Row>
         </Container>
-      </section>
+      </section> */}
 
       {/* FAQ Section */}
       <section className="py-5 bg-light">

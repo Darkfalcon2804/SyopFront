@@ -19,7 +19,7 @@ export default function Dashboard() {
     },
     {
       type: "insight",
-      title: "AI detected sleep quality improvement", 
+      title: "AI detected sleep quality improvement",
       time: "Yesterday, 9:15 AM",
       badge: "Insight",
       badgeColor: "info"
@@ -27,7 +27,7 @@ export default function Dashboard() {
     {
       type: "medication",
       title: "Medication reminder: Methotrexate taken",
-      time: "2 days ago, 8:00 AM", 
+      time: "2 days ago, 8:00 AM",
       badge: "Completed",
       badgeColor: "success"
     }
@@ -50,11 +50,11 @@ export default function Dashboard() {
                   Welcome back, Sarah
                 </h1>
                 <p className="text-muted fs-5">
-                  Your health overview for {new Date().toLocaleDateString('en-US', { 
-                    weekday: 'long', 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric' 
+                  Your health overview for {new Date().toLocaleDateString('en-US', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
                   })}
                 </p>
               </div>
@@ -92,68 +92,81 @@ export default function Dashboard() {
           ))}
         </Row>
 
-        <Row>
-          {/* Main Content */}
-          <Col lg={8}>
-            {/* Quick Actions */}
-            <Card className="medical-card mb-4">
-              <Card.Header>
+        {/* Replace <Row> with a div with Bootstrap's 'row' class */}
+        <div className="row">
+          {/* Main Content: Replace <Col lg={8}> with a div with Bootstrap's 'col-lg-8' class */}
+          <div className="col-lg-8">
+            {/* Quick Actions: Replace <Card> with a div with Bootstrap's 'card' class */}
+            <div className="card medical-card mb-4">
+              {/* Card.Header: Replace with a div with Bootstrap's 'card-header' class */}
+              <div className="card-header">
                 <h4 className="mb-0">
                   <i className="fas fa-bolt text-warning me-2"></i>
                   Quick Actions
                 </h4>
-              </Card.Header>
-              <Card.Body>
-                <Row className="g-3">
-                  <Col md={6} lg={3}>
+              </div>
+              {/* Card.Body: Replace with a div with Bootstrap's 'card-body' class */}
+              <div className="card-body">
+                {/* Row: Replace with a div with Bootstrap's 'row' and 'g-3' for gutter */}
+                <div className="row g-3">
+                  {/* Col md={6} lg={3} for 'Log Symptoms' */}
+                  <div className="col-md-6 col-lg-3">
                     <Link to="/journal" className="text-decoration-none">
+                      {/* d-grid for full width button */}
                       <div className="d-grid">
-                        <Button className="btn-medical-primary py-3">
+                        {/* Button: Replace with a <button> tag, applying Bootstrap button classes */}
+                        <button className="btn btn-medical-primary py-3">
                           <i className="fas fa-plus d-block mb-2" style={{ fontSize: '1.5rem' }}></i>
                           Log Symptoms
-                        </Button>
+                        </button>
                       </div>
                     </Link>
-                  </Col>
-                  <Col md={6} lg={3}>
+                  </div>
+                  {/* Col md={6} lg={3} for 'Voice Log' */}
+                  <div className="col-md-6 col-lg-3">
                     <div className="d-grid">
-                      <Button variant="outline-primary" className="py-3">
+                      {/* Button with outline variant */}
+                      <button className="btn btn-outline-primary py-3">
                         <i className="fas fa-microphone d-block mb-2" style={{ fontSize: '1.5rem' }}></i>
                         Voice Log
-                      </Button>
+                      </button>
                     </div>
-                  </Col>
-                  <Col md={6} lg={3}>
+                  </div>
+                  {/* Col md={6} lg={3} for 'View Analysis' */}
+                  <div className="col-md-6 col-lg-3">
                     <Link to="/analysis" className="text-decoration-none">
                       <div className="d-grid">
-                        <Button variant="outline-primary" className="py-3">
+                        <button className="btn btn-outline-primary py-3">
                           <i className="fas fa-chart-bar d-block mb-2" style={{ fontSize: '1.5rem' }}></i>
                           View Analysis
-                        </Button>
+                        </button>
                       </div>
                     </Link>
-                  </Col>
-                  <Col md={6} lg={3}>
+                  </div>
+                  {/* Col md={6} lg={3} for 'Generate Report' */}
+                  <div className="col-md-6 col-lg-3">
                     <div className="d-grid">
-                      <Button variant="outline-primary" className="py-3">
+                      <button className="btn btn-outline-primary py-3">
                         <i className="fas fa-file-pdf d-block mb-2" style={{ fontSize: '1.5rem' }}></i>
                         Generate Report
-                      </Button>
+                      </button>
                     </div>
-                  </Col>
-                </Row>
-              </Card.Body>
-            </Card>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-            {/* Recent Activity */}
-            <Card className="medical-card">
-              <Card.Header>
+            {/* Recent Activity: Replace <Card> with a div with Bootstrap's 'card' class */}
+            <div className="card medical-card">
+              {/* Card.Header: Replace with a div with Bootstrap's 'card-header' class */}
+              <div className="card-header">
                 <h4 className="mb-0">
                   <i className="fas fa-clock text-info me-2"></i>
                   Recent Activity
                 </h4>
-              </Card.Header>
-              <Card.Body>
+              </div>
+              {/* Card.Body: Replace with a div with Bootstrap's 'card-body' class */}
+              <div className="card-body">
                 {recentActivity.map((activity, index) => (
                   <div key={index} className="d-flex align-items-center p-3 rounded glassmorphism mb-3">
                     <div className="me-3">
@@ -168,122 +181,58 @@ export default function Dashboard() {
                             {activity.time}
                           </small>
                         </div>
-                        <Badge bg={activity.badgeColor}>{activity.badge}</Badge>
+                        {/* Badge: Replace with a span with Bootstrap's 'badge' and color classes */}
+                        <span className={`badge bg-${activity.badgeColor}`}>{activity.badge}</span>
                       </div>
                     </div>
                   </div>
                 ))}
-              </Card.Body>
-            </Card>
-          </Col>
+              </div>
+            </div>
+          </div>
 
-          {/* Sidebar */}
-          <Col lg={4}>
-            {/* Today's Goals */}
-            <Card className="medical-card mb-4">
-              <Card.Header>
+          {/* Sidebar: Replace <Col lg={4}> with a div with Bootstrap's 'col-lg-4' class */}
+          <div className="col-lg-4">
+            {/* Today's Goals: Replace <Card> with a div with Bootstrap's 'card' class */}
+            <div className="card medical-card mb-4">
+              {/* Card.Header: Replace with a div with Bootstrap's 'card-header' class */}
+              <div className="card-header">
                 <h5 className="mb-0">
                   <i className="fas fa-target text-success me-2"></i>
                   Today's Goals
                 </h5>
-              </Card.Header>
-              <Card.Body>
+              </div>
+              {/* Card.Body: Replace with a div with Bootstrap's 'card-body' class */}
+              <div className="card-body">
                 {todaysGoals.map((goal, index) => (
                   <div key={index} className="mb-4">
                     <div className="d-flex justify-content-between mb-2">
                       <span className="fw-medium">{goal.task}</span>
                       <small className="text-muted">{goal.current}</small>
                     </div>
-                    <ProgressBar 
-                      now={goal.progress} 
-                      variant={goal.progress === 100 ? 'success' : goal.progress > 50 ? 'info' : 'warning'}
-                      className="mb-1"
-                    />
+                    {/* ProgressBar: Replaced with div structure for Bootstrap progress bar */}
+                    <div className="progress mb-1" style={{ height: '20px' }}> {/* Adjust height as needed */}
+                      <div
+                        className={`progress-bar bg-${goal.progress === 100 ? 'success' : goal.progress > 50 ? 'info' : 'warning'}`}
+                        role="progressbar"
+                        style={{ width: `${goal.progress}%` }}
+                        aria-valuenow={goal.progress}
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                      >
+                        {/* Optional: Display progress text inside bar if needed */}
+                        {/* {goal.progress}% */}
+                      </div>
+                    </div>
                     <small className={`text-${goal.progress === 100 ? 'success' : 'muted'}`}>
                       {goal.status}
                     </small>
                   </div>
                 ))}
-              </Card.Body>
-            </Card>
-
-            {/* AI Insights */}
-            <Card className="medical-card mb-4">
-              <Card.Header>
-                <h5 className="mb-0">
-                  <i className="fas fa-brain text-primary me-2"></i>
-                  AI Insights
-                  <Badge bg="warning" className="ms-2">Live</Badge>
-                </h5>
-              </Card.Header>
-              <Card.Body>
-                <div className="bg-primary bg-opacity-10 p-3 rounded mb-3">
-                  <div className="d-flex align-items-start">
-                    <i className="fas fa-lightbulb text-primary me-2 mt-1"></i>
-                    <div>
-                      <h6 className="fw-bold mb-1">Sleep Quality Impact</h6>
-                      <p className="small text-muted mb-0">
-                        Quality sleep reduces symptoms by 40% on average
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="bg-success bg-opacity-10 p-3 rounded mb-3">
-                  <div className="d-flex align-items-start">
-                    <i className="fas fa-chart-line text-success me-2 mt-1"></i>
-                    <div>
-                      <h6 className="fw-bold mb-1">Improving Trend</h6>
-                      <p className="small text-muted mb-0">
-                        Overall symptom severity decreased by 23% this month
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="d-grid">
-                  <Button variant="outline-primary" size="sm">
-                    View All Insights
-                    <i className="fas fa-arrow-right ms-2"></i>
-                  </Button>
-                </div>
-              </Card.Body>
-            </Card>
-
-            {/* Upcoming */}
-            <Card className="medical-card">
-              <Card.Header>
-                <h5 className="mb-0">
-                  <i className="fas fa-calendar text-warning me-2"></i>
-                  Upcoming
-                </h5>
-              </Card.Header>
-              <Card.Body>
-                <div className="d-flex align-items-center p-2 rounded glassmorphism mb-3">
-                  <div className="me-3">
-                    <i className="fas fa-circle text-primary"></i>
-                  </div>
-                  <div className="flex-grow-1">
-                    <p className="mb-1 fw-medium">Doctor Appointment</p>
-                    <small className="text-muted">Dr. Smith - Rheumatology</small>
-                    <div className="text-warning small">Tomorrow, 2:00 PM</div>
-                  </div>
-                </div>
-                
-                <div className="d-flex align-items-center p-2 rounded glassmorphism">
-                  <div className="me-3">
-                    <i className="fas fa-circle text-success"></i>
-                  </div>
-                  <div className="flex-grow-1">
-                    <p className="mb-1 fw-medium">Lab Results Due</p>
-                    <small className="text-muted">Blood work analysis</small>
-                    <div className="text-muted small">Friday, 10:00 AM</div>
-                  </div>
-                </div>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
+              </div>
+            </div>
+          </div>
+        </div>
       </Container>
     </div>
   );
