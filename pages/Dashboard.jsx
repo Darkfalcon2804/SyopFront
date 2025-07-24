@@ -92,29 +92,21 @@ export default function Dashboard() {
           ))}
         </Row>
 
-        {/* Replace <Row> with a div with Bootstrap's 'row' class */}
-        <div className="row">
-          {/* Main Content: Replace <Col lg={8}> with a div with Bootstrap's 'col-lg-8' class */}
-          <div className="col-lg-8">
-            {/* Quick Actions: Replace <Card> with a div with Bootstrap's 'card' class */}
-            <div className="card medical-card mb-4">
-              {/* Card.Header: Replace with a div with Bootstrap's 'card-header' class */}
+        {/* Quick Actions - Full Width */}
+        <div className="row mb-4">
+          <div className="col-12">
+            <div className="card medical-card">
               <div className="card-header">
                 <h4 className="mb-0">
                   <i className="fas fa-bolt text-warning me-2"></i>
                   Quick Actions
                 </h4>
               </div>
-              {/* Card.Body: Replace with a div with Bootstrap's 'card-body' class */}
               <div className="card-body">
-                {/* Row: Replace with a div with Bootstrap's 'row' and 'g-3' for gutter */}
                 <div className="row g-3">
-                  {/* Col md={6} lg={3} for 'Log Symptoms' */}
                   <div className="col-md-6 col-lg-3">
                     <Link to="/journal" className="text-decoration-none">
-                      {/* d-grid for full width button */}
                       <div className="d-grid">
-                        {/* Button: Replace with a <button> tag, applying Bootstrap button classes */}
                         <button className="btn btn-medical-primary py-3">
                           <i className="fas fa-plus d-block mb-2" style={{ fontSize: '1.5rem' }}></i>
                           Log Symptoms
@@ -122,17 +114,14 @@ export default function Dashboard() {
                       </div>
                     </Link>
                   </div>
-                  {/* Col md={6} lg={3} for 'Voice Log' */}
                   <div className="col-md-6 col-lg-3">
                     <div className="d-grid">
-                      {/* Button with outline variant */}
                       <button className="btn btn-outline-primary py-3">
                         <i className="fas fa-microphone d-block mb-2" style={{ fontSize: '1.5rem' }}></i>
                         Voice Log
                       </button>
                     </div>
                   </div>
-                  {/* Col md={6} lg={3} for 'View Analysis' */}
                   <div className="col-md-6 col-lg-3">
                     <Link to="/analysis" className="text-decoration-none">
                       <div className="d-grid">
@@ -143,7 +132,6 @@ export default function Dashboard() {
                       </div>
                     </Link>
                   </div>
-                  {/* Col md={6} lg={3} for 'Generate Report' */}
                   <div className="col-md-6 col-lg-3">
                     <div className="d-grid">
                       <button className="btn btn-outline-primary py-3">
@@ -155,17 +143,19 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
 
-            {/* Recent Activity: Replace <Card> with a div with Bootstrap's 'card' class */}
+        {/* Main Content Area with Recent Activity and Today's Goals side by side */}
+        <div className="row">
+          <div className="col-lg-8">
             <div className="card medical-card">
-              {/* Card.Header: Replace with a div with Bootstrap's 'card-header' class */}
               <div className="card-header">
                 <h4 className="mb-0">
                   <i className="fas fa-clock text-info me-2"></i>
                   Recent Activity
                 </h4>
               </div>
-              {/* Card.Body: Replace with a div with Bootstrap's 'card-body' class */}
               <div className="card-body">
                 {recentActivity.map((activity, index) => (
                   <div key={index} className="d-flex align-items-center p-3 rounded glassmorphism mb-3">
@@ -181,7 +171,6 @@ export default function Dashboard() {
                             {activity.time}
                           </small>
                         </div>
-                        {/* Badge: Replace with a span with Bootstrap's 'badge' and color classes */}
                         <span className={`badge bg-${activity.badgeColor}`}>{activity.badge}</span>
                       </div>
                     </div>
@@ -191,18 +180,14 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* Sidebar: Replace <Col lg={4}> with a div with Bootstrap's 'col-lg-4' class */}
           <div className="col-lg-4">
-            {/* Today's Goals: Replace <Card> with a div with Bootstrap's 'card' class */}
-            <div className="card medical-card mb-4">
-              {/* Card.Header: Replace with a div with Bootstrap's 'card-header' class */}
+            <div className="card medical-card">
               <div className="card-header">
                 <h5 className="mb-0">
                   <i className="fas fa-target text-success me-2"></i>
                   Today's Goals
                 </h5>
               </div>
-              {/* Card.Body: Replace with a div with Bootstrap's 'card-body' class */}
               <div className="card-body">
                 {todaysGoals.map((goal, index) => (
                   <div key={index} className="mb-4">
@@ -210,8 +195,7 @@ export default function Dashboard() {
                       <span className="fw-medium">{goal.task}</span>
                       <small className="text-muted">{goal.current}</small>
                     </div>
-                    {/* ProgressBar: Replaced with div structure for Bootstrap progress bar */}
-                    <div className="progress mb-1" style={{ height: '20px' }}> {/* Adjust height as needed */}
+                    <div className="progress mb-1" style={{ height: '20px' }}>
                       <div
                         className={`progress-bar bg-${goal.progress === 100 ? 'success' : goal.progress > 50 ? 'info' : 'warning'}`}
                         role="progressbar"
@@ -220,8 +204,6 @@ export default function Dashboard() {
                         aria-valuemin="0"
                         aria-valuemax="100"
                       >
-                        {/* Optional: Display progress text inside bar if needed */}
-                        {/* {goal.progress}% */}
                       </div>
                     </div>
                     <small className={`text-${goal.progress === 100 ? 'success' : 'muted'}`}>
