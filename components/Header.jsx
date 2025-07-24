@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Navbar, Nav, Container, Badge, Dropdown } from "react-bootstrap";
 import { ThemeToggle } from "./ThemeToggle.jsx";
@@ -8,14 +8,20 @@ import { UseAuth } from "../contexts/AuthContext.jsx";
 
 export function Header() {
   const [isActive, setIsActive] = useState("Home");
-  const {isLogin} = UseAuth();
+  const { isLogin, user, logout } = UseAuth();
   const { isDarkMode } = useTheme();
+  const navigate = useNavigate();
   const [notifications] = useState([
     { id: 1, title: "New AI Insight", message: "Pattern detected in your symptoms", unread: true },
     { id: 2, title: "Medication Reminder", message: "Time for your evening dose", unread: true },
     { id: 3, title: "Appointment Tomorrow", message: "Dr. Smith at 2:00 PM", unread: false }
   ]);
   const unreadCount = notifications.filter(n => n.unread).length;
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login'); // Redirect to login page after logout
+  };
   return (
     <Navbar expand="lg" className="navbar-medical fixed-top" style={{ zIndex: 1000 }}>
       <Container>
@@ -38,7 +44,7 @@ export function Header() {
 
           </Nav>
 
-          <Nav className="align-items-center">
+          <Nav className="flex align-items-center g-4">
             <div className="me-3">
               <ThemeToggle />
             </div>
@@ -78,16 +84,18 @@ export function Header() {
                 ))}
               </Dropdown.Menu>
             </Dropdown>
-                {
-                  !isLogin ? (
-                    <>
-                      <Nav.Link as={Link} to="/login" className="btn btn-outline-primary me-2">Sign In</Nav.Link>
-                      <Nav.Link as={Link} to="/register" className="btn btn-primary text-decoration-none">Get Started</Nav.Link>
-                    </>
-                  ) : (
-                    <Nav.Link as={Link} to="/profile" className="btn btn-primary text-decoration-none">My Profile</Nav.Link>
-                  )
-                }
+            {
+              !isLogin ? (
+                <>
+                  <Nav.Link as={Link} to="/login" className="btn btn-outline-primary me-2">Sign In</Nav.Link>
+                  <Nav.Link as={Link} to="/register" className="btn btn-primary text-decoration-none">Get Started</Nav.Link>
+                </>
+              ) : (<>
+                <Nav.Link as={Link} to="/profile" className="text-decoration-none me-3">My Profile</Nav.Link>
+                <button className="btn text-decoration-none hover:btn btn-danger" onClick={handleLogout}>Logout</button>
+              </>
+              )
+            }
           </Nav>
         </Navbar.Collapse>
       </Container>

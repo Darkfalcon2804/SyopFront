@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Container, Row, Col, Card, Form, Button, Badge, Alert, InputGroup } from "react-bootstrap";
 import { UseAuth } from "../contexts/AuthContext";
 
 export default function Login() {
-  const {isLogin, user, logout} = UseAuth();
+  const { login } = UseAuth();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -32,6 +33,8 @@ export default function Login() {
       await new Promise(resolve => setTimeout(resolve, 1500));
       // Handle successful login here
       console.log("Login successful", formData);
+      login(true, true);
+      navigate('/dashboard');
       
     } catch (error) {
       setLoginError("Invalid email or password. Please try again.");
