@@ -1,11 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
 import { Navbar, Nav, Container, Badge, Dropdown } from "react-bootstrap";
 import { ThemeToggle } from "./ThemeToggle.jsx";
 import { useTheme } from "../contexts/ThemeContext.jsx";
-import SymptoScopeLogo  from "../public/SymptoScopeLogo.png";
+import SymptoScopeLogo from "../public/SymptoScopeLogo.png";
 
 export function Header() {
+  const [isActive, setIsActive] = useState("Home");
   const { isDarkMode } = useTheme();
   const [notifications] = useState([
     { id: 1, title: "New AI Insight", message: "Pattern detected in your symptoms", unread: true },
@@ -20,7 +21,7 @@ export function Header() {
       <Container>
         <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
           <div className="rounded-3 p-2 bg-transparent">
-            <img src={SymptoScopeLogo} alt="SymptoScope Logo" style={{ width: '65px'}} />
+            <img src={SymptoScopeLogo} alt="SymptoScope Logo" style={{ width: '65px' }} />
           </div>
           <div>
             <div className="fw-bold fs-4 mb-0 text-primary">SymptoScope</div>
@@ -30,12 +31,13 @@ export function Header() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/" className="fw-medium">Home</Nav.Link>
-            <Nav.Link as={Link} to="/about" className="fw-medium">About</Nav.Link>
-            <Nav.Link as={Link} to="/contact" className="fw-medium">Contact</Nav.Link>
-            <Nav.Link as={Link} to="/dashboard" className="fw-medium">Dashboard</Nav.Link>
+            <Nav.Link as={NavLink} to="/" className={isActive === "Home" ? "fw-medium active" : "fw-medium"} onClick={() => setIsActive("Home")}>Home</Nav.Link>
+            <Nav.Link as={NavLink} to="/about" className={isActive === "About" ? "fw-medium active" : "fw-medium"} onClick={() => setIsActive("About")}>About</Nav.Link>
+            <Nav.Link as={NavLink} to="/contact" className={isActive === "Contact" ? "fw-medium active" : "fw-medium"} onClick={() => setIsActive("Contact")}>Contact</Nav.Link>
+            <Nav.Link as={NavLink} to="/dashboard" className={isActive === "Dashboard" ? "fw-medium active" : "fw-medium"} onClick={() => setIsActive("Dashboard")}>Dashboard</Nav.Link>
+
           </Nav>
-          
+
           <Nav className="align-items-center">
             <div className="me-3">
               <ThemeToggle />

@@ -1,10 +1,13 @@
 import { Container, Row, Col, Card, Badge, Button } from "react-bootstrap";
 import ReactLogo from "../public/react.png"
+import { useTheme } from "../contexts/ThemeContext";
+import SymptoScopeLogo from "../public/SymptoScopeLogo.png"
 export default function About() {
+  const { isDarkMode } = useTheme();
   const teamMembers = [
     {
       name: "Bhavesh Jain",
-      role: "Full Stack Developer", 
+      role: "Full Stack Developer",
       image: "https://via.placeholder.com/150x150/28a745/ffffff?text=MC",
       bio: "Btech CSE, Arya College of Engineering"
     },
@@ -32,33 +35,33 @@ export default function About() {
   ];
 
 
-const certifications = [
-  {
-    name: "React JS",
-    icon: <img src={ReactLogo} alt="React"  />,
-    color: "success"
-  },
-  {
-    name: "Node JS",
-    icon: <i className="fas fa-certificate"></i>,
-    color: "primary"
-  },
-  {
-    name: "Express JS",
-    icon: <i className="fas fa-lock"></i>,
-    color: "warning"
-  },
-  {
-    name: "MongoDB",
-    icon: <i className="fas fa-award"></i>,
-    color: "info"
-  },
-  {
-    name: "Bootstrap Framework",
-    icon: <i className="fas fa-user-shield"></i>,
-    color: "secondary"
-  }
-];
+  const certifications = [
+    {
+      name: "React JS",
+      icon: <img src={ReactLogo} alt="React" />,
+      color: "success"
+    },
+    {
+      name: "Node JS",
+      icon: <i className="fas fa-certificate"></i>,
+      color: "primary"
+    },
+    {
+      name: "Express JS",
+      icon: <i className="fas fa-lock"></i>,
+      color: "warning"
+    },
+    {
+      name: "MongoDB",
+      icon: <i className="fas fa-award"></i>,
+      color: "info"
+    },
+    {
+      name: "Bootstrap Framework",
+      icon: <i className="fas fa-user-shield"></i>,
+      color: "secondary"
+    }
+  ];
 
 
   return (
@@ -118,30 +121,19 @@ const certifications = [
                 <div
                   className="p-5 rounded-4 shadow-lg"
                   style={{
-                    background: 'linear-gradient(145deg, #ffffff, #f8f9fa)',
+                    ... (isDarkMode ? { background: 'linear-gradient(145deg, #1e293b, #334155)', color: '#1976d2' } : { background: '#f8f9fa', color: '#212529' }),
                     border: '1px solid #e9ecef'
                   }}
                 >
-                  <img
-                    src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
-                    alt="Healthcare professionals and patients"
-                    className="rounded-circle mb-4 shadow-md"
-                    style={{
-                      width: '140px',
-                      height: '140px',
-                      objectFit: 'cover',
-                      border: '4px solid #ffffff',
-                      boxShadow: '0 8px 25px rgba(0,0,0,0.1)'
-                    }}
-                  />
-                  <h3 className="mb-3 fw-bold" style={{ color: '#1976d2', fontSize: '2.5rem' }}>10,000+</h3>
-                  <p className="mb-0 fw-semibold" style={{ color: '#495057', fontSize: '1.1rem' }}>
-                    Patients Empowered
+                  {/* <i className="fas fa-brain mb-4" style={{ fontSize: '5rem', color: '#1976d2' }}></i> */}
+                  <img src={SymptoScopeLogo} alt="SymptoScope Logo" className="bg-transparent" style={{ height: "90px", background: "transparent", fontSize: '5rem', color: '#1976d2' }} />
+                  <p className="mb-0 " style={{ color: '#495057', fontSize: '1.1rem' }}>
+                    AI Symptom Journal for Rare Conditions
                   </p>
                   <div className="mt-3">
-                    <small className="text-success fw-semibold">
+                    <small className="text-success">
                       <i className="fas fa-arrow-up me-1"></i>
-                      Growing Daily
+                      Enpowering Health
                     </small>
                   </div>
                 </div>
@@ -193,7 +185,7 @@ const certifications = [
               </p>
             </Col>
           </Row>
-          
+
           <Row className="g-4">
             <Col md={6}>
               <Card className="medical-card h-100 border-0">
@@ -203,8 +195,8 @@ const certifications = [
                   </div>
                   <h3 className="fw-bold mb-3">Our Mission</h3>
                   <p className="text-muted mb-4">
-                    To empower patients with rare conditions through AI-driven insights, 
-                    enabling them to take control of their health journey and improve 
+                    To empower patients with rare conditions through AI-driven insights,
+                    enabling them to take control of their health journey and improve
                     their quality of life through data-driven decisions.
                   </p>
                   <ul className="list-unstyled">
@@ -224,7 +216,7 @@ const certifications = [
                 </Card.Body>
               </Card>
             </Col>
-            
+
             <Col md={6}>
               <Card className="medical-card h-100 border-0">
                 <Card.Body className="p-5">
@@ -233,8 +225,8 @@ const certifications = [
                   </div>
                   <h3 className="fw-bold mb-3">Our Vision</h3>
                   <p className="text-muted mb-4">
-                    A world where every patient with a rare condition has access to 
-                    personalized, AI-powered health insights that enable them to 
+                    A world where every patient with a rare condition has access to
+                    personalized, AI-powered health insights that enable them to
                     advocate for better care and achieve optimal health outcomes.
                   </p>
                   <ul className="list-unstyled">
@@ -260,7 +252,7 @@ const certifications = [
 
       {/* Company Timeline */}
       {/* <section className="py-5 bg-light"> */}
-        {/* <Container>
+      {/* <Container>
           <Row className="justify-content-center mb-5">
             <Col lg={8} className="text-center">
               <Badge bg="primary" className="mb-3 px-3 py-2">COMPANY HISTORY</Badge>
@@ -313,14 +305,14 @@ const certifications = [
               </p>
             </Col>
           </Row>
-          
+
           <Row className="g-4 justify-content-evenly">
             {teamMembers.map((member, index) => (
               <Col md={6} lg={3} key={index}>
                 <Card className="medical-card text-center border-0 h-100">
                   <Card.Body className="p-4">
-                    <img 
-                      src={member.image} 
+                    <img
+                      src={member.image}
                       alt={member.name}
                       className="rounded-circle mb-3"
                       style={{ width: '100px', height: '100px', objectFit: 'cover' }}
@@ -337,7 +329,7 @@ const certifications = [
         </Container>
       </section>
 
-      
+
       {/* Values Section */}
       <section className="py-5">
         <Container>
@@ -347,7 +339,7 @@ const certifications = [
               <h2 className="display-4 fw-bold mb-4">What Drives Us</h2>
             </Col>
           </Row>
-          
+
           <Row className="g-4">
             <Col md={4}>
               <Card className="medical-card border-0 h-100 text-center">
@@ -360,7 +352,7 @@ const certifications = [
                 </Card.Body>
               </Card>
             </Col>
-            
+
             <Col md={4}>
               <Card className="medical-card border-0 h-100 text-center">
                 <Card.Body className="p-5">
@@ -372,7 +364,7 @@ const certifications = [
                 </Card.Body>
               </Card>
             </Col>
-            
+
             <Col md={4}>
               <Card className="medical-card border-0 h-100 text-center">
                 <Card.Body className="p-5">
@@ -387,7 +379,7 @@ const certifications = [
           </Row>
         </Container>
       </section>
-      
+
       {/* Certifications & Awards */}
 
       <section className="py-5 bg-light">
@@ -396,11 +388,11 @@ const certifications = [
             <Col lg={8} className="text-center">
               <h2 className="display-4 fw-bold mb-4">TECH STACK USED</h2>
               <p className="lead text-muted">
-               Combined Technologies to provide you the Best Services 
+                Combined Technologies to provide you the Best Services
               </p>
             </Col>
           </Row>
-          
+
           <Row className="justify-content-center">
             {certifications.map((cert, index) => (
               <Col md={6} lg={2} key={index} className="mb-4">
