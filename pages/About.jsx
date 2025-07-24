@@ -1,7 +1,11 @@
 import { Container, Row, Col, Card, Badge, Button } from "react-bootstrap";
-import ReactLogo from "../public/react.png"
 import { useTheme } from "../contexts/ThemeContext";
 import SymptoScopeLogo from "../public/SymptoScopeLogo.png"
+import boot from "../pages/images/boot.png"
+import express from "../pages/images/express.png"
+import mongo from "../pages/images/mongo.png"
+import node from "../pages/images/node.png"
+import ReactLogo from "../pages/images/react.png"
 export default function About() {
   const { isDarkMode } = useTheme();
   const teamMembers = [
@@ -38,27 +42,27 @@ export default function About() {
   const certifications = [
     {
       name: "React JS",
-      icon: <img src={ReactLogo} alt="React" />,
+      icon: <img src={ReactLogo} alt="React logo" style={{width: "50px"}} />,
       color: "success"
     },
     {
       name: "Node JS",
-      icon: <i className="fas fa-certificate"></i>,
+      icon: <img src={node} alt="node.js" style={{width: "50px"}}/>,
       color: "primary"
     },
     {
       name: "Express JS",
-      icon: <i className="fas fa-lock"></i>,
+      icon: <img src={express} alt="express.js" style={{width: "50px"}}/>,
       color: "warning"
     },
     {
       name: "MongoDB",
-      icon: <i className="fas fa-award"></i>,
+      icon: <img src={mongo} alt="mongoDb logo" style={{width: "50px"}} />,
       color: "info"
     },
     {
       name: "Bootstrap Framework",
-      icon: <i className="fas fa-user-shield"></i>,
+      icon: <img src={boot} alt="bootstrap logo" style={{width: "50px"}}/>,
       color: "secondary"
     }
   ];
@@ -96,7 +100,9 @@ export default function About() {
                     }}
                   >
                     <i className="fas fa-rocket me-2"></i>
-                    Our Mission
+                    <a href="#our-purpose" style={{ color: '#ffffff', textDecoration: 'none' }}>
+                      Our Mission
+                    </a>
                   </Button>
                   <Button
                     size="lg"
@@ -111,7 +117,9 @@ export default function About() {
                     }}
                   >
                     <i className="fas fa-users me-2"></i>
-                    Meet the Team
+                    <a href="#our-team" style={{ color: '#ffffff', textDecoration: 'none' }}>
+                      Meet the team
+                    </a>
                   </Button>
                 </div>
               </div>
@@ -179,7 +187,7 @@ export default function About() {
         <Container>
           <Row className="justify-content-center mb-5">
             <Col lg={8} className="text-center">
-              <h2 className="display-4 fw-bold mb-4">Our Purpose</h2>
+              <h2 id="our-purpose" className="display-4 fw-bold mb-4">Our Purpose</h2>
               <p className="lead text-muted">
                 Bridging the gap between patients with rare conditions and the insights they need to live better lives
               </p>
@@ -193,7 +201,7 @@ export default function About() {
                   <div className="gradient-primary rounded-3 d-inline-flex p-3 mb-4">
                     <i className="fas fa-bullseye text-white" style={{ fontSize: '2rem' }}></i>
                   </div>
-                  <h3 className="fw-bold mb-3">Our Mission</h3>
+                  <h3 id="our-mission" className="fw-bold mb-3">Our Mission</h3>
                   <p className="text-muted mb-4">
                     To empower patients with rare conditions through AI-driven insights,
                     enabling them to take control of their health journey and improve
@@ -299,7 +307,7 @@ export default function About() {
           <Row className="justify-content-center mb-5">
             <Col lg={8} className="text-center">
               <Badge bg="success" className="mb-3 px-3 py-2">OUR TEAM</Badge>
-              <h2 className="display-4 fw-bold mb-4">Meet Our Team</h2>
+              <h2 id="our-team" className="display-4 fw-bold mb-4">Meet Our Team</h2>
               <p className="lead text-muted">
                 Full Stack Learners dedicated to transforming healthcare through AI
               </p>
@@ -398,7 +406,10 @@ export default function About() {
               <Col md={6} lg={2} key={index} className="mb-4">
                 <Card className="medical-card text-center border-0 h-100">
                   <Card.Body className="p-4">
-                    <i className={`${cert.icon} text-${cert.color} mb-3`} style={{ fontSize: '2.5rem' }}></i>
+                    <>
+                    { cert.icon}
+
+                    </>
                     <h6 className="fw-bold">{cert.name}</h6>
                   </Card.Body>
                 </Card>
