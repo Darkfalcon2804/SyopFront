@@ -1,34 +1,24 @@
 import { Container, Row, Col, Card, Badge, Button } from "react-bootstrap";
-
+import ReactLogo from "../public/react.png"
 export default function About() {
   const teamMembers = [
     {
-      name: "Dr. Sarah Johnson",
-      role: "Chief Medical Officer",
-      credentials: "MD, PhD in Rheumatology",
-      image: "https://via.placeholder.com/150x150/007bff/ffffff?text=SJ",
-      bio: "Leading expert in rare autoimmune conditions with 15+ years of clinical experience."
-    },
-    {
-      name: "Michael Chen",
-      role: "Chief Technology Officer", 
-      credentials: "PhD in AI/ML, Former Google",
+      name: "Bhavesh Jain",
+      role: "Full Stack Developer", 
       image: "https://via.placeholder.com/150x150/28a745/ffffff?text=MC",
-      bio: "AI researcher specializing in healthcare applications and predictive analytics."
+      bio: "Btech CSE, Arya College of Engineering"
     },
     {
-      name: "Dr. Emily Rodriguez",
-      role: "Head of Data Science",
-      credentials: "PhD Biostatistics, Johns Hopkins",
+      name: "Navita Tulsani",
+      role: "Full Stack Developer",
       image: "https://via.placeholder.com/150x150/6f42c1/ffffff?text=ER",
-      bio: "Expert in clinical data analysis and biomedical pattern recognition."
+      bio: "Btech CSE(IT), Poornima College of Engineering"
     },
     {
-      name: "David Kim",
-      role: "Head of Product",
-      credentials: "MBA Stanford, Former Apple",
+      name: "Rohit Kumawat",
+      role: "Full Stack Developer",
       image: "https://via.placeholder.com/150x150/fd7e14/ffffff?text=DK",
-      bio: "Product strategist focused on user-centered healthcare technology design."
+      bio: "Btech CSE, Poornima College of Engineering ."
     }
   ];
 
@@ -41,13 +31,35 @@ export default function About() {
     { year: "2024", event: "Global Launch", description: "Platform now available in 15 countries" }
   ];
 
-  const certifications = [
-    { name: "HIPAA Compliant", icon: "fas fa-shield-alt", color: "success" },
-    { name: "FDA Approved", icon: "fas fa-certificate", color: "primary" },
-    { name: "SOC 2 Type II", icon: "fas fa-lock", color: "warning" },
-    { name: "ISO 27001", icon: "fas fa-award", color: "info" },
-    { name: "GDPR Compliant", icon: "fas fa-user-shield", color: "secondary" }
-  ];
+
+const certifications = [
+  {
+    name: "React JS",
+    icon: <img src={ReactLogo} alt="React"  />,
+    color: "success"
+  },
+  {
+    name: "Node JS",
+    icon: <i className="fas fa-certificate"></i>,
+    color: "primary"
+  },
+  {
+    name: "Express JS",
+    icon: <i className="fas fa-lock"></i>,
+    color: "warning"
+  },
+  {
+    name: "MongoDB",
+    icon: <i className="fas fa-award"></i>,
+    color: "info"
+  },
+  {
+    name: "Bootstrap Framework",
+    icon: <i className="fas fa-user-shield"></i>,
+    color: "secondary"
+  }
+];
+
 
   return (
     <div style={{ paddingTop: '100px' }}>
@@ -247,8 +259,8 @@ export default function About() {
       </section>
 
       {/* Company Timeline */}
-      <section className="py-5 bg-light">
-        <Container>
+      {/* <section className="py-5 bg-light"> */}
+        {/* <Container>
           <Row className="justify-content-center mb-5">
             <Col lg={8} className="text-center">
               <Badge bg="primary" className="mb-3 px-3 py-2">COMPANY HISTORY</Badge>
@@ -286,8 +298,8 @@ export default function About() {
               </div>
             </Col>
           </Row>
-        </Container>
-      </section>
+        </Container> */}
+      {/* </section> */}
 
       {/* Team Section */}
       <section className="py-5">
@@ -295,14 +307,14 @@ export default function About() {
           <Row className="justify-content-center mb-5">
             <Col lg={8} className="text-center">
               <Badge bg="success" className="mb-3 px-3 py-2">OUR TEAM</Badge>
-              <h2 className="display-4 fw-bold mb-4">Meet Our Experts</h2>
+              <h2 className="display-4 fw-bold mb-4">Meet Our Team</h2>
               <p className="lead text-muted">
-                World-class professionals dedicated to transforming healthcare through AI
+                Full Stack Learners dedicated to transforming healthcare through AI
               </p>
             </Col>
           </Row>
           
-          <Row className="g-4">
+          <Row className="g-4 justify-content-evenly">
             {teamMembers.map((member, index) => (
               <Col md={6} lg={3} key={index}>
                 <Card className="medical-card text-center border-0 h-100">
@@ -325,34 +337,7 @@ export default function About() {
         </Container>
       </section>
 
-      {/* Certifications & Awards */}
-      <section className="py-5 bg-light">
-        <Container>
-          <Row className="justify-content-center mb-5">
-            <Col lg={8} className="text-center">
-              <Badge bg="warning" className="mb-3 px-3 py-2">TRUST & SECURITY</Badge>
-              <h2 className="display-4 fw-bold mb-4">Certifications & Compliance</h2>
-              <p className="lead text-muted">
-                Your health data is protected by the highest security standards
-              </p>
-            </Col>
-          </Row>
-          
-          <Row className="justify-content-center">
-            {certifications.map((cert, index) => (
-              <Col md={6} lg={2} key={index} className="mb-4">
-                <Card className="medical-card text-center border-0 h-100">
-                  <Card.Body className="p-4">
-                    <i className={`${cert.icon} text-${cert.color} mb-3`} style={{ fontSize: '2.5rem' }}></i>
-                    <h6 className="fw-bold">{cert.name}</h6>
-                  </Card.Body>
-                </Card>
-              </Col>
-            ))}
-          </Row>
-        </Container>
-      </section>
-
+      
       {/* Values Section */}
       <section className="py-5">
         <Container>
@@ -402,6 +387,35 @@ export default function About() {
           </Row>
         </Container>
       </section>
+      
+      {/* Certifications & Awards */}
+
+      <section className="py-5 bg-light">
+        <Container>
+          <Row className="justify-content-center mb-5">
+            <Col lg={8} className="text-center">
+              <h2 className="display-4 fw-bold mb-4">TECH STACK USED</h2>
+              <p className="lead text-muted">
+               Combined Technologies to provide you the Best Services 
+              </p>
+            </Col>
+          </Row>
+          
+          <Row className="justify-content-center">
+            {certifications.map((cert, index) => (
+              <Col md={6} lg={2} key={index} className="mb-4">
+                <Card className="medical-card text-center border-0 h-100">
+                  <Card.Body className="p-4">
+                    <i className={`${cert.icon} text-${cert.color} mb-3`} style={{ fontSize: '2.5rem' }}></i>
+                    <h6 className="fw-bold">{cert.name}</h6>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        </Container>
+      </section>
+
 
       {/* CTA Section */}
       <section className="py-5 bg-primary text-white">
