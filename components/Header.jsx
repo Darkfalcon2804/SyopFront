@@ -4,18 +4,18 @@ import { Navbar, Nav, Container, Badge, Dropdown } from "react-bootstrap";
 import { ThemeToggle } from "./ThemeToggle.jsx";
 import { useTheme } from "../contexts/ThemeContext.jsx";
 import SymptoScopeLogo from "../public/SymptoScopeLogo.png";
+import { UseAuth } from "../contexts/AuthContext.jsx";
 
 export function Header() {
   const [isActive, setIsActive] = useState("Home");
+  const {isLogin} = UseAuth();
   const { isDarkMode } = useTheme();
   const [notifications] = useState([
     { id: 1, title: "New AI Insight", message: "Pattern detected in your symptoms", unread: true },
     { id: 2, title: "Medication Reminder", message: "Time for your evening dose", unread: true },
     { id: 3, title: "Appointment Tomorrow", message: "Dr. Smith at 2:00 PM", unread: false }
   ]);
-
   const unreadCount = notifications.filter(n => n.unread).length;
-
   return (
     <Navbar expand="lg" className="navbar-medical fixed-top" style={{ zIndex: 1000 }}>
       <Container>
@@ -78,9 +78,16 @@ export function Header() {
                 ))}
               </Dropdown.Menu>
             </Dropdown>
-
-            <Nav.Link as={Link} to="/login" className="btn btn-outline-primary me-2">Sign In</Nav.Link>
-            <Nav.Link as={Link} to="/register" className="btn btn-primary text-decoration-none">Get Started</Nav.Link>
+                {
+                  !isLogin ? (
+                    <>
+                      <Nav.Link as={Link} to="/login" className="btn btn-outline-primary me-2">Sign In</Nav.Link>
+                      <Nav.Link as={Link} to="/register" className="btn btn-primary text-decoration-none">Get Started</Nav.Link>
+                    </>
+                  ) : (
+                    <Nav.Link as={Link} to="/profile" className="btn btn-primary text-decoration-none">My Profile</Nav.Link>
+                  )
+                }
           </Nav>
         </Navbar.Collapse>
       </Container>
