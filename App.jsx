@@ -40,7 +40,7 @@ const App = () => (
         </div>
       </BrowserRouter>
     </ThemeProvider>
-  </AuthProvider>
+    </AuthProvider>
 );
 
 createRoot(document.getElementById("root")).render(<App />);

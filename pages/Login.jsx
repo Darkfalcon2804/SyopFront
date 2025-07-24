@@ -25,7 +25,6 @@ export default function Login() {
     e.preventDefault();
     setIsLoading(true);
     setLoginError("");
-    
     // Simulate login process
     try {
       await new Promise(resolve => setTimeout(resolve, 1500));
