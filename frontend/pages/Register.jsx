@@ -1,16 +1,18 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col, Card, Form, Button, Alert } from "react-bootstrap";
-
+import { UseAuth } from "../contexts/AuthContext";
+import axios from "axios";
 export default function Register() {
+  const { login } = UseAuth();
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+    FirstName: "",
+    LastName: "",
     email: "",
     password: "",
-    confirmPassword: ""
+    ConfirmPassword: ""
   });
-  
+
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
@@ -21,7 +23,7 @@ export default function Register() {
       ...prev,
       [name]: value
     }));
-    
+
     // Clear error for this field
     if (errors[name]) {
       setErrors(prev => ({
@@ -34,13 +36,13 @@ export default function Register() {
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.firstName.trim()) newErrors.firstName = "First name is required";
-    if (!formData.lastName.trim()) newErrors.lastName = "Last name is required";
+    if (!formData.FirstName.trim()) newErrors.FirstName = "First name is required";
+    if (!formData.LastName.trim()) newErrors.LastName = "Last name is required";
     if (!formData.email.trim()) newErrors.email = "Email is required";
     if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = "Email is invalid";
     if (!formData.password) newErrors.password = "Password is required";
     if (formData.password.length < 6) newErrors.password = "Password must be at least 6 characters";
-    if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = "Passwords don't match";
+    if (formData.password !== formData.ConfirmPassword) newErrors.ConfirmPassword = "Passwords don't match";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -49,14 +51,25 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-    
     setIsLoading(true);
-    
+    setErrors({});
+    setShowSuccess(false);
+
+    try {
+      const response = await axios.post('http://localhost:3000/api/user/register', formData);
+      setShowSuccess(true);
+    } catch (error) {
+      console.error("Registration Error:", error);
+      const message = error.response?.data?.message || "Registration failed. Please try again.";
+      setErrors({ message });
+    } finally {
+        setIsLoading(false); //  Hide loading spinner
+      }
+
     // Simulate API call
     setTimeout(() => {
       setIsLoading(false);
       setShowSuccess(true);
-      console.log("Registration successful", formData);
     }, 1500);
   };
 
@@ -114,14 +127,14 @@ export default function Register() {
                         <Form.Label>First Name</Form.Label>
                         <Form.Control
                           type="text"
-                          name="firstName"
-                          value={formData.firstName}
+                          name="FirstName"
+                          value={formData.FirstName}
                           onChange={handleInputChange}
                           placeholder="Enter your first name"
-                          isInvalid={!!errors.firstName}
+                          isInvalid={!!errors.FirstName}
                         />
                         <Form.Control.Feedback type="invalid">
-                          {errors.firstName}
+                          {errors.FirstName}
                         </Form.Control.Feedback>
                       </Form.Group>
                     </Col>
@@ -130,14 +143,14 @@ export default function Register() {
                         <Form.Label>Last Name</Form.Label>
                         <Form.Control
                           type="text"
-                          name="lastName"
-                          value={formData.lastName}
+                          name="LastName"
+                          value={formData.LastName}
                           onChange={handleInputChange}
                           placeholder="Enter your last name"
-                          isInvalid={!!errors.lastName}
+                          isInvalid={!!errors.LastName}
                         />
                         <Form.Control.Feedback type="invalid">
-                          {errors.lastName}
+                          {errors.LastName}
                         </Form.Control.Feedback>
                       </Form.Group>
                     </Col>
@@ -177,14 +190,14 @@ export default function Register() {
                     <Form.Label>Confirm Password</Form.Label>
                     <Form.Control
                       type="password"
-                      name="confirmPassword"
-                      value={formData.confirmPassword}
+                      name="ConfirmPassword"
+                      value={formData.ConfirmPassword}
                       onChange={handleInputChange}
                       placeholder="Confirm your password"
-                      isInvalid={!!errors.confirmPassword}
+                      isInvalid={!!errors.ConfirmPassword}
                     />
                     <Form.Control.Feedback type="invalid">
-                      {errors.confirmPassword}
+                      {errors.ConfirmPassword}
                     </Form.Control.Feedback>
                   </Form.Group>
 

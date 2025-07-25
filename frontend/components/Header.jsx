@@ -2,14 +2,12 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Navbar, Nav, Container, Badge, Dropdown } from "react-bootstrap";
 import { ThemeToggle } from "./ThemeToggle.jsx";
-import { useTheme } from "../contexts/ThemeContext.jsx";
 import SymptoScopeLogo from "../public/SymptoScopeLogo.png";
 import { UseAuth } from "../contexts/AuthContext.jsx";
 
 export function Header() {
   const [isActive, setIsActive] = useState("Home");
-  const { isLogin, user, logout } = UseAuth();
-  const { isDarkMode } = useTheme();
+  const { isLogin, logout } = UseAuth();
   const navigate = useNavigate();
   const [notifications] = useState([
     { id: 1, title: "New AI Insight", message: "Pattern detected in your symptoms", unread: true },

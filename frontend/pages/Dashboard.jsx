@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom";
 import { Container, Row, Col, Card, Button, Badge, ProgressBar } from "react-bootstrap";
+import { UseAuth } from "../contexts/AuthContext";
 
 export default function Dashboard() {
+  const { user } = UseAuth();
+
+  if (!user) return <p>Loading...</p>;
+
   const stats = [
     { number: "47", label: "Days Tracked", icon: "fas fa-calendar", change: "+3 this week", color: "primary" },
     { number: "23", label: "Symptoms Logged", icon: "fas fa-notes-medical", change: "This week", color: "success" },
@@ -47,7 +52,7 @@ export default function Dashboard() {
             <div className="d-flex justify-content-between align-items-center">
               <div>
                 <h1 className="display-4 fw-bold text-gradient-primary mb-2">
-                  Welcome back, Sarah
+                  Welcome back, {user.FirstName}
                 </h1>
                 <p className="text-muted fs-5">
                   Your health overview for {new Date().toLocaleDateString('en-US', {

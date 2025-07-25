@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Container, Row, Col, Card, Form, Button, Badge, Alert, InputGroup } from "react-bootstrap";
 import { UseAuth } from "../contexts/AuthContext";
+import axios from "axios";
 
 export default function Login() {
   const { login } = UseAuth();
@@ -32,8 +33,8 @@ export default function Login() {
     try {
       await new Promise(resolve => setTimeout(resolve, 1500));
       // Handle successful login here
-      console.log("Login successful", formData);
-      login(true, true);
+      const response = await axios.post("http://localhost:3000/api/user/login", formData);
+      login(response.data.user, response.data.token);
       navigate('/dashboard');
       
     } catch (error) {
@@ -42,7 +43,6 @@ export default function Login() {
       setIsLoading(false);
     }
   };
-
   const features = [
     {
       icon: "fas fa-brain",

@@ -1,18 +1,31 @@
 import React, { createContext, useContext, useState, useEffect, Children } from "react";
-
+import axios from "axios";
 export const AuthContext = createContext(null);
 
 
 export const AuthProvider = ({ children }) => {
     const [isLogin, setIsLogin] = useState(false)
-    const [user, setUser] = useState(false);
+    const [user, setUser] = useState(null);
+    const token = localStorage.getItem("authToken");
 
-    useEffect(() => {
-        let token = localStorage.getItem("authToken")
-        if (token) {
+    const fetchProfile = async () => {
+        try {
+            const res = await axios.get('http://localhost:3000/api/user/profile', {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            setUser(res.data.user);
             setIsLogin(true);
         }
-    }, [])
+        catch (error) {
+            console.error("Failed to fetch profile:", error);
+            setIsLogin(false);
+            setUser(null);
+        }
+    }
+
+    useEffect(() => {
+        if (token) fetchProfile();
+    }, [token])
 
     const login = (userData, token) => {
         setIsLogin(true);
