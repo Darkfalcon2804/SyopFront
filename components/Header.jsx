@@ -40,8 +40,10 @@ export function Header() {
             <Nav.Link as={NavLink} to="/" className={isActive === "Home" ? "fw-medium active" : "fw-medium"} onClick={() => setIsActive("Home")}>Home</Nav.Link>
             <Nav.Link as={NavLink} to="/about" className={isActive === "About" ? "fw-medium active" : "fw-medium"} onClick={() => setIsActive("About")}>About</Nav.Link>
             <Nav.Link as={NavLink} to="/contact" className={isActive === "Contact" ? "fw-medium active" : "fw-medium"} onClick={() => setIsActive("Contact")}>Contact</Nav.Link>
-            <Nav.Link as={NavLink} to="/dashboard" className={isActive === "Dashboard" ? "fw-medium active" : "fw-medium"} onClick={() => setIsActive("Dashboard")}>Dashboard</Nav.Link>
-
+            {
+              isLogin && <Nav.Link as={NavLink} to="/dashboard" className={isActive === "Dashboard" ? "fw-medium active" : "fw-medium"} onClick={() => setIsActive("Dashboard")}>Dashboard</Nav.Link>
+            }
+            
           </Nav>
 
           <Nav className="flex align-items-center g-4">
