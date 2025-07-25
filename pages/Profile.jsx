@@ -1,3 +1,5 @@
+////before runing it pls run command npm install lucide-react
+
 import React, { useState } from 'react';
 import { User, Edit3, Shield, Phone, Mail, Camera, Save, Eye, EyeOff } from 'lucide-react';
 

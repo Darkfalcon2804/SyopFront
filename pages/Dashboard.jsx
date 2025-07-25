@@ -189,28 +189,12 @@ export default function Dashboard() {
                 </h5>
               </div>
               <div className="card-body">
-                {todaysGoals.map((goal, index) => (
-                  <div key={index} className="mb-4">
-                    <div className="d-flex justify-content-between mb-2">
-                      <span className="fw-medium">{goal.task}</span>
-                      <small className="text-muted">{goal.current}</small>
-                    </div>
-                    <div className="progress mb-1" style={{ height: '20px' }}>
-                      <div
-                        className={`progress-bar bg-${goal.progress === 100 ? 'success' : goal.progress > 50 ? 'info' : 'warning'}`}
-                        role="progressbar"
-                        style={{ width: `${goal.progress}%` }}
-                        aria-valuenow={goal.progress}
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                      >
-                      </div>
-                    </div>
-                    <small className={`text-${goal.progress === 100 ? 'success' : 'muted'}`}>
-                      {goal.status}
-                    </small>
-                  </div>
-                ))}
+                <div className="text-center py-5">
+                  {/* <i className="fas fa-clock text-muted mb-3" style={{ fontSize: '3rem' }}></i> */}
+                  <p className="text-muted fs-3 mb-0" style={{ fontStyle: 'italic'}}>
+                    Coming Soon...
+                  </p>
+                </div>
               </div>
             </div>
           </div>
