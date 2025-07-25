@@ -43,9 +43,8 @@ export function Header() {
             {
               isLogin && <Nav.Link as={NavLink} to="/dashboard" className={isActive === "Dashboard" ? "fw-medium active" : "fw-medium"} onClick={() => setIsActive("Dashboard")}>Dashboard</Nav.Link>
             }
-            
           </Nav>
-
+          
           <Nav className="flex align-items-center g-4">
             <div className="me-3">
               <ThemeToggle />
