@@ -1,93 +1,743 @@
-import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
+import React, { useState } from "react";
 
-export default function Journal() {
-  const [entries, setEntries] = useState([]);
-  const [text, setText] = useState("");
-  const [charLimit] = useState(500);
+export default function HealthJournal() {
+  const [formData, setFormData] = useState({
+    name: "",
+    age: "",
+    gender: "",
+    symptoms: "",
+    medicalHistory: "",
+    medications: "",
+    allergies: "",
+    lifestyle: "",
+    familyHistory: "",
+    bloodPressure: "",
+    heartRate: "",
+    temperature: "",
+    weight: "",
+    height: ""
+  });
 
-  useEffect(() => {
-    const savedEntries = localStorage.getItem("journalEntries");
-    if (savedEntries) {
-      setEntries(JSON.parse(savedEntries));
-    }
-  }, []);
+  const [prediction, setPrediction] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    localStorage.setItem("journalEntries", JSON.stringify(entries));
-  }, [entries]);
-
-  const handleSave = () => {
-    if (text.trim()) {
-      const newEntry = {
-        id: Date.now(),
-        date: new Date().toLocaleDateString(),
-        content: text.trim(),
-      };
-      setEntries([newEntry, ...entries]);
-      setText("");
-    }
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
-  const handleDelete = (id) => {
-    setEntries(entries.filter((entry) => entry.id !== id));
+  const handleSubmit = () => {
+    setIsLoading(true);
+    
+    setTimeout(() => {
+      const mockPrediction = {
+        primaryCondition: "Common Cold",
+        confidence: "85%",
+        riskLevel: "Low",
+        recommendations: [
+          "Rest and stay hydrated",
+          "Monitor symptoms for 48-72 hours",
+          "Consider over-the-counter cold medication",
+          "Consult doctor if symptoms worsen"
+        ],
+        urgency: "Non-urgent - Monitor at home"
+      };
+      
+      setPrediction(mockPrediction);
+      setIsLoading(false);
+    }, 2000);
+  };
+
+  const resetForm = () => {
+    setFormData({
+      name: "",
+      age: "",
+      gender: "",
+      symptoms: "",
+      medicalHistory: "",
+      medications: "",
+      allergies: "",
+      lifestyle: "",
+      familyHistory: "",
+      bloodPressure: "",
+      heartRate: "",
+      temperature: "",
+      weight: "",
+      height: ""
+    });
+    setPrediction(null);
+  };
+
+  const getCurrentDate = () => {
+    return new Date().toLocaleDateString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
   };
 
   return (
-    <div style={{ paddingTop: "100px", backgroundColor: "#f8f9fa", minHeight: "100vh" }}>
-      <Container className="py-5">
-        <Row>
-          <Col md={8} className="mx-auto">
-            <h2 className="text-center mb-4">📝 My Health Journal</h2>
-
-            <Form.Group className="mb-3">
-              <Form.Label>Write something today:</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={4}
-                value={text}
-                maxLength={charLimit}
-                placeholder="How are you feeling today?"
-                onChange={(e) => setText(e.target.value)}
-              />
-              <div className="text-end small mt-1">
-                {text.length}/{charLimit} characters
+    <div className="min-vh-100" style={{
+      background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)',
+      fontFamily: "'Inter', 'Segoe UI', 'Roboto', sans-serif",
+      paddingTop: '9rem',
+      paddingBottom: '2rem'
+    }}>
+      <div className="container">
+        {/* Journal Header */}
+        {/* <div className="row justify-content-center mb-4">
+          <div className="col-lg-10">
+            <div className="text-center mb-4">
+              <div className="d-inline-block p-4 rounded-circle mb-3" style={{
+                background: 'linear-gradient(45deg, #0ea5e9 0%, #0284c7 100%)',
+                boxShadow: '0 10px 30px rgba(14, 165, 233, 0.3)'
+              }}>
+                <i className="fas fa-book-medical text-white" style={{ fontSize: '2.2rem' }}></i>
               </div>
-            </Form.Group>
-
-            <div className="d-grid">
-              <Button
-                className="btn-medical-success mb-4"
-                onClick={handleSave}
-                disabled={!text.trim()}
-              >
-                Save Entry
-              </Button>
+              <h1 className="display-5 text-dark mb-2" style={{
+                fontFamily: "'Playfair Display', serif",
+                fontWeight: '400',
+                letterSpacing: '-0.5px',
+                color: '#0284c7'
+              }}>
+                Health Journal
+              </h1>
+              <p className="lead text-muted" style={{
+                fontSize: '1.1rem',
+                fontWeight: '300'
+              }}>
+                Your daily companion for health insights and wellness tracking
+              </p>
+              <div className="border-bottom mx-auto mt-3" style={{
+                width: '80px',
+                height: '2px',
+                background: 'linear-gradient(45deg, #0ea5e9 0%, #0284c7 100%)'
+              }}></div>
             </div>
+          </div>
+        </div> */}
 
-            {entries.length > 0 && (
-              <>
-                <h4 className="mb-3">📋 Previous Entries</h4>
-                {entries.map((entry) => (
-                  <Card className="mb-3 medical-card shadow-sm" key={entry.id}>
-                    <Card.Body>
-                      <Card.Title>{entry.date}</Card.Title>
-                      <Card.Text>{entry.content}</Card.Text>
-                      <Button
-                        variant="outline-danger"
-                        size="sm"
-                        onClick={() => handleDelete(entry.id)}
-                      >
-                        Delete
-                      </Button>
-                    </Card.Body>
-                  </Card>
-                ))}
-              </>
-            )}
-          </Col>
-        </Row>
-      </Container>
+        {/* Journal Entry Card */}
+        <div className="row justify-content-center">
+          <div className="col-lg-10">
+            <div className="card border-0 position-relative" style={{
+              background: 'linear-gradient(145deg, #ffffff 0%, #fafbfc 100%)',
+              boxShadow: '0 25px 50px rgba(0, 0, 0, 0.08), 0 10px 20px rgba(0, 0, 0, 0.04)',
+              borderRadius: '24px',
+              overflow: 'hidden'
+            }}>
+              {/* Decorative Header */}
+              <div className="position-relative" style={{
+                background: 'linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%)',
+                padding: '2.5rem 0 4rem 0'
+              }}>
+                <div className="text-center text-white">
+                  <h2 className="mb-1" style={{ 
+                    fontFamily: "'Playfair Display', serif", 
+                    fontWeight: '300',
+                    fontSize: '1.8rem'
+                  }}>
+                  Health Journal
+                  </h2>
+                  <p className="mb-0 opacity-80" style={{ fontSize: '0.95rem' }}>
+                    {getCurrentDate()}
+                  </p>
+                </div>
+                {/* Decorative Wave */}
+                <div className="position-absolute bottom-0 start-0 w-100">
+                  <svg viewBox="0 0 1200 120" preserveAspectRatio="none" style={{ height: '40px', width: '100%' }}>
+                    <path d="M0,60 C150,90 350,30 600,60 C850,90 1050,30 1200,60 L1200,120 L0,120 Z" fill="#ffffff"></path>
+                  </svg>
+                </div>
+              </div>
+
+              <div className="card-body px-4 px-md-5 pb-5" style={{ marginTop: '-2rem' }}>
+                <div>
+                  {/* Personal Details Section */}
+                  <div className="mb-5" style={{marginTop:'40px'}}>
+                    <div className="d-flex align-items-center mb-4">
+                      <div className="rounded-circle p-2 me-3" style={{ 
+                        backgroundColor: '#0ea5e9',
+                        opacity: '0.9'
+                      }}>
+                        <i className="fas fa-user text-white" style={{ fontSize: '0.9rem' }}></i>
+                      </div>
+                      <h4 className="mb-0" style={{ 
+                        fontFamily: "'Playfair Display', serif", 
+                        color: '#0284c7',
+                        fontSize: '1.4rem',
+                        fontWeight: '400'
+                      }}>
+                        Personal Information
+                      </h4>
+                    </div>
+                    
+                    <div className="row g-3">
+                      <div className="col-md-8">
+                        <label className="form-label text-dark" style={{
+                          fontSize: '0.9rem',
+                          color: '#495057',
+                          marginBottom: '0.5rem'
+                        }}>Full Name</label>
+                        <input
+                          type="text"
+                          className="form-control form-control-lg border-0"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleInputChange}
+                          placeholder="Enter your full name"
+                          style={{
+                            backgroundColor: '#f8fafc',
+                            borderRadius: '12px',
+                            fontSize: '0.95rem',
+                            padding: '0.8rem 1rem',
+                            boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+                            border: '1px solid #e2e8f0'
+                          }}
+                        />
+                      </div>
+                      <div className="col-md-2">
+                        <label className="form-label text-dark" style={{
+                          fontSize: '0.9rem',
+                          color: '#495057'
+                        }}>Age</label>
+                        <input
+                          type="number"
+                          className="form-control form-control-lg border-0"
+                          name="age"
+                          value={formData.age}
+                          onChange={handleInputChange}
+                          placeholder="Age"
+                          style={{
+                            backgroundColor: '#f8fafc',
+                            borderRadius: '12px',
+                            fontSize: '0.95rem',
+                            padding: '0.8rem 1rem',
+                            boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+                            border: '1px solid #e2e8f0'
+                          }}
+                        />
+                      </div>
+                      <div className="col-md-2">
+                        <label className="form-label text-dark" style={{
+                          fontSize: '0.9rem',
+                          color: '#495057'
+                        }}>Gender</label>
+                        <select
+                          className="form-select form-select-lg border-0"
+                          name="gender"
+                          value={formData.gender}
+                          onChange={handleInputChange}
+                          style={{
+                            backgroundColor: '#f8fafc',
+                            borderRadius: '12px',
+                            fontSize: '0.95rem',
+                            padding: '0.8rem 1rem',
+                            boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+                            border: '1px solid #e2e8f0'
+                          }}
+                        >
+                          <option value="">Select</option>
+                          <option value="male">Male</option>
+                          <option value="female">Female</option>
+                          <option value="other">Other</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Vital Signs Section */}
+                  <div className="mb-5">
+                    <div className="d-flex align-items-center mb-4">
+                      <div className="rounded-circle p-2 me-3" style={{ 
+                        backgroundColor: '#0ea5e9',
+                        opacity: '0.9'
+                      }}>
+                        <i className="fas fa-heartbeat text-white" style={{ fontSize: '0.9rem' }}></i>
+                      </div>
+                      <h4 className="mb-0" style={{ 
+                        fontFamily: "'Playfair Display', serif", 
+                        color: '#0284c7',
+                        fontSize: '1.4rem',
+                        fontWeight: '400'
+                      }}>
+                        Vital Signs
+                      </h4>
+                    </div>
+                    
+                    <div className="row g-3">
+                      <div className="col-md-3">
+                        <label className="form-label text-dark" style={{
+                          fontSize: '0.9rem',
+                          color: '#495057'
+                        }}>Blood Pressure</label>
+                        <input
+                          type="text"
+                          className="form-control form-control-lg border-0"
+                          name="bloodPressure"
+                          value={formData.bloodPressure}
+                          onChange={handleInputChange}
+                          placeholder="120/80"
+                          style={{
+                            backgroundColor: '#e0f2fe',
+                            borderRadius: '12px',
+                            fontSize: '0.95rem',
+                            padding: '0.8rem 1rem',
+                            boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+                            border: '1px solid #e2e8f0'
+                          }}
+                        />
+                      </div>
+                      <div className="col-md-3">
+                        <label className="form-label text-dark" style={{
+                          fontSize: '0.9rem',
+                          color: '#495057'
+                        }}>Heart Rate</label>
+                        <input
+                          type="number"
+                          className="form-control form-control-lg border-0"
+                          name="heartRate"
+                          value={formData.heartRate}
+                          onChange={handleInputChange}
+                          placeholder="BPM"
+                          style={{
+                            backgroundColor: '#e0f2fe',
+                            borderRadius: '12px',
+                            fontSize: '0.95rem',
+                            padding: '0.8rem 1rem',
+                            boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+                            border: '1px solid #e2e8f0'
+                          }}
+                        />
+                      </div>
+                      <div className="col-md-3">
+                        <label className="form-label text-dark" style={{
+                          fontSize: '0.9rem',
+                          color: '#495057'
+                        }}>Temperature</label>
+                        <input
+                          type="number"
+                          step="0.1"
+                          className="form-control form-control-lg border-0"
+                          name="temperature"
+                          value={formData.temperature}
+                          onChange={handleInputChange}
+                          placeholder="°F"
+                          style={{
+                            backgroundColor: '#e0f2fe',
+                            borderRadius: '12px',
+                            fontSize: '0.95rem',
+                            padding: '0.8rem 1rem',
+                            boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+                            border: '1px solid #e2e8f0'
+                          }}
+                        />
+                      </div>
+                      <div className="col-md-3">
+                        <label className="form-label text-dark" style={{
+                          fontSize: '0.9rem',
+                          color: '#495057'
+                        }}>Weight</label>
+                        <input
+                          type="number"
+                          className="form-control form-control-lg border-0"
+                          name="weight"
+                          value={formData.weight}
+                          onChange={handleInputChange}
+                          placeholder="kg"
+                          style={{
+                            backgroundColor: '#e0f2fe',
+                            borderRadius: '12px',
+                            fontSize: '0.95rem',
+                            padding: '0.8rem 1rem',
+                            boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+                            border: '1px solid #e2e8f0'
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Symptoms Section */}
+                  <div className="mb-5">
+                    <div className="d-flex align-items-center mb-4">
+                      <div className="rounded-circle p-2 me-3" style={{ 
+                        backgroundColor: '#0ea5e9',
+                        opacity: '0.9'
+                      }}>
+                        <i className="fas fa-stethoscope text-white" style={{ fontSize: '0.9rem' }}></i>
+                      </div>
+                      <h4 className="mb-0" style={{ 
+                        fontFamily: "'Playfair Display', serif", 
+                        color: '#0284c7',
+                        fontSize: '1.4rem',
+                        fontWeight: '400'
+                      }}>
+                        Current Symptoms
+                      </h4>
+                    </div>
+                    
+                    <div className="mb-4">
+                      <label className="form-label text-dark" style={{
+                        fontSize: '0.9rem',
+                        color: '#495057'
+                      }}>How are you feeling today?</label>
+                      <textarea
+                        className="form-control form-control-lg border-0"
+                        name="symptoms"
+                        value={formData.symptoms}
+                        onChange={handleInputChange}
+                        rows="4"
+                        placeholder="Describe your symptoms in detail... fever, headache, fatigue, etc."
+                        style={{
+                          backgroundColor: '#f0f9ff',
+                          borderRadius: '12px',
+                          fontSize: '0.95rem',
+                          lineHeight: '1.6',
+                          padding: '1rem',
+                          boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+                          border: '1px solid #e2e8f0'
+                        }}
+                      />
+                    </div>
+
+                    <div className="row g-3">
+                      <div className="col-md-6">
+                        <label className="form-label text-dark" style={{
+                          fontSize: '0.9rem',
+                          color: '#495057'
+                        }}>Current Medications</label>
+                        <textarea
+                          className="form-control border-0"
+                          name="medications"
+                          value={formData.medications}
+                          onChange={handleInputChange}
+                          rows="3"
+                          placeholder="List medications you're currently taking..."
+                          style={{
+                            backgroundColor: '#f0f9ff',
+                            borderRadius: '12px',
+                            fontSize: '0.95rem',
+                            padding: '1rem',
+                            boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+                            border: '1px solid #e2e8f0'
+                          }}
+                        />
+                      </div>
+                      <div className="col-md-6">
+                        <label className="form-label text-dark" style={{
+                          fontSize: '0.9rem',
+                          color: '#495057'
+                        }}>Known Allergies</label>
+                        <textarea
+                          className="form-control border-0"
+                          name="allergies"
+                          value={formData.allergies}
+                          onChange={handleInputChange}
+                          rows="3"
+                          placeholder="Any allergies to medications, foods, etc..."
+                          style={{
+                            backgroundColor: '#f0f9ff',
+                            borderRadius: '12px',
+                            fontSize: '0.95rem',
+                            padding: '1rem',
+                            boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+                            border: '1px solid #e2e8f0'
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Medical History Section */}
+                  <div className="mb-5">
+                    <div className="d-flex align-items-center mb-4">
+                      <div className="rounded-circle p-2 me-3" style={{ 
+                        backgroundColor: '#0ea5e9',
+                        opacity: '0.9'
+                      }}>
+                        <i className="fas fa-clipboard-list text-white" style={{ fontSize: '0.9rem' }}></i>
+                      </div>
+                      <h4 className="mb-0" style={{ 
+                        fontFamily: "'Playfair Display', serif", 
+                        color: '#0284c7',
+                        fontSize: '1.4rem',
+                        fontWeight: '400'
+                      }}>
+                        Medical Background
+                      </h4>
+                    </div>
+                    
+                    <div className="row g-3 mb-3">
+                      <div className="col-md-6">
+                        <label className="form-label text-dark" style={{
+                          fontSize: '0.9rem',
+                          color: '#495057'
+                        }}>Past Medical History</label>
+                        <textarea
+                          className="form-control border-0"
+                          name="medicalHistory"
+                          value={formData.medicalHistory}
+                          onChange={handleInputChange}
+                          rows="4"
+                          placeholder="Previous conditions, surgeries, hospitalizations..."
+                          style={{
+                            backgroundColor: '#bae6fd',
+                            borderRadius: '12px',
+                            fontSize: '0.95rem',
+                            padding: '1rem',
+                            boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+                            border: '1px solid #e2e8f0'
+                          }}
+                        />
+                      </div>
+                      <div className="col-md-6">
+                        <label className="form-label text-dark" style={{
+                          fontSize: '0.9rem',
+                          color: '#495057'
+                        }}>Family History</label>
+                        <textarea
+                          className="form-control border-0"
+                          name="familyHistory"
+                          value={formData.familyHistory}
+                          onChange={handleInputChange}
+                          rows="4"
+                          placeholder="Family history of diabetes, heart disease, cancer..."
+                          style={{
+                            backgroundColor: '#bae6fd',
+                            borderRadius: '12px',
+                            fontSize: '0.95rem',
+                            padding: '1rem',
+                            boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+                            border: '1px solid #e2e8f0'
+                          }}
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="form-label text-dark" style={{
+                        fontSize: '0.9rem',
+                        color: '#495057'
+                      }}>Lifestyle Factors</label>
+                      <textarea
+                        className="form-control border-0"
+                        name="lifestyle"
+                        value={formData.lifestyle}
+                        onChange={handleInputChange}
+                        rows="3"
+                        placeholder="Exercise routine, diet, sleep patterns, stress levels..."
+                        style={{
+                          backgroundColor: '#bae6fd',
+                          borderRadius: '12px',
+                          fontSize: '0.95rem',
+                          padding: '1rem',
+                          boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+                          border: '1px solid #e2e8f0'
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="text-center mt-5">
+                    <button
+                      type="button"
+                      className="btn btn-lg me-3 px-5 py-3 border-0"
+                      onClick={handleSubmit}
+                      disabled={isLoading}
+                      style={{
+                        background: 'linear-gradient(45deg, #0ea5e9 0%, #0284c7 100%)',
+                        color: 'white',
+                        borderRadius: '50px',
+                        fontSize: '1rem',
+                        fontWeight: '400',
+                        transform: isLoading ? 'scale(0.95)' : 'scale(1)',
+                        transition: 'all 0.3s ease',
+                        boxShadow: '0 8px 25px rgba(14, 165, 233, 0.3)'
+                      }}
+                    >
+                      {isLoading ? (
+                        <>
+                          <span className="spinner-border spinner-border-sm me-2"></span>
+                          Analyzing Your Health...
+                        </>
+                      ) : (
+                        <>
+                          <i className="fas fa-brain me-2"></i>
+                          Get AI Health Insights
+                        </>
+                      )}
+                    </button>
+                    
+                    <button
+                      type="button"
+                      className="btn btn-outline-secondary btn-lg px-5 py-3"
+                      onClick={resetForm}
+                      style={{
+                        borderRadius: '50px',
+                        fontSize: '1rem',
+                        fontWeight: '400',
+                        borderColor: '#6c757d',
+                        color: '#6c757d'
+                      }}
+                    >
+                      <i className="fas fa-redo me-2"></i>
+                      Clear Form
+                    </button>
+                  </div>
+                </div>
+
+                {/* Prediction Results */}
+                {prediction && (
+                  <div className="mt-5 pt-5">
+                    <div className="card border-0" style={{
+                      background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)',
+                      borderRadius: '20px',
+                      boxShadow: '0 15px 35px rgba(0,0,0,0.08)'
+                    }}>
+                      <div className="card-body p-4 p-md-5">
+                        <div className="text-center mb-4">
+                          <div className="d-inline-block p-3 rounded-circle mb-3" style={{
+                            background: 'linear-gradient(45deg, #0ea5e9 0%, #0284c7 100%)'
+                          }}>
+                            <i className="fas fa-check-circle text-white" style={{ fontSize: '1.8rem' }}></i>
+                          </div>
+                          <h3 className="text-dark" style={{ 
+                            fontFamily: "'Playfair Display', serif",
+                            fontSize: '1.6rem',
+                            fontWeight: '400',
+                            color: '#0284c7'
+                          }}>
+                            Your Health Analysis
+                          </h3>
+                          <p className="text-muted" style={{ fontSize: '0.95rem' }}>Based on the information you provided</p>
+                        </div>
+
+                        <div className="row g-4 mb-4">
+                          <div className="col-md-6">
+                            <div className="card h-100 border-0">
+                              <div className="card-body text-center p-4" style={{ 
+                                backgroundColor: '#ffffff',
+                                borderRadius: '16px',
+                                boxShadow: '0 4px 15px rgba(0,0,0,0.05)'
+                              }}>
+                                <h5 className="card-title mb-3" style={{ 
+                                  color: '#0ea5e9',
+                                  fontSize: '1.1rem',
+                                  fontWeight: '400'
+                                }}>Primary Condition</h5>
+                                <h4 className="text-dark" style={{ 
+                                  fontWeight: '500',
+                                  fontSize: '1.3rem'
+                                }}>{prediction.primaryCondition}</h4>
+                                <div className="mt-3">
+                                  <span className="px-3 py-2 rounded-pill" style={{
+                                    backgroundColor: '#0ea5e9',
+                                    color: 'white',
+                                    fontSize: '0.85rem'
+                                  }}>
+                                    Confidence: {prediction.confidence}
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div className="col-md-6">
+                            <div className="card h-100 border-0">
+                              <div className="card-body text-center p-4" style={{ 
+                                backgroundColor: '#ffffff',
+                                borderRadius: '16px',
+                                boxShadow: '0 4px 15px rgba(0,0,0,0.05)'
+                              }}>
+                                <h5 className="card-title mb-3" style={{ 
+                                  color: '#0ea5e9',
+                                  fontSize: '1.1rem',
+                                  fontWeight: '400'
+                                }}>Risk Assessment</h5>
+                                <div className="mb-3">
+                                  <span className="px-4 py-3 rounded-pill" style={{
+                                    backgroundColor: '#f0f9ff',
+                                    color: '#0ea5e9',
+                                    border: '2px solid #0ea5e9',
+                                    fontSize: '0.9rem'
+                                  }}>
+                                    <i className="fas fa-shield-alt me-2"></i>
+                                    {prediction.riskLevel} Risk
+                                  </span>
+                                </div>
+                                <p className="text-muted mb-0" style={{ fontSize: '0.9rem' }}>{prediction.urgency}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="card border-0">
+                          <div className="card-body p-4" style={{ 
+                            backgroundColor: '#ffffff',
+                            borderRadius: '16px',
+                            boxShadow: '0 4px 15px rgba(0,0,0,0.05)'
+                          }}>
+                            <h5 className="mb-4 text-dark" style={{
+                              fontSize: '1.2rem',
+                              fontWeight: '400'
+                            }}>
+                              <i className="me-2" style={{ color: '#0ea5e9' }}>💡</i>
+                              Recommendations for You
+                            </h5>
+                            <div className="row g-3">
+                              {prediction.recommendations.map((rec, index) => (
+                                <div key={index} className="col-12">
+                                  <div className="d-flex align-items-start p-3 rounded-3" style={{
+                                    backgroundColor: '#f0f9ff',
+                                    border: '1px solid #e0f2fe'
+                                  }}>
+                                    <div className="rounded-circle p-2 me-3 flex-shrink-0" style={{
+                                      backgroundColor: '#0ea5e9'
+                                    }}>
+                                      <i className="fas fa-check text-white" style={{ fontSize: '0.7rem' }}></i>
+                                    </div>
+                                    <p className="mb-0 text-dark" style={{ fontSize: '0.95rem' }}>{rec}</p>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="alert border-0 mt-4" style={{
+                          background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)',
+                          borderRadius: '15px'
+                        }}>
+                          <div className="d-flex align-items-start">
+                            <i className="me-3 mt-1" style={{ color: '#0ea5e9', fontSize: '1.1rem' }}>ℹ️</i>
+                            <div>
+                              <h6 className="mb-2" style={{ 
+                                color: '#0ea5e9',
+                                fontSize: '1rem',
+                                fontWeight: '500'
+                              }}>Important Medical Disclaimer</h6>
+                              <p className="mb-0 text-dark" style={{ fontSize: '0.9rem' }}>
+                                This AI analysis is for informational purposes only and should not replace professional medical advice. 
+                                Please consult with a qualified healthcare provider for proper diagnosis and treatment.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

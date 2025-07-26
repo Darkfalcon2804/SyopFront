@@ -55,7 +55,7 @@ export default function Contact() {
       icon: "fas fa-envelope",
       title: "Email Support",
       description: "Get help via email",
-      detail: "support@symptomai.com",
+      detail: "sympto.scope28@gmail.com",
       hours: "24/7 Response",
       color: "success"
     },

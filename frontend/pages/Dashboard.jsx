@@ -70,10 +70,7 @@ export default function Dashboard() {
                     Quick Log
                   </Button>
                 </Link>
-                <Button variant="outline-primary">
-                  <i className="fas fa-camera me-2"></i>
-                  Photo Log
-                </Button>
+             
               </div>
             </div>
           </Col>
@@ -98,17 +95,17 @@ export default function Dashboard() {
         </Row>
 
         {/* Quick Actions - Full Width */}
-        <div className="row mb-4">
-          <div className="col-12">
-            <div className="card medical-card">
+        <div className="row mb-5">
+          <div className="col-12" >
+            <div className="card medical-card"  >
               <div className="card-header">
                 <h4 className="mb-0">
                   <i className="fas fa-bolt text-warning me-2"></i>
                   Quick Actions
                 </h4>
               </div>
-              <div className="card-body">
-                <div className="row g-3">
+              <div className="card-body" >
+                <div className="row g-3" style={{display:"flex",alignItems:"center",justifyContent:"space-evenly"}}>
                   <div className="col-md-6 col-lg-3">
                     <Link to="/journal" className="text-decoration-none">
                       <div className="d-grid">
@@ -119,14 +116,14 @@ export default function Dashboard() {
                       </div>
                     </Link>
                   </div>
-                  <div className="col-md-6 col-lg-3">
+                  {/* <div className="col-md-6 col-lg-3">
                     <div className="d-grid">
                       <button className="btn btn-outline-primary py-3">
                         <i className="fas fa-microphone d-block mb-2" style={{ fontSize: '1.5rem' }}></i>
                         Voice Log
                       </button>
                     </div>
-                  </div>
+                  </div> */}
                   <div className="col-md-6 col-lg-3">
                     <Link to="/analysis" className="text-decoration-none">
                       <div className="d-grid">
