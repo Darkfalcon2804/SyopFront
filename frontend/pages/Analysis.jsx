@@ -87,7 +87,7 @@ export default function Analysis() {
   );
 
   return (
-    <div className="min-vh-100 analytics-bg py-5">
+    <div className="min-vh-100 analytics-bg py-5" >
       <div className="container">
         {/* Header */}
         <div className="mb-4 " style={{marginTop:'100px'}}>
@@ -100,7 +100,7 @@ export default function Analysis() {
           <li className="nav-item">
             <button
               className={`nav-link ${activeTab === 'overview' ? 'active' : ''}`}
-              onClick={() => setActiveTab('overview')}
+            //  onClick={() => setActiveTab('overview')}
             >
               Overview
             </button>
@@ -108,7 +108,7 @@ export default function Analysis() {
           <li className="nav-item">
             <button
               className={`nav-link ${activeTab === 'trends' ? 'active' : ''}`}
-              onClick={() => setActiveTab('trends')}
+             // onClick={() => setActiveTab('trends')}
             >
               Health Trends
             </button>
@@ -116,15 +116,15 @@ export default function Analysis() {
           <li className="nav-item">
             <button
               className={`nav-link ${activeTab === 'predictions' ? 'active' : ''}`}
-              onClick={() => setActiveTab('predictions')}
+              //onClick={() => setActiveTab('predictions')}
             >
               AI Predictions
             </button>
           </li>
           <li className="nav-item">
             <button
-              className={`nav-link ${activeTab === 'demographics' ? 'active' : ''}`}
-              onClick={() => setActiveTab('demographics')}
+               className={`nav-link ${activeTab === 'demographics' ? 'active' : ''}`}
+              // onClick={() => setActiveTab('demographics')}
             >
               Demographics
             </button>
@@ -233,7 +233,7 @@ export default function Analysis() {
         )}
 
         {/* Health Trends Tab */}
-        {activeTab === 'trends' && (
+        {/* {activeTab === 'trends' && (
           <div>
             <div className="card shadow-sm mb-4">
               <div className="card-body">
@@ -279,10 +279,10 @@ export default function Analysis() {
               </div>
             </div>
           </div>
-        )}
+        )} */}
 
         {/* AI Predictions Tab */}
-        {activeTab === 'predictions' && (
+        {/* {activeTab === 'predictions' && (
           <div>
             <div className="card mb-4 bg-gradient-primary">
               <div className="card-body pb-5 pt-4 px-4">
@@ -349,10 +349,10 @@ export default function Analysis() {
               </div>
             </div>
           </div>
-        )}
+        )} */}
 
         {/* Demographics Tab */}
-        {activeTab === 'demographics' && (
+        {/* {activeTab === 'demographics' && (
           <div>
             <div className="card shadow-sm mb-4 bg-gradient-blue">
               <div className="card-body">
@@ -401,7 +401,7 @@ export default function Analysis() {
               ))}
             </div>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );
