@@ -1,24 +1,90 @@
-import { Container, Row, Col, Card } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 
 export default function Journal() {
+  const [entries, setEntries] = useState([]);
+  const [text, setText] = useState("");
+  const [charLimit] = useState(500);
+
+  useEffect(() => {
+    const savedEntries = localStorage.getItem("journalEntries");
+    if (savedEntries) {
+      setEntries(JSON.parse(savedEntries));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("journalEntries", JSON.stringify(entries));
+  }, [entries]);
+
+  const handleSave = () => {
+    if (text.trim()) {
+      const newEntry = {
+        id: Date.now(),
+        date: new Date().toLocaleDateString(),
+        content: text.trim(),
+      };
+      setEntries([newEntry, ...entries]);
+      setText("");
+    }
+  };
+
+  const handleDelete = (id) => {
+    setEntries(entries.filter((entry) => entry.id !== id));
+  };
+
   return (
-    <div style={{ paddingTop: '100px', backgroundColor: '#f8f9fa', minHeight: '100vh' }}>
-      <Container>
-        <Row className="justify-content-center">
-          <Col lg={8}>
-            <Card className="medical-card text-center">
-              <Card.Body className="p-5">
-                <i className="fas fa-notes-medical display-1 text-primary mb-4"></i>
-                <h2 className="fw-bold mb-3">Symptom Journal</h2>
-                <p className="text-muted mb-4">
-                  Advanced symptom logging with intelligent tracking and AI-powered insights.
-                  This page is currently under development.
-                </p>
-                <p className="text-muted small">
-                  Continue prompting to help build out these features!
-                </p>
-              </Card.Body>
-            </Card>
+    <div style={{ paddingTop: "100px", backgroundColor: "#f8f9fa", minHeight: "100vh" }}>
+      <Container className="py-5">
+        <Row>
+          <Col md={8} className="mx-auto">
+            <h2 className="text-center mb-4">📝 My Health Journal</h2>
+
+            <Form.Group className="mb-3">
+              <Form.Label>Write something today:</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={4}
+                value={text}
+                maxLength={charLimit}
+                placeholder="How are you feeling today?"
+                onChange={(e) => setText(e.target.value)}
+              />
+              <div className="text-end small mt-1">
+                {text.length}/{charLimit} characters
+              </div>
+            </Form.Group>
+
+            <div className="d-grid">
+              <Button
+                className="btn-medical-success mb-4"
+                onClick={handleSave}
+                disabled={!text.trim()}
+              >
+                Save Entry
+              </Button>
+            </div>
+
+            {entries.length > 0 && (
+              <>
+                <h4 className="mb-3">📋 Previous Entries</h4>
+                {entries.map((entry) => (
+                  <Card className="mb-3 medical-card shadow-sm" key={entry.id}>
+                    <Card.Body>
+                      <Card.Title>{entry.date}</Card.Title>
+                      <Card.Text>{entry.content}</Card.Text>
+                      <Button
+                        variant="outline-danger"
+                        size="sm"
+                        onClick={() => handleDelete(entry.id)}
+                      >
+                        Delete
+                      </Button>
+                    </Card.Body>
+                  </Card>
+                ))}
+              </>
+            )}
           </Col>
         </Row>
       </Container>
