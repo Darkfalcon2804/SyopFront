@@ -5,7 +5,7 @@ import { UseAuth } from "../contexts/AuthContext";
 export default function Dashboard() {
   const { user } = UseAuth();
 
-  if (!user) return <p>Loading...</p>;
+  if (!user) return <p style={{ paddingTop: '100px', backgroundColor: '#f8f9fa', minHeight: '100vh' }}>Loading...</p>;
 
   const stats = [
     { number: "47", label: "Days Tracked", icon: "fas fa-calendar", change: "+3 this week", color: "primary" },

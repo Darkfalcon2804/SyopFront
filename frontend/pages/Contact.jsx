@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Container, Row, Col, Card, Form, Button, Badge, Alert, Modal } from "react-bootstrap";
-import SymptoScopeLogo  from "../public/SymptoScopeLogo.png";
+import SymptoScopeLogo from "../public/SymptoScopeLogo.png";
+import { UseAuth } from "../contexts/AuthContext";
+import { Link } from "react-router-dom";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -12,9 +14,10 @@ export default function Contact() {
     message: "",
     urgency: "medium"
   });
-  
+  const [error, setError] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const { isLogin } = UseAuth();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -27,9 +30,14 @@ export default function Contact() {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission here
+    if (!isLogin) {
+      setError(true);
+      setTimeout(() => setShowSuccess(false), 5000);
+      return;
+    }
+
     setShowSuccess(true);
     setTimeout(() => setShowSuccess(false), 5000);
-    
     // Reset form
     setFormData({
       name: "",
@@ -125,13 +133,13 @@ export default function Contact() {
                   <span className="d-block text-warning">Help You</span>
                 </h1>
                 <p className="lead mb-5">
-                  Our dedicated support team is ready to assist you with any questions, 
+                  Our dedicated support team is ready to assist you with any questions,
                   technical issues, or guidance you need on your health journey.
                 </p>
                 <div className="d-flex flex-wrap gap-3">
-                  <Button 
-                    variant="warning" 
-                    size="lg" 
+                  <Button
+                    variant="warning"
+                    size="lg"
                     className="px-4 py-3"
                     onClick={() => setShowModal(true)}
                   >
@@ -146,7 +154,7 @@ export default function Contact() {
                 <div className="p-5 rounded-4 shadow-lg" style={{
                   background: '#f8f9fa', color: '#212529'
                 }}>
-                  <img src={SymptoScopeLogo} alt="SymptoScope Logo" style={{ width: '95px'}} />
+                  <img src={SymptoScopeLogo} alt="SymptoScope Logo" style={{ width: '95px' }} />
                   <h3 className="mb-3">AI support</h3>
                   <p className="mb-0">User-friendly healthcare provider</p>
                 </div>
@@ -168,7 +176,7 @@ export default function Contact() {
               </p>
             </Col>
           </Row>
-          
+
           <Row className="g-4 flex justify-content-evenly">
             {contactMethods.map((method, index) => (
               <Col md={6} lg={3} key={index}>
@@ -203,12 +211,7 @@ export default function Contact() {
                     </p>
                   </div>
 
-                  {showSuccess && (
-                    <Alert variant="success" className="mb-4">
-                      <i className="fas fa-check-circle me-2"></i>
-                      Thank you for your message! We'll get back to you soon.
-                    </Alert>
-                  )}
+
 
                   <Form onSubmit={handleSubmit}>
                     <Row className="g-3">
@@ -225,7 +228,7 @@ export default function Contact() {
                           />
                         </Form.Group>
                       </Col>
-                      
+
                       <Col md={6}>
                         <Form.Group>
                           <Form.Label>Email Address *</Form.Label>
@@ -239,7 +242,7 @@ export default function Contact() {
                           />
                         </Form.Group>
                       </Col>
-                      
+
                       <Col md={6}>
                         <Form.Group>
                           <Form.Label>Phone Number</Form.Label>
@@ -252,7 +255,7 @@ export default function Contact() {
                           />
                         </Form.Group>
                       </Col>
-                      
+
                       <Col md={6}>
                         <Form.Group>
                           <Form.Label>Contact Category *</Form.Label>
@@ -272,7 +275,7 @@ export default function Contact() {
                           </Form.Select>
                         </Form.Group>
                       </Col>
-                      
+
                       <Col md={6}>
                         <Form.Group>
                           <Form.Label>Subject *</Form.Label>
@@ -286,7 +289,7 @@ export default function Contact() {
                           />
                         </Form.Group>
                       </Col>
-                      
+
                       <Col md={6}>
                         <Form.Group>
                           <Form.Label>Priority Level</Form.Label>
@@ -302,7 +305,7 @@ export default function Contact() {
                           </Form.Select>
                         </Form.Group>
                       </Col>
-                      
+
                       <Col xs={12}>
                         <Form.Group>
                           <Form.Label>Message *</Form.Label>
@@ -317,11 +320,38 @@ export default function Contact() {
                           />
                         </Form.Group>
                       </Col>
-                      
+                      {error && (
+                        <Alert variant="danger" className="mb-4">
+                          <i className="fas fa-exclamation-circle me-2"></i>
+                          Please first login to submit the form.
+                          <Button
+                            size="lg"
+                            className="px-3 py-2 shadow-lg ms-5"
+                            style={{
+                              borderRadius: '4px',
+                              fontWeight: '600',
+                              letterSpacing: '0.5px',
+                              background: 'rgba(255, 255, 255, 0.2)',
+                              border: '2px solid rgba(255, 255, 255, 0.3)',
+                              color: '#ffffff',
+                              backdropFilter: 'blur(10px)'
+                            }}
+                          >
+                            <Link to="/login" style={{ textDecoration: "none", color: "#fff" }}>Sign In <i className="fas fa-arrow-right "></i></Link>
+                          </Button>
+                        </Alert>
+                      )}
+
+                      {showSuccess && (
+                        <Alert variant="success" className="mb-4">
+                          <i className="fas fa-check-circle me-2"></i>
+                          Thank you for your message! We'll get back to you soon.
+                        </Alert>
+                      )}
                       <Col xs={12}>
                         <div className="d-flex align-items-center mb-3">
-                          <Form.Check 
-                            type="checkbox" 
+                          <Form.Check
+                            type="checkbox"
                             id="privacy-check"
                             label="I agree to the Privacy Policy and Terms of Service"
                             required
@@ -337,7 +367,7 @@ export default function Contact() {
                 </Card.Body>
               </Card>
             </Col>
-            
+
             <Col lg={4}>
               {/* Quick Contact Info */}
               <Card className="medical-card border-0 mb-4">
@@ -375,7 +405,7 @@ export default function Contact() {
                     Medical Emergency?
                   </h5>
                   <p className="text-muted mb-3">
-                    If you're experiencing a medical emergency, please contact your 
+                    If you're experiencing a medical emergency, please contact your
                     healthcare provider or call emergency services immediately.
                   </p>
                   <Button variant="danger" className="w-100">
@@ -469,7 +499,7 @@ export default function Contact() {
               <h2 className="display-4 fw-bold mb-4">Common Questions</h2>
             </Col>
           </Row>
-          
+
           <Row className="justify-content-center">
             <Col lg={10}>
               {faqs.map((faq, index) => (
@@ -483,7 +513,7 @@ export default function Contact() {
                   </Card.Body>
                 </Card>
               ))}
-              
+
               <div className="text-center mt-4">
                 <Button variant="primary" size="lg">
                   <i className="fas fa-external-link-alt me-2"></i>

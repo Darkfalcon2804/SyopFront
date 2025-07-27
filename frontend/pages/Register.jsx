@@ -4,7 +4,6 @@ import { Container, Row, Col, Card, Form, Button, Alert } from "react-bootstrap"
 import { UseAuth } from "../contexts/AuthContext";
 import axios from "axios";
 export default function Register() {
-  const { login } = UseAuth();
   const [formData, setFormData] = useState({
     FirstName: "",
     LastName: "",
@@ -65,7 +64,6 @@ export default function Register() {
     } finally {
         setIsLoading(false); //  Hide loading spinner
       }
-
     // Simulate API call
     setTimeout(() => {
       setIsLoading(false);
