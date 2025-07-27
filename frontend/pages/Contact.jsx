@@ -3,6 +3,7 @@ import { Container, Row, Col, Card, Form, Button, Badge, Alert, Modal } from "re
 import SymptoScopeLogo from "../public/SymptoScopeLogo.png";
 import { UseAuth } from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -17,7 +18,7 @@ export default function Contact() {
   const [error, setError] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const { isLogin } = UseAuth();
+  const { isLogin, token } = UseAuth();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -27,7 +28,7 @@ export default function Contact() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Handle form submission here
     if (!isLogin) {
@@ -35,7 +36,12 @@ export default function Contact() {
       setTimeout(() => setShowSuccess(false), 5000);
       return;
     }
-
+    const res = await axios.post("http://localhost:3000/api/contact", formData, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    console.log(res.data);
     setShowSuccess(true);
     setTimeout(() => setShowSuccess(false), 5000);
     // Reset form

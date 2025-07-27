@@ -3,6 +3,7 @@ import dotenv from "dotenv"
 import connectDB from "./confing/db.js"
 import cors from "cors"
 import userRoute from "./routes/user.route.js";
+import contactFormRouter from "./routes/contactForm.route.js";
 dotenv.config()
 const app = express()
 app.use(express.json())
@@ -14,6 +15,8 @@ connectDB();
 // user routes 
 
 app.use("/api/user", userRoute);
+// contact form router
+app.use("/api/contact", contactFormRouter);
 
 // home route
 app.get('/', (req, res) => {
