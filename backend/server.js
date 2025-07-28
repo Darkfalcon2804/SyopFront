@@ -18,10 +18,12 @@ app.use("/api/user", userRoute);
 // contact form router
 app.use("/api/contact", contactFormRouter);
 
+
 // home route
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

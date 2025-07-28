@@ -1,11 +1,49 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Container, Row, Col, Card, Button, Badge, ProgressBar } from "react-bootstrap";
 import { UseAuth } from "../contexts/AuthContext";
+import axios from "axios";
+import { useEffect, useState } from "react";
+
 
 export default function Dashboard() {
-  const { user } = UseAuth();
+  const { user, token } = UseAuth();
+  const navigate = useNavigate();
+  const [daysAccount, setDaysAccount] = useState(0);
+  if (!user) {
+    return (<>
+      <p style={{ paddingTop: '100px', backgroundColor: '#f8f9fa', minHeight: '100vh' }}>You are not Authorized for this page. please sign-in</p>;
+      {setTimeout(() => {
+        navigate("/login");
+      }, 2000)}
+    </>
+    )
+  }
+  // it is a function that give us the data of how long ago a user's account was created
+  const getDaysAgo = (createdAt) => {
+    const createdDate = new Date(createdAt);
+    const now = new Date();
+    const diffTime = now - createdDate;
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  };
 
-  if (!user) return <p style={{ paddingTop: '100px', backgroundColor: '#f8f9fa', minHeight: '100vh' }}>Loading...</p>;
+  const handleUserData = async () => {
+    try {
+      const res = await axios.get("http://localhost:3000/api/user/profile", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      setDaysAccount(res.data.user.createdAt);
+      console.log(res.data)
+      console.log(daysAccount)
+    } catch (error) {
+      console.error("Error fetching user data:", error.message);
+    }
+  }
+  useEffect(() => {
+    handleUserData();
+  }, []);
 
   const stats = [
     { number: "47", label: "Days Tracked", icon: "fas fa-calendar", change: "+3 this week", color: "primary" },
@@ -70,7 +108,7 @@ export default function Dashboard() {
                     Quick Log
                   </Button>
                 </Link>
-             
+
               </div>
             </div>
           </Col>
@@ -105,7 +143,7 @@ export default function Dashboard() {
                 </h4>
               </div>
               <div className="card-body" >
-                <div className="row g-3" style={{display:"flex",alignItems:"center",justifyContent:"space-evenly"}}>
+                <div className="row g-3" style={{ display: "flex", alignItems: "center", justifyContent: "space-evenly" }}>
                   <div className="col-md-6 col-lg-3">
                     <Link to="/journal" className="text-decoration-none">
                       <div className="d-grid">
@@ -193,7 +231,7 @@ export default function Dashboard() {
               <div className="card-body">
                 <div className="text-center py-5">
                   {/* <i className="fas fa-clock text-muted mb-3" style={{ fontSize: '3rem' }}></i> */}
-                  <p className="text-muted fs-3 mb-0" style={{ fontStyle: 'italic'}}>
+                  <p className="text-muted fs-3 mb-0" style={{ fontStyle: 'italic' }}>
                     Coming Soon...
                   </p>
                 </div>
