@@ -109,20 +109,20 @@ export default function Contact() {
 
   const faqs = [
     {
-      question: "How secure is my health data?",
-      answer: "We use enterprise-grade encryption and are fully HIPAA compliant. Your data is stored in secure, audited data centers."
+      question: " What is SymptoScope?",
+      answer: "SymptoScope is a smart, web-based health tracking platform that helps users log symptoms, analyze health trends, and receive AI-driven insights for proactive well-being."
     },
     {
-      question: "Can I share my data with my doctor?",
-      answer: "Yes! You can generate comprehensive reports and share them directly with your healthcare providers."
+      question: "How does SymptoScope help me monitor my health?",
+      answer: "By allowing you to log daily symptoms, track changes visually over time, and get personalized health insights using AI, SymptoScope enables you to stay informed and in control of your wellness."
     },
     {
-      question: "Is there a mobile app?",
-      answer: "Yes, our mobile apps are available for both iOS and Android with full feature parity."
+      question: "Is SymptoScope available on mobile?",
+      answer: "Currently, SymptoScope is optimized for desktop use. A mobile-responsive version and dedicated app are planned for future updates."
     },
     {
-      question: "What rare conditions do you support?",
-      answer: "We support over 500 rare conditions and are constantly adding more based on user needs and medical research."
+      question: "How do I contact the SymptoScope team?",
+      answer: "For any queries or support, feel free to reach out to us at sympto.scope28@gmail.com — we're here to help!"
     }
   ];
 
@@ -161,8 +161,8 @@ export default function Contact() {
                   background: '#f8f9fa', color: '#212529'
                 }}>
                   <img src={SymptoScopeLogo} alt="SymptoScope Logo" style={{ width: '95px' }} />
-                  <h3 className="mb-3">AI support</h3>
-                  <p className="mb-0">User-friendly healthcare provider</p>
+                  <h3 className="mb-3 text-secondary ">AI support</h3>
+                  <p className="mb-0 text-secondary">User-friendly healthcare provider</p>
                 </div>
               </div>
             </Col>
@@ -521,10 +521,10 @@ export default function Contact() {
               ))}
 
               <div className="text-center mt-4">
-                <Button variant="primary" size="lg">
+                {/* <Button variant="primary" size="lg">
                   <i className="fas fa-external-link-alt me-2"></i>
                   View All FAQs
-                </Button>
+                </Button> */}
               </div>
             </Col>
           </Row>

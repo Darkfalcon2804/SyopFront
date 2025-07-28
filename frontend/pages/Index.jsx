@@ -479,12 +479,12 @@ export default function Index() {
                 © 2024 SymptomAI. All rights reserved.
               </p>
             </Col>
-            <Col md={6} className="text-md-end">
+            {/* <Col md={6} className="text-md-end">
               <p className="text-white-50 mb-0">
                 <i className="fas fa-shield-alt me-1"></i>
                 HIPAA Compliant • FDA Approved • SOC 2 Certified
               </p>
-            </Col>
+            </Col> */}
           </Row>
         </Container>
       </footer>
