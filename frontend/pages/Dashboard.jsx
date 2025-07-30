@@ -34,8 +34,6 @@ export default function Dashboard() {
         }
       });
       setDaysAccount(getDaysAgo(res.data.user.createdAt));
-      console.log(daysAccount)
-      console.log(res.data)
     } catch (error) {
       console.error("Error fetching user data:", error.message);
     }
@@ -559,7 +557,7 @@ Report ID: ${Date.now()}\`;
             <div className="d-flex justify-content-between align-items-center">
               <div>
                 <h1 className="display-4 fw-bold text-gradient-primary mb-2">
-                  Welcome back, {user.FirstName}
+                  Welcome back, {user.user.FirstName}
                 </h1>
                 <p className="text-muted fs-5">
                   Your health overview for {new Date().toLocaleDateString('en-US', {
