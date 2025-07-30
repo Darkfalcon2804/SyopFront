@@ -6,25 +6,28 @@ import express from "../pages/images/express.png"
 import mongo from "../pages/images/mongo.png"
 import node from "../pages/images/node.png"
 import ReactLogo from "../pages/images/react.png"
+import Rohit from "../pages/images/rohit_image.jpg"
+import Bhavesh from "../pages/images/bhavesh_image.jpg"
+import Navita from "../pages/images/navita_image.jpg"
 export default function About() {
   const { isDarkMode } = useTheme();
   const teamMembers = [
     {
       name: "Bhavesh Jain",
       role: "Full Stack Developer",
-      image: "https://via.placeholder.com/150x150/28a745/ffffff?text=MC",
+      image: `${Bhavesh}`,
       bio: "Btech CSE, Arya College of Engineering"
     },
     {
       name: "Navita Tulsani",
       role: "Full Stack Developer",
-      image: "https://via.placeholder.com/150x150/6f42c1/ffffff?text=ER",
+      image: `${Navita}`,
       bio: "Btech CSE(IT), Poornima College of Engineering"
     },
     {
       name: "Rohit Kumawat",
       role: "Full Stack Developer",
-      image: "https://via.placeholder.com/150x150/fd7e14/ffffff?text=DK",
+      image: `${Rohit}`,
       bio: "Btech CSE, Poornima College of Engineering ."
     }
   ];

@@ -26,7 +26,6 @@ export default function Dashboard() {
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
     return diffDays;
   };
-
   const handleUserData = async () => {
     try {
       const res = await axios.get("http://localhost:3000/api/user/profile", {
@@ -34,9 +33,9 @@ export default function Dashboard() {
           Authorization: `Bearer ${token}`
         }
       });
-      setDaysAccount(res.data.user.createdAt);
-      console.log(res.data)
+      setDaysAccount(getDaysAgo(res.data.user.createdAt));
       console.log(daysAccount)
+      console.log(res.data)
     } catch (error) {
       console.error("Error fetching user data:", error.message);
     }
@@ -46,10 +45,10 @@ export default function Dashboard() {
   }, []);
 
   const stats = [
-    { number: "47", label: "Days Tracked", icon: "fas fa-calendar", change: "+3 this week", color: "primary" },
-    { number: "23", label: "Symptoms Logged", icon: "fas fa-notes-medical", change: "This week", color: "success" },
-    { number: "8", label: "AI Insights", icon: "fas fa-brain", change: "2 new", color: "info" },
-    { number: "15%", label: "Improvement", icon: "fas fa-chart-line", change: "This month", color: "warning" }
+    { number: `${daysAccount}`, label: "Days Tracked", icon: "fas fa-calendar", color: "primary" },
+    { number: "12", label: "Symptoms Logged", icon: "fas fa-notes-medical", color: "success" },
+    { number: "8", label: "AI Insights", icon: "fas fa-brain", color: "info" },
+    { number: "15%", label: "Improvement", icon: "fas fa-chart-line", color: "warning" }
   ];
 
   const recentActivity = [
@@ -81,15 +80,15 @@ export default function Dashboard() {
     { task: "Water Intake", progress: 75, current: "6/8 glasses", status: "Good" },
     { task: "Medication", progress: 100, current: "Complete", status: "Done" }
   ];
-     
-    
 
-    // Add this function to your Dashboard component, right after your existing functions
 
-const handleGenerateReport = () => {
-  const reportWindow = window.open('', '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes');
-  
-  const reportHTML = `
+
+  // Add this function to your Dashboard component, right after your existing functions
+
+  const handleGenerateReport = () => {
+    const reportWindow = window.open('', '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes');
+
+    const reportHTML = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -317,11 +316,11 @@ const handleGenerateReport = () => {
                 <div>
                     <h1>Health Report</h1>
                     <p>Generated on ${new Date().toLocaleDateString('en-US', {
-                        weekday: 'long',
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                    })}</p>
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    })}</p>
                     <p style="font-size: 1.1rem; margin: 5px 0 0 0; opacity: 0.8;">
                         Patient: ${user.FirstName}
                     </p>
@@ -338,27 +337,23 @@ const handleGenerateReport = () => {
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-icon">📅</div>
-                    <h3 class="stat-number">47</h3>
+                    <h3 class="stat-number">${daysAccount}</h3>
                     <p class="stat-label">Days Tracked</p>
-                    <small class="stat-change">+3 this week</small>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon">📋</div>
-                    <h3 class="stat-number">23</h3>
+                    <h3 class="stat-number">12</h3>
                     <p class="stat-label">Symptoms Logged</p>
-                    <small class="stat-change">This week</small>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon">🧠</div>
                     <h3 class="stat-number">8</h3>
                     <p class="stat-label">AI Insights</p>
-                    <small class="stat-change">2 new</small>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon">📈</div>
                     <h3 class="stat-number">15%</h3>
                     <p class="stat-label">Improvement</p>
-                    <small class="stat-change">This month</small>
                 </div>
             </div>
         </div>
@@ -456,11 +451,11 @@ const handleGenerateReport = () => {
         function downloadTextReport() {
             const reportContent = \`HEALTH TRACKING REPORT
 Generated on: ${new Date().toLocaleDateString('en-US', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            })}
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    })}
 Patient: ${user.FirstName}
 
 === SUMMARY STATISTICS ===
@@ -537,24 +532,24 @@ Report ID: ${Date.now()}\`;
 </html>
   `;
 
-  reportWindow.document.write(reportHTML);
-  reportWindow.document.close();
-};
+    reportWindow.document.write(reportHTML);
+    reportWindow.document.close();
+  };
 
-//Replace your existing Generate Report button in the Dashboard with this:
-/*
-<div className="col-md-6 col-lg-3">
-  <div className="d-grid">
-    <button 
-      className="btn btn-outline-primary py-3"
-      onClick={handleGenerateReport}
-    >
-      <i className="fas fa-file-pdf d-block mb-2" style={{ fontSize: '1.5rem' }}></i>
-      Generate Report
-    </button>
+  //Replace your existing Generate Report button in the Dashboard with this:
+  /*
+  <div className="col-md-6 col-lg-3">
+    <div className="d-grid">
+      <button 
+        className="btn btn-outline-primary py-3"
+        onClick={handleGenerateReport}
+      >
+        <i className="fas fa-file-pdf d-block mb-2" style={{ fontSize: '1.5rem' }}></i>
+        Generate Report
+      </button>
+    </div>
   </div>
-</div>
-*/
+  */
 
   return (
     <div style={{ paddingTop: '100px', backgroundColor: '#f8f9fa', minHeight: '100vh' }}>
@@ -646,17 +641,17 @@ Report ID: ${Date.now()}\`;
                       </div>
                     </Link>
                   </div>
-<div className="col-md-6 col-lg-3">
-  <div className="d-grid">
-    <button 
-      className="btn btn-outline-primary py-3"
-      onClick={handleGenerateReport}
-    >
-      <i className="fas fa-file-pdf d-block mb-2" style={{ fontSize: '1.5rem' }}></i>
-      Generate Report
-    </button>
-  </div>
-</div>              
+                  <div className="col-md-6 col-lg-3">
+                    <div className="d-grid">
+                      <button
+                        className="btn btn-outline-primary py-3"
+                        onClick={handleGenerateReport}
+                      >
+                        <i className="fas fa-file-pdf d-block mb-2" style={{ fontSize: '1.5rem' }}></i>
+                        Generate Report
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
