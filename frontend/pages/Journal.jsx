@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import diseasesData from "../components/Diseases.js";
 export default function HealthJournal() {
   const [formData, setFormData] = useState({
     name: "",
@@ -28,25 +28,88 @@ export default function HealthJournal() {
       [name]: value
     }));
   };
+  const recommendDisease = (symptoms) => {
+    const symptomKeywords = symptoms.toLowerCase().split(/\s*,\s*|\s+/).filter(Boolean); // Split by comma or space, remove empty strings
+
+    // --- Simple Recommendation Logic ---
+    // This is a highly simplified logic for demonstration.
+    // In a real application, this would involve complex NLP, ML models,
+    // and a vast, structured medical knowledge base.
+
+    let matchedDisease = null;
+    let highestMatchCount = 0;
+
+    for (const disease of diseasesData) {
+      let currentMatchCount = 0;
+      const primaryConditionLower = disease.primaryCondition.toLowerCase();
+      const diseaseSymptomsLower = disease.symptoms ? disease.symptoms.map(s => s.toLowerCase()) : [];
+
+      if (symptoms.toLowerCase().trim() === primaryConditionLower) {
+        return disease; // Found an exact primary condition match, return immediately
+      }
+
+      for (const keyword of symptomKeywords) {
+        if (diseaseSymptomsLower.includes(keyword)) {
+          currentMatchCount += 2; // Give higher weight to direct symptom matches
+        } else if (primaryConditionLower.includes(keyword)) {
+          currentMatchCount++;
+        }
+        // Also check if recommendations contain keywords for a slightly better match
+        if (disease.recommendations.some(rec => rec.toLowerCase().includes(keyword))) {
+          currentMatchCount++;
+        }
+      }
+
+      // Prioritize exact or near matches on primary condition
+      // if (primaryConditionLower.includes(symptoms.toLowerCase())) {
+      //   matchedDisease = disease;
+      //   break; // Found a strong match, use this one
+      
+      // If no strong match, find the one with most keyword overlaps
+      if (currentMatchCount > highestMatchCount) {
+        highestMatchCount = currentMatchCount;
+        matchedDisease = disease;
+      }
+    }
+    if (!matchedDisease || highestMatchCount < 1) { // If less than 1 keyword matched, consider it no match
+      // A generic or "no specific recommendation" placeholder
+      return {
+        id: 0,
+        primaryCondition: "Symptoms unclear / No specific match",
+        confidence: "Low",
+        riskAssessment: "N/A",
+        riskDetails: "Please provide more specific symptoms or consult a doctor directly.",
+        recommendations: [
+          "Consult a healthcare professional for a proper diagnosis.",
+          "Do not self-diagnose based on limited information.",
+          "If symptoms are severe, seek urgent medical attention."
+        ]
+      };
+    }
+
+    return matchedDisease;
+  };
 
   const handleSubmit = () => {
     setIsLoading(true);
-    
+
     setTimeout(() => {
-      const mockPrediction = {
-        primaryCondition: "Common Cold",
-        confidence: "85%",
-        riskLevel: "Low",
-        recommendations: [
-          "Rest and stay hydrated",
-          "Monitor symptoms for 48-72 hours",
-          "Consider over-the-counter cold medication",
-          "Consult doctor if symptoms worsen"
-        ],
-        urgency: "Non-urgent - Monitor at home"
-      };
-      
-      setPrediction(mockPrediction);
+    //   const mockPrediction = {
+    //     primaryCondition: "Common Cold",
+    //     confidence: "85%",
+    //     riskLevel: "Low",
+    //     recommendations: [
+    //       "Rest and stay hydrated",
+    //       "Monitor symptoms for 48-72 hours",
+    //       "Consider over-the-counter cold medication",
+    //       "Consult doctor if symptoms worsen"
+    //     ],
+    //     urgency: "Non-urgent - Monitor at home"
+    //   };
+        const recommended = recommendDisease(formData.symptoms);
+
+
+      setPrediction(recommended);
       setIsLoading(false);
     }, 2000);
   };
@@ -70,6 +133,18 @@ export default function HealthJournal() {
     });
     setPrediction(null);
   };
+  const getRiskColor = (riskAssessment) => {
+    switch (riskAssessment) {
+      case 'Low Risk':
+        return formStyles.riskLow;
+      case 'Moderate Risk':
+        return formStyles.riskModerate;
+      case 'High Risk':
+        return formStyles.riskHigh;
+      case 'Critical Risk':
+        return formStyles.riskCritical;
+      default:
+        return {};}}
 
   const getCurrentDate = () => {
     return new Date().toLocaleDateString('en-US', {
@@ -136,12 +211,12 @@ export default function HealthJournal() {
                 padding: '2.5rem 0 4rem 0'
               }}>
                 <div className="text-center text-white">
-                  <h2 className="mb-1" style={{ 
-                    fontFamily: "'Playfair Display', serif", 
+                  <h2 className="mb-1" style={{
+                    fontFamily: "'Playfair Display', serif",
                     fontWeight: '300',
                     fontSize: '1.8rem'
                   }}>
-                  Health Journal
+                    Health Journal
                   </h2>
                   <p className="mb-0 opacity-80" style={{ fontSize: '0.95rem' }}>
                     {getCurrentDate()}
@@ -158,16 +233,16 @@ export default function HealthJournal() {
               <div className="card-body px-4 px-md-5 pb-5" style={{ marginTop: '-2rem' }}>
                 <div>
                   {/* Personal Details Section */}
-                  <div className="mb-5" style={{marginTop:'40px'}}>
+                  <div className="mb-5" style={{ marginTop: '40px' }}>
                     <div className="d-flex align-items-center mb-4">
-                      <div className="rounded-circle p-2 me-3" style={{ 
+                      <div className="rounded-circle p-2 me-3" style={{
                         backgroundColor: '#0ea5e9',
                         opacity: '0.9'
                       }}>
                         <i className="fas fa-user text-white" style={{ fontSize: '0.9rem' }}></i>
                       </div>
-                      <h4 className="mb-0" style={{ 
-                        fontFamily: "'Playfair Display', serif", 
+                      <h4 className="mb-0" style={{
+                        fontFamily: "'Playfair Display', serif",
                         color: '#0284c7',
                         fontSize: '1.4rem',
                         fontWeight: '400'
@@ -175,7 +250,7 @@ export default function HealthJournal() {
                         Personal Information
                       </h4>
                     </div>
-                    
+
                     <div className="row g-3">
                       <div className="col-md-8">
                         <label className="form-label text-dark" style={{
@@ -253,14 +328,14 @@ export default function HealthJournal() {
                   {/* Vital Signs Section */}
                   <div className="mb-5">
                     <div className="d-flex align-items-center mb-4">
-                      <div className="rounded-circle p-2 me-3" style={{ 
+                      <div className="rounded-circle p-2 me-3" style={{
                         backgroundColor: '#0ea5e9',
                         opacity: '0.9'
                       }}>
                         <i className="fas fa-heartbeat text-white" style={{ fontSize: '0.9rem' }}></i>
                       </div>
-                      <h4 className="mb-0" style={{ 
-                        fontFamily: "'Playfair Display', serif", 
+                      <h4 className="mb-0" style={{
+                        fontFamily: "'Playfair Display', serif",
                         color: '#0284c7',
                         fontSize: '1.4rem',
                         fontWeight: '400'
@@ -268,7 +343,7 @@ export default function HealthJournal() {
                         Vital Signs
                       </h4>
                     </div>
-                    
+
                     <div className="row g-3">
                       <div className="col-md-3">
                         <label className="form-label text-dark" style={{
@@ -365,14 +440,14 @@ export default function HealthJournal() {
                   {/* Symptoms Section */}
                   <div className="mb-5">
                     <div className="d-flex align-items-center mb-4">
-                      <div className="rounded-circle p-2 me-3" style={{ 
+                      <div className="rounded-circle p-2 me-3" style={{
                         backgroundColor: '#0ea5e9',
                         opacity: '0.9'
                       }}>
                         <i className="fas fa-stethoscope text-white" style={{ fontSize: '0.9rem' }}></i>
                       </div>
-                      <h4 className="mb-0" style={{ 
-                        fontFamily: "'Playfair Display', serif", 
+                      <h4 className="mb-0" style={{
+                        fontFamily: "'Playfair Display', serif",
                         color: '#0284c7',
                         fontSize: '1.4rem',
                         fontWeight: '400'
@@ -380,7 +455,7 @@ export default function HealthJournal() {
                         Current Symptoms
                       </h4>
                     </div>
-                    
+
                     <div className="mb-4">
                       <label className="form-label text-dark" style={{
                         fontSize: '0.9rem',
@@ -456,14 +531,14 @@ export default function HealthJournal() {
                   {/* Medical History Section */}
                   <div className="mb-5">
                     <div className="d-flex align-items-center mb-4">
-                      <div className="rounded-circle p-2 me-3" style={{ 
+                      <div className="rounded-circle p-2 me-3" style={{
                         backgroundColor: '#0ea5e9',
                         opacity: '0.9'
                       }}>
                         <i className="fas fa-clipboard-list text-white" style={{ fontSize: '0.9rem' }}></i>
                       </div>
-                      <h4 className="mb-0" style={{ 
-                        fontFamily: "'Playfair Display', serif", 
+                      <h4 className="mb-0" style={{
+                        fontFamily: "'Playfair Display', serif",
                         color: '#0284c7',
                         fontSize: '1.4rem',
                         fontWeight: '400'
@@ -471,7 +546,7 @@ export default function HealthJournal() {
                         Medical Background
                       </h4>
                     </div>
-                    
+
                     <div className="row g-3 mb-3">
                       <div className="col-md-6">
                         <label className="form-label text-dark" style={{
@@ -573,7 +648,7 @@ export default function HealthJournal() {
                         </>
                       )}
                     </button>
-                    
+
                     <button
                       type="button"
                       className="btn btn-outline-secondary btn-lg px-5 py-3"
@@ -607,7 +682,7 @@ export default function HealthJournal() {
                           }}>
                             <i className="fas fa-check-circle text-white" style={{ fontSize: '1.8rem' }}></i>
                           </div>
-                          <h3 className="text-dark" style={{ 
+                          <h3 className="text-dark" style={{
                             fontFamily: "'Playfair Display', serif",
                             fontSize: '1.6rem',
                             fontWeight: '400',
@@ -621,17 +696,17 @@ export default function HealthJournal() {
                         <div className="row g-4 mb-4">
                           <div className="col-md-6">
                             <div className="card h-100 border-0">
-                              <div className="card-body text-center p-4" style={{ 
+                              <div className="card-body text-center p-4" style={{
                                 backgroundColor: '#ffffff',
                                 borderRadius: '16px',
                                 boxShadow: '0 4px 15px rgba(0,0,0,0.05)'
                               }}>
-                                <h5 className="card-title mb-3" style={{ 
+                                <h5 className="card-title mb-3" style={{
                                   color: '#0ea5e9',
                                   fontSize: '1.1rem',
                                   fontWeight: '400'
                                 }}>Primary Condition</h5>
-                                <h4 className="text-dark" style={{ 
+                                <h4 className="text-dark" style={{
                                   fontWeight: '500',
                                   fontSize: '1.3rem'
                                 }}>{prediction.primaryCondition}</h4>
@@ -647,15 +722,15 @@ export default function HealthJournal() {
                               </div>
                             </div>
                           </div>
-                          
+
                           <div className="col-md-6">
                             <div className="card h-100 border-0">
-                              <div className="card-body text-center p-4" style={{ 
+                              <div className="card-body text-center p-4" style={{
                                 backgroundColor: '#ffffff',
                                 borderRadius: '16px',
                                 boxShadow: '0 4px 15px rgba(0,0,0,0.05)'
                               }}>
-                                <h5 className="card-title mb-3" style={{ 
+                                <h5 className="card-title mb-3" style={{
                                   color: '#0ea5e9',
                                   fontSize: '1.1rem',
                                   fontWeight: '400'
@@ -668,17 +743,17 @@ export default function HealthJournal() {
                                     fontSize: '0.9rem'
                                   }}>
                                     <i className="fas fa-shield-alt me-2"></i>
-                                    {prediction.riskLevel} Risk
+                                    {prediction.riskAssessment} 
                                   </span>
                                 </div>
-                                <p className="text-muted mb-0" style={{ fontSize: '0.9rem' }}>{prediction.urgency}</p>
+                                <p className="text-muted mb-0" style={{ fontSize: '0.9rem' }}>{prediction.riskDetails}</p>
                               </div>
                             </div>
                           </div>
                         </div>
 
                         <div className="card border-0">
-                          <div className="card-body p-4" style={{ 
+                          <div className="card-body p-4" style={{
                             backgroundColor: '#ffffff',
                             borderRadius: '16px',
                             boxShadow: '0 4px 15px rgba(0,0,0,0.05)'
@@ -715,15 +790,15 @@ export default function HealthJournal() {
                           borderRadius: '15px'
                         }}>
                           <div className="d-flex align-items-start">
-                            <i className="me-3 mt-1" style={{ color: '#0ea5e9', fontSize: '1.1rem' }}>ℹ️</i>
+                            <i className="me-3 mt-1" style={{ color: '#0ea5e9', fontSize: '1.1rem' }}>ℹ</i>
                             <div>
-                              <h6 className="mb-2" style={{ 
+                              <h6 className="mb-2" style={{
                                 color: '#0ea5e9',
                                 fontSize: '1rem',
                                 fontWeight: '500'
                               }}>Important Medical Disclaimer</h6>
                               <p className="mb-0 text-dark" style={{ fontSize: '0.9rem' }}>
-                                This AI analysis is for informational purposes only and should not replace professional medical advice. 
+                                This AI analysis is for informational purposes only and should not replace professional medical advice.
                                 Please consult with a qualified healthcare provider for proper diagnosis and treatment.
                               </p>
                             </div>
