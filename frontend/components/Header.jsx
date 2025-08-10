@@ -18,7 +18,7 @@ export function Header() {
 
   const handleLogout = () => {
     logout();
-    navigate('/login'); // Redirect to login page after logout
+    navigate('/'); // Redirect to login page after logout
   };
   return (
     <Navbar expand="lg" className="navbar-medical fixed-top" style={{ zIndex: 1000 }}>

@@ -16,6 +16,7 @@ import About from "./pages/About.jsx";
 import Contact from "./pages/Contact.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import { AuthProvider } from "./contexts/AuthContext.jsx";
+import GeneratePDF from "./pages/GeneratePDF.jsx";
 
 const App = () => (
   <AuthProvider>
@@ -34,6 +35,7 @@ const App = () => (
               <Route path="/profile" element={<Profile />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/GeneratePDF" element={<GeneratePDF />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
