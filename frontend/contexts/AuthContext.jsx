@@ -15,6 +15,7 @@ export const AuthProvider = ({ children }) => {
             });
             setUser(res.data.user);
             setIsLogin(true);
+            setUser(res.data.user)
         }
         catch (error) {
             console.error("Failed to fetch profile:", error);
