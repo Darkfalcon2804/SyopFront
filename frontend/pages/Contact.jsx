@@ -220,11 +220,12 @@ export default function Contact() {
 
 
                   <Form onSubmit={handleSubmit}>
-                    <Row className="g-3">
+                    <Row className="g-3 text-muted">
                       <Col md={6}>
-                        <Form.Group>
+                        <Form.Group >
                           <Form.Label>Full Name *</Form.Label>
                           <Form.Control
+                        
                             type="text"
                             name="name"
                             value={formData.name}
@@ -239,6 +240,7 @@ export default function Contact() {
                         <Form.Group>
                           <Form.Label>Email Address *</Form.Label>
                           <Form.Control
+                        
                             type="email"
                             name="email"
                             value={formData.email}
@@ -253,6 +255,7 @@ export default function Contact() {
                         <Form.Group>
                           <Form.Label>Phone Number</Form.Label>
                           <Form.Control
+                        
                             type="tel"
                             name="phone"
                             value={formData.phone}
@@ -286,6 +289,7 @@ export default function Contact() {
                         <Form.Group>
                           <Form.Label>Subject *</Form.Label>
                           <Form.Control
+                        
                             type="text"
                             name="subject"
                             value={formData.subject}
@@ -316,6 +320,7 @@ export default function Contact() {
                         <Form.Group>
                           <Form.Label>Message *</Form.Label>
                           <Form.Control
+                        
                             as="textarea"
                             rows={5}
                             name="message"

@@ -157,7 +157,7 @@ export default function HealthJournal() {
 
   return (
     <div className="min-vh-100" style={{
-      background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)',
+      
       fontFamily: "'Inter', 'Segoe UI', 'Roboto', sans-serif",
       paddingTop: '9rem',
       paddingBottom: '2rem'
@@ -200,7 +200,6 @@ export default function HealthJournal() {
         <div className="row justify-content-center">
           <div className="col-lg-10">
             <div className="card border-0 position-relative" style={{
-              background: 'linear-gradient(145deg, #ffffff 0%, #fafbfc 100%)',
               boxShadow: '0 25px 50px rgba(0, 0, 0, 0.08), 0 10px 20px rgba(0, 0, 0, 0.04)',
               borderRadius: '24px',
               overflow: 'hidden'
@@ -230,7 +229,7 @@ export default function HealthJournal() {
                 </div>
               </div>
 
-              <div className="card-body px-4 px-md-5 pb-5" style={{ marginTop: '-2rem' }}>
+              <div className="px-4 px-md-5 pb-5 medical-card" style={{ marginTop: '-2rem' }}>
                 <div>
                   {/* Personal Details Section */}
                   <div className="mb-5" style={{ marginTop: '40px' }}>
@@ -241,9 +240,8 @@ export default function HealthJournal() {
                       }}>
                         <i className="fas fa-user text-white" style={{ fontSize: '0.9rem' }}></i>
                       </div>
-                      <h4 className="mb-0" style={{
+                      <h4 className="mb-0 text-blue" style={{
                         fontFamily: "'Playfair Display', serif",
-                        color: '#0284c7',
                         fontSize: '1.4rem',
                         fontWeight: '400'
                       }}>
@@ -260,7 +258,7 @@ export default function HealthJournal() {
                         }}>Full Name</label>
                         <input
                           type="text"
-                          className="form-control form-control-lg border-0"
+                          className="form-control white-placeholder form-control-lg border-0"
                           name="name"
                           value={formData.name}
                           onChange={handleInputChange}
@@ -282,7 +280,7 @@ export default function HealthJournal() {
                         }}>Age</label>
                         <input
                           type="number"
-                          className="form-control form-control-lg border-0"
+                          className="white-placeholder form-control form-control-lg border-0"
                           name="age"
                           value={formData.age}
                           onChange={handleInputChange}
@@ -352,7 +350,7 @@ export default function HealthJournal() {
                         }}>Blood Pressure</label>
                         <input
                           type="text"
-                          className="form-control form-control-lg border-0"
+                          className="white-placeholder form-control form-control-lg border-0"
                           name="bloodPressure"
                           value={formData.bloodPressure}
                           onChange={handleInputChange}
@@ -374,7 +372,7 @@ export default function HealthJournal() {
                         }}>Heart Rate</label>
                         <input
                           type="number"
-                          className="form-control form-control-lg border-0"
+                          className="white-placeholder form-control form-control-lg border-0"
                           name="heartRate"
                           value={formData.heartRate}
                           onChange={handleInputChange}
@@ -397,7 +395,7 @@ export default function HealthJournal() {
                         <input
                           type="number"
                           step="0.1"
-                          className="form-control form-control-lg border-0"
+                          className="white-placeholder form-control form-control-lg border-0"
                           name="temperature"
                           value={formData.temperature}
                           onChange={handleInputChange}
@@ -419,7 +417,7 @@ export default function HealthJournal() {
                         }}>Weight</label>
                         <input
                           type="number"
-                          className="form-control form-control-lg border-0"
+                          className="white-placeholder form-control form-control-lg border-0"
                           name="weight"
                           value={formData.weight}
                           onChange={handleInputChange}
@@ -462,7 +460,7 @@ export default function HealthJournal() {
                         color: '#495057'
                       }}>How are you feeling today?</label>
                       <textarea
-                        className="form-control form-control-lg border-0"
+                        className="white-placeholder form-control form-control-lg border-0"
                         name="symptoms"
                         value={formData.symptoms}
                         onChange={handleInputChange}
@@ -487,7 +485,7 @@ export default function HealthJournal() {
                           color: '#495057'
                         }}>Current Medications</label>
                         <textarea
-                          className="form-control border-0"
+                          className="white-placeholder form-control border-0"
                           name="medications"
                           value={formData.medications}
                           onChange={handleInputChange}
@@ -509,7 +507,7 @@ export default function HealthJournal() {
                           color: '#495057'
                         }}>Known Allergies</label>
                         <textarea
-                          className="form-control border-0"
+                          className="white-placeholder form-control border-0"
                           name="allergies"
                           value={formData.allergies}
                           onChange={handleInputChange}
@@ -554,7 +552,7 @@ export default function HealthJournal() {
                           color: '#495057'
                         }}>Past Medical History</label>
                         <textarea
-                          className="form-control border-0"
+                          className="white-placeholder form-control border-0"
                           name="medicalHistory"
                           value={formData.medicalHistory}
                           onChange={handleInputChange}
@@ -576,7 +574,7 @@ export default function HealthJournal() {
                           color: '#495057'
                         }}>Family History</label>
                         <textarea
-                          className="form-control border-0"
+                          className="white-placeholder form-control border-0"
                           name="familyHistory"
                           value={formData.familyHistory}
                           onChange={handleInputChange}
@@ -600,7 +598,7 @@ export default function HealthJournal() {
                         color: '#495057'
                       }}>Lifestyle Factors</label>
                       <textarea
-                        className="form-control border-0"
+                        className="white-placeholder form-control border-0"
                         name="lifestyle"
                         value={formData.lifestyle}
                         onChange={handleInputChange}

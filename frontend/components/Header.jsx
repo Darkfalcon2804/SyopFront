@@ -6,7 +6,7 @@ import SymptoScopeLogo from "../public/SymptoScopeLogo.png";
 import { UseAuth } from "../contexts/AuthContext.jsx";
 
 export function Header() {
-  const [isActive, setIsActive] = useState("Home");
+  const [isActive, setIsActive] = useState("");
   const { isLogin, logout } = UseAuth();
   const navigate = useNavigate();
   const [notifications] = useState([

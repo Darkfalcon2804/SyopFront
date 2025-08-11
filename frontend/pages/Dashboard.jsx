@@ -542,7 +542,7 @@ Report ID: ${Date.now()}\`;
 
   return user ? (
     <>
-      <div style={{ paddingTop: '100px', backgroundColor: '#f8f9fa', minHeight: '100vh' }}>
+      <div style={{ paddingTop: '100px', minHeight: '100vh' }}>
         <Container>
           <Row className="mb-4">
             <Col>

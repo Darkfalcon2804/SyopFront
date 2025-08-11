@@ -11,7 +11,7 @@
   --danger-color: #dc3545;
   --light-color: #f8f9fa;
   --dark-color: #343a40;
-  
+
   /* Medical Theme Colors */
   --medical-blue: #0066cc;
   --medical-blue-light: #e3f2fd;
@@ -19,7 +19,7 @@
   --medical-purple: #6c5ce7;
   --medical-orange: #ff7675;
   --medical-cyan: #00cec9;
-  
+
   /* Gradients */
   --gradient-primary: linear-gradient(135deg, var(--medical-blue), var(--medical-purple));
   --gradient-success: linear-gradient(135deg, var(--medical-green), var(--medical-cyan));
@@ -70,24 +70,37 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideUp {
-  from { 
+  from {
     opacity: 0;
     transform: translateY(30px);
   }
-  to { 
+
+  to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
 }
 
 /* Medical Theme Customizations */
@@ -186,30 +199,35 @@
   animation: floatMedical 8s ease-in-out infinite;
   animation-delay: 0s;
 }
+
 .medical-equipment.equipment-2 {
   top: 25%;
   right: 8%;
   animation: floatMedical 10s ease-in-out infinite;
   animation-delay: 2s;
 }
+
 .medical-equipment.equipment-3 {
   bottom: 30%;
   left: 15%;
   animation: floatMedical 12s ease-in-out infinite;
   animation-delay: 4s;
 }
+
 .medical-equipment.equipment-4 {
   top: 45%;
   right: 25%;
   animation: floatMedical 9s ease-in-out infinite;
   animation-delay: 1s;
 }
+
 .medical-equipment.equipment-5 {
   bottom: 15%;
   right: 12%;
   animation: floatMedical 11s ease-in-out infinite;
   animation-delay: 3s;
 }
+
 .medical-equipment.equipment-6 {
   top: 35%;
   left: 25%;
@@ -218,18 +236,23 @@
 }
 
 @keyframes floatMedical {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px) rotate(0deg);
     opacity: 0.08;
   }
+
   25% {
     transform: translateY(-15px) rotate(2deg);
     opacity: 0.12;
   }
+
   50% {
     transform: translateY(-30px) rotate(-1deg);
     opacity: 0.15;
   }
+
   75% {
     transform: translateY(-10px) rotate(1deg);
     opacity: 0.10;
@@ -263,14 +286,19 @@
   box-shadow: 0 0 0 0.2rem rgba(0, 102, 204, 0.25);
 }
 
-.form-floating > label {
+.form-floating>label {
   color: var(--medical-blue);
 }
 
 /* Responsive Typography */
 @media (max-width: 768px) {
-  .display-1 { font-size: 2.5rem; }
-  .display-4 { font-size: 1.8rem; }
+  .display-1 {
+    font-size: 2.5rem;
+  }
+
+  .display-4 {
+    font-size: 1.8rem;
+  }
 }
 
 /* Dark Mode Styles */
@@ -316,8 +344,13 @@
   color: #e2e8f0 !important;
 }
 
-.dark-mode h1, .dark-mode h2, .dark-mode h3, .dark-mode h4, .dark-mode h5, .dark-mode h6 {
-  color: #f1f5f9 !important;
+.dark-mode h1,
+.dark-mode h2,
+.dark-mode h3,
+.dark-mode h4,
+.dark-mode h5,
+.dark-mode h6 {
+  color: #f1f5f9 !important;  
 }
 
 .dark-mode p {
@@ -338,10 +371,12 @@
 
 .dark-mode .bg-light {
   background-color: #1e293b !important;
+  color: #e2e8f0 !important;
 }
 
 .dark-mode .bg-white {
   background-color: #0f172a !important;
+  color: #e2e8f0 !important;
 }
 
 .dark-mode .border {
@@ -495,10 +530,12 @@
 .dark-mode .fw-bold {
   color: #e2e8f0 !important;
 }
-.dark-mode .background-dark{
+
+.dark-mode .background-dark {
   color: #0066cc;
   background-color: #1e293b !important;
 }
+
 .dark-mode .fs-4 {
   color: #60a5fa !important;
 }
@@ -552,18 +589,23 @@
 }
 
 @keyframes floatMedical {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px) rotate(0deg);
     opacity: 0.08;
   }
+
   25% {
     transform: translateY(-15px) rotate(2deg);
     opacity: 0.12;
   }
+
   50% {
     transform: translateY(-30px) rotate(-1deg);
     opacity: 0.15;
   }
+
   75% {
     transform: translateY(-10px) rotate(1deg);
     opacity: 0.10;
@@ -571,25 +613,53 @@
 }
 
 .dark-mode @keyframes floatMedical {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px) rotate(0deg);
     opacity: 0.12;
   }
+
   25% {
     transform: translateY(-15px) rotate(2deg);
     opacity: 0.16;
   }
+
   50% {
     transform: translateY(-30px) rotate(-1deg);
     opacity: 0.20;
   }
+
   75% {
     transform: translateY(-10px) rotate(1deg);
     opacity: 0.14;
   }
 }
 
+/* custom css  */
 
-.bg-blue{
+.bg-blue {
   background-color: #0b5ed7 !important;
+}
+.text-blue{
+  color: #0284c7 !important;
+  opacity: 1 !important;
+}
+
+/* Target the placeholder for your custom class */
+.white-placeholder::placeholder {
+  color: white !important;
+  opacity: 0.6 !important;
+  /* Override Firefox's default opacity */
+}
+
+/* For older browser compatibility (optional but good practice) */
+.white-placeholder::-webkit-input-placeholder {
+  /* Edge, Chrome, Safari */
+  color: white !important;
+}
+
+.white-placeholder:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: white !important;
 }
