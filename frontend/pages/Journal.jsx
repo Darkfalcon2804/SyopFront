@@ -668,8 +668,7 @@ export default function HealthJournal() {
                 {/* Prediction Results */}
                 {prediction && (
                   <div className="mt-5 pt-5">
-                    <div className="card border-0" style={{
-                      background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)',
+                    <div className="card ai-card border-0" style={{
                       borderRadius: '20px',
                       boxShadow: '0 15px 35px rgba(0,0,0,0.08)'
                     }}>
@@ -684,7 +683,6 @@ export default function HealthJournal() {
                             fontFamily: "'Playfair Display', serif",
                             fontSize: '1.6rem',
                             fontWeight: '400',
-                            color: '#0284c7'
                           }}>
                             Your Health Analysis
                           </h3>
@@ -693,13 +691,13 @@ export default function HealthJournal() {
 
                         <div className="row g-4 mb-4">
                           <div className="col-md-6">
-                            <div className="card h-100 border-0">
-                              <div className="card-body text-center p-4" style={{
+                            <div className="ai-primary-result h-100 border-2">
+                              <div className="ai-primary-result text-center border-0 p-4" style={{
                                 backgroundColor: '#ffffff',
                                 borderRadius: '16px',
                                 boxShadow: '0 4px 15px rgba(0,0,0,0.05)'
                               }}>
-                                <h5 className="card-title mb-3" style={{
+                                <h5 className="mb-3" style={{
                                   color: '#0ea5e9',
                                   fontSize: '1.1rem',
                                   fontWeight: '400'
@@ -722,8 +720,8 @@ export default function HealthJournal() {
                           </div>
 
                           <div className="col-md-6">
-                            <div className="card h-100 border-0">
-                              <div className="card-body text-center p-4" style={{
+                            <div className="ai-primary-result h-100 border-0">
+                              <div className="ai-primary-result text-center p-4" style={{
                                 backgroundColor: '#ffffff',
                                 borderRadius: '16px',
                                 boxShadow: '0 4px 15px rgba(0,0,0,0.05)'
@@ -750,8 +748,8 @@ export default function HealthJournal() {
                           </div>
                         </div>
 
-                        <div className="card border-0">
-                          <div className="card-body p-4" style={{
+                        <div className="ai-primary-result border-0">
+                          <div className="ai-primary-result p-4" style={{
                             backgroundColor: '#ffffff',
                             borderRadius: '16px',
                             boxShadow: '0 4px 15px rgba(0,0,0,0.05)'
@@ -766,7 +764,7 @@ export default function HealthJournal() {
                             <div className="row g-3">
                               {prediction.recommendations.map((rec, index) => (
                                 <div key={index} className="col-12">
-                                  <div className="d-flex align-items-start p-3 rounded-3" style={{
+                                  <div className="ai-primary-result d-flex align-items-start p-3 rounded-3" style={{
                                     backgroundColor: '#f0f9ff',
                                     border: '1px solid #e0f2fe'
                                   }}>
@@ -783,11 +781,11 @@ export default function HealthJournal() {
                           </div>
                         </div>
 
-                        <div className="alert border-0 mt-4" style={{
+                        <div className="alert bg-color-dark border-0 mt-4" style={{
                           background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)',
                           borderRadius: '15px'
                         }}>
-                          <div className="d-flex align-items-start">
+                          <div className="ai-primary-result d-flex align-items-start">
                             <i className="me-3 mt-1" style={{ color: '#0ea5e9', fontSize: '1.1rem' }}>ℹ</i>
                             <div>
                               <h6 className="mb-2" style={{

@@ -641,25 +641,42 @@
 .bg-blue {
   background-color: #0b5ed7 !important;
 }
-.text-blue{
+.darkmode .text-blue{
   color: #0284c7 !important;
   opacity: 1 !important;
 }
 
 /* Target the placeholder for your custom class */
-.white-placeholder::placeholder {
+.dark-mode .white-placeholder::placeholder {
   color: white !important;
   opacity: 0.6 !important;
   /* Override Firefox's default opacity */
 }
 
 /* For older browser compatibility (optional but good practice) */
-.white-placeholder::-webkit-input-placeholder {
+.dark-mode .white-placeholder::-webkit-input-placeholder {
   /* Edge, Chrome, Safari */
   color: white !important;
 }
 
-.white-placeholder:-ms-input-placeholder {
+.dark-mode .white-placeholder:-ms-input-placeholder {
   /* Internet Explorer 10-11 */
   color: white !important;
+}
+.dark-mode .ai-card{
+  background-color: #0F172A !important;
+}
+.light-mode .ai-card{
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+}
+.dark-mode .ai-primary-result{
+  background-color: #334155 !important;
+  color: #f1f5f9 !important;
+  border-radius: 16px;
+}
+.dark-mode .ai-border{
+  border: 1px solid black;
+}
+.dark-mode .bg-color-dark{
+  background: #334155 !important;
 }

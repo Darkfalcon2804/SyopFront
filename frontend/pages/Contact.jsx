@@ -4,6 +4,7 @@ import SymptoScopeLogo from "../public/SymptoScopeLogo.png";
 import { UseAuth } from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { useTheme } from "../contexts/ThemeContext";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -15,6 +16,7 @@ export default function Contact() {
     message: "",
     urgency: "medium"
   });
+   const { isDarkMode } = useTheme();
   const [error, setError] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -158,8 +160,10 @@ export default function Contact() {
             <Col lg={4} className="text-center">
               <div className="animate-slide-up">
                 <div className="p-5 rounded-4 shadow-lg" style={{
-                  background: '#f8f9fa', color: '#212529'
-                }}>
+                  ... (isDarkMode ? { background: 'linear-gradient(145deg, #1e293b, #334155)', color: '#1976d2' } : { background: '#f8f9fa', color: '#212529' }),
+                  border: '1px solid #e9ecef'
+                }}
+                >
                   <img src={SymptoScopeLogo} alt="SymptoScope Logo" style={{ width: '95px' }} />
                   <h3 className="mb-3 text-secondary ">AI support</h3>
                   <p className="mb-0 text-secondary">User-friendly healthcare provider</p>
@@ -225,7 +229,7 @@ export default function Contact() {
                         <Form.Group >
                           <Form.Label>Full Name *</Form.Label>
                           <Form.Control
-                        
+                            className="white-placeholder"
                             type="text"
                             name="name"
                             value={formData.name}
@@ -240,7 +244,7 @@ export default function Contact() {
                         <Form.Group>
                           <Form.Label>Email Address *</Form.Label>
                           <Form.Control
-                        
+                            className="white-placeholder"
                             type="email"
                             name="email"
                             value={formData.email}
@@ -255,7 +259,7 @@ export default function Contact() {
                         <Form.Group>
                           <Form.Label>Phone Number</Form.Label>
                           <Form.Control
-                        
+                            className="white-placeholder"
                             type="tel"
                             name="phone"
                             value={formData.phone}
@@ -289,7 +293,7 @@ export default function Contact() {
                         <Form.Group>
                           <Form.Label>Subject *</Form.Label>
                           <Form.Control
-                        
+                            className="white-placeholder"
                             type="text"
                             name="subject"
                             value={formData.subject}
@@ -315,12 +319,11 @@ export default function Contact() {
                           </Form.Select>
                         </Form.Group>
                       </Col>
-
                       <Col xs={12}>
                         <Form.Group>
                           <Form.Label>Message *</Form.Label>
                           <Form.Control
-                        
+                            className="white-placeholder"
                             as="textarea"
                             rows={5}
                             name="message"
