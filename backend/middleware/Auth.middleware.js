@@ -9,7 +9,8 @@ export const protect = async (req, res, next) => {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.user = await User.findById(decoded.id).select('-password');
         next();
-    } catch {
-        res.status(401).json({ message: 'Token failed' });
+    } catch (error) {
+        console.log(error)
+        res.status(401).json({ message: 'Token failed', error:error });
     }
 };

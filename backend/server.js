@@ -1,10 +1,12 @@
 import express from "express"
 import dotenv from "dotenv"
 import connectDB from "./confing/db.js"
+dotenv.config()
 import cors from "cors"
 import userRoute from "./routes/user.route.js";
 import contactFormRouter from "./routes/contactForm.route.js";
-dotenv.config()
+import geminiRoute from "./routes/gemini.route.js";
+import journalRoute from "./routes/journal.route.js"
 const app = express()
 app.use(express.json())
 app.use(cors())
@@ -13,12 +15,13 @@ const port = process.env.PORT || 3005
 connectDB();
 
 // user routes 
-
 app.use("/api/user", userRoute);
 // contact form router
 app.use("/api/contact", contactFormRouter);
-
-
+// gemini route
+app.use("/api/gemini", geminiRoute);
+// journal route
+app.use("/api/journal", journalRoute);
 // home route
 app.get('/', (req, res) => {
   res.send('Hello World!')

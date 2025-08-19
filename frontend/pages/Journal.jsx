@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import diseasesData from "../components/Diseases.js";
+import axios from "axios";
+import { UseAuth } from "../contexts/AuthContext.jsx";
 export default function HealthJournal() {
   const [formData, setFormData] = useState({
     name: "",
@@ -17,7 +19,7 @@ export default function HealthJournal() {
     weight: "",
     height: ""
   });
-
+  const { token } = UseAuth();
   const [prediction, setPrediction] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -64,7 +66,7 @@ export default function HealthJournal() {
       // if (primaryConditionLower.includes(symptoms.toLowerCase())) {
       //   matchedDisease = disease;
       //   break; // Found a strong match, use this one
-      
+
       // If no strong match, find the one with most keyword overlaps
       if (currentMatchCount > highestMatchCount) {
         highestMatchCount = currentMatchCount;
@@ -90,28 +92,16 @@ export default function HealthJournal() {
     return matchedDisease;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setIsLoading(true);
-
-    setTimeout(() => {
-    //   const mockPrediction = {
-    //     primaryCondition: "Common Cold",
-    //     confidence: "85%",
-    //     riskLevel: "Low",
-    //     recommendations: [
-    //       "Rest and stay hydrated",
-    //       "Monitor symptoms for 48-72 hours",
-    //       "Consider over-the-counter cold medication",
-    //       "Consult doctor if symptoms worsen"
-    //     ],
-    //     urgency: "Non-urgent - Monitor at home"
-    //   };
-        const recommended = recommendDisease(formData.symptoms);
-
-
-      setPrediction(recommended);
-      setIsLoading(false);
-    }, 2000);
+    const response = await axios.post("http://localhost:3000/api/journal", formData, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    const recommended = recommendDisease(formData.symptoms);
+    setPrediction(recommended);
+    setIsLoading(false);
   };
 
   const resetForm = () => {
@@ -144,7 +134,9 @@ export default function HealthJournal() {
       case 'Critical Risk':
         return formStyles.riskCritical;
       default:
-        return {};}}
+        return {};
+    }
+  }
 
   const getCurrentDate = () => {
     return new Date().toLocaleDateString('en-US', {
@@ -157,7 +149,7 @@ export default function HealthJournal() {
 
   return (
     <div className="min-vh-100" style={{
-      
+
       fontFamily: "'Inter', 'Segoe UI', 'Roboto', sans-serif",
       paddingTop: '9rem',
       paddingBottom: '2rem'
@@ -739,7 +731,7 @@ export default function HealthJournal() {
                                     fontSize: '0.9rem'
                                   }}>
                                     <i className="fas fa-shield-alt me-2"></i>
-                                    {prediction.riskAssessment} 
+                                    {prediction.riskAssessment}
                                   </span>
                                 </div>
                                 <p className="text-muted mb-0" style={{ fontSize: '0.9rem' }}>{prediction.riskDetails}</p>
