@@ -1,2 +1,8 @@
-node_modules/
-.env
+# Node modules
+frontend/node_modules/
+backend/node_modules/
+# Environment files
+backend/.env
+# IDE/editor files
+.vscode/
+.DS_Store
