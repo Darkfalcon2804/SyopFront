@@ -306,11 +306,11 @@ export default function Dashboard() {
                 <div>
                     <h1>Health Report</h1>
                     <p>Generated on ${new Date().toLocaleDateString('en-US', {
-                      weekday: 'long',
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric'
-                      })}</p>
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    })}</p>
                     <p style="font-size: 1.1rem; margin: 5px 0 0 0; opacity: 0.8;">
                         Patient: ${user.FirstName}
                     </p>

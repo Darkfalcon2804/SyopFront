@@ -99,6 +99,12 @@ export default function HealthJournal() {
         Authorization: `Bearer ${token}`
       }
     });
+    // const recentActivity = await axios.get("http://localhost:3000/api/journal/recent-activity", {
+    //   headers: {
+    //     Authorization: `Bearer ${token}`
+    //   }
+    // });
+    // console.log(recentActivity)
     const recommended = recommendDisease(formData.symptoms);
     setPrediction(recommended);
     setIsLoading(false);

@@ -28,3 +28,17 @@ export const userJournalData = async (req, res) => {
         res.status(500).json({ message: "Internal server error" , error:error });
     }
 }
+
+
+// fething recent joutnal fromdatabase 
+
+export const userJournalActivaty = async (req, res) => {
+  try {
+    const userId = req.user.id; // Assuming you have user ID in req.user
+    const activities = await journalForm.find({ userId }).sort({ createdAt: -1 });
+    const activitiesCount = await journalForm.countDocuments({ userId });
+    res.status(200).json({ activities, activitiesCount });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching user activities", error });
+  }
+}
