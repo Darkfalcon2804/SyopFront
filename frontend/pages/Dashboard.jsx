@@ -9,6 +9,9 @@ export default function Dashboard() {
   const { user, token } = UseAuth();
   const navigate = useNavigate();
   const [daysAccount, setDaysAccount] = useState(0);
+  const [recentActivities, setRecentActivities] = useState([]);
+  const [recentActivitiesCount, setRecentActivitiesCount] = useState(0);
+  const [loding, setLoding] = useState(true);
   // it is a function that give us the data of how long ago a user's account was created
   const getDaysAgo = (createdAt) => {
     const createdDate = new Date(createdAt);
@@ -29,9 +32,32 @@ export default function Dashboard() {
       console.error("Error fetching user data:", error.message);
     }
   }
+  const handleUserJournal = async () => {
+    try {
+      const res = await axios.get("http://localhost:3000/api/journal/recent-activity", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      console.log(res.data)
+      setRecentActivities(res.data.activities);
+      setRecentActivitiesCount(res.data.activitiesCount);
+    } catch (error) {
+      console.error("Error fetching user journal:", error.message);
+    } finally {
+      setLoding(false) // set loding to false after feting data from backend
+    }
+  };
   useEffect(() => {
     handleUserData();
+    handleUserJournal();
   }, []);
+  useEffect(() => {
+    if(!loding){
+      console.log("State updated! New recentActivities:", recentActivities);
+      console.log("State updated! New recentActivitiesCount:", recentActivitiesCount);
+    }
+  }, [recentActivities, recentActivitiesCount]); 
 
   const stats = [
     { number: `${daysAccount}`, label: "Days Tracked", icon: "fas fa-calendar", color: "primary" },
