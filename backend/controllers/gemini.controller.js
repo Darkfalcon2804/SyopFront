@@ -4,6 +4,7 @@ export const geminiAPIHandler = async (req, res) => {
     try {
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
         const { prompt } = req.body;
+        // { "prompt": "what is the meaning of life"}
 
         if (!prompt) {
             return res.status(400).json({ error: 'Prompt is required' });

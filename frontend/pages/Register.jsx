@@ -99,7 +99,7 @@ export default function Register() {
   }
 
   return (
-    <div style={{ paddingTop: '120px', minHeight: '100vh' }} className="bg-light">
+    <div style={{ paddingTop: '120px', minHeight: '100vh' }}>
       <Container>
         <Row className="justify-content-center">
           <Col lg={6}>
@@ -108,7 +108,7 @@ export default function Register() {
               Back to Home
             </Link>
 
-            <Card className="border-0 shadow">
+            <Card className="medical-card border-0 shadow">
               <Card.Body className="p-5">
                 <div className="text-center mb-4">
                   <div className="bg-primary rounded-3 d-inline-flex p-3 mb-3">
@@ -124,6 +124,7 @@ export default function Register() {
                       <Form.Group className="mb-3">
                         <Form.Label>First Name</Form.Label>
                         <Form.Control
+                          className="white-placeholder"
                           type="text"
                           name="FirstName"
                           value={formData.FirstName}
@@ -140,6 +141,7 @@ export default function Register() {
                       <Form.Group className="mb-3">
                         <Form.Label>Last Name</Form.Label>
                         <Form.Control
+                        className="white-placeholder"
                           type="text"
                           name="LastName"
                           value={formData.LastName}
@@ -157,6 +159,7 @@ export default function Register() {
                   <Form.Group className="mb-3">
                     <Form.Label>Email Address</Form.Label>
                     <Form.Control
+                    className="white-placeholder"
                       type="email"
                       name="email"
                       value={formData.email}
@@ -172,6 +175,7 @@ export default function Register() {
                   <Form.Group className="mb-3">
                     <Form.Label>Password</Form.Label>
                     <Form.Control
+                    className="white-placeholder"
                       type="password"
                       name="password"
                       value={formData.password}
@@ -187,6 +191,7 @@ export default function Register() {
                   <Form.Group className="mb-4">
                     <Form.Label>Confirm Password</Form.Label>
                     <Form.Control
+                    className="white-placeholder"
                       type="password"
                       name="ConfirmPassword"
                       value={formData.ConfirmPassword}

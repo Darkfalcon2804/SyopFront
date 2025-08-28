@@ -52,19 +52,13 @@ export default function Dashboard() {
     handleUserData();
     handleUserJournal();
   }, []);
-  useEffect(() => {
-    if(!loding){
-      console.log("State updated! New recentActivities:", recentActivities);
-      console.log("State updated! New recentActivitiesCount:", recentActivitiesCount);
-    }
-  }, [recentActivities, recentActivitiesCount]); 
 
   const stats = [
     { number: `${daysAccount}`, label: "Days Tracked", icon: "fas fa-calendar", color: "primary" },
-    { number: "12", label: "Symptoms Logged", icon: "fas fa-notes-medical", color: "success" },
+    { number: `${recentActivitiesCount}`, label: "Symptoms Logged", icon: "fas fa-notes-medical", color: "success" },
     { number: "8", label: "AI Insights", icon: "fas fa-brain", color: "info" },
-    { number: "15%", label: "Improvement", icon: "fas fa-chart-line", color: "warning" }
-  ];
+    { number: "92-95%", label: "Accuracy", icon: "fas fa-chart-line", color: "warning" }
+];
 
   const recentActivity = [
     {

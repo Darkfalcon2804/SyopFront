@@ -12,7 +12,7 @@ export default function Login() {
     password: "",
     rememberMe: false
   });
-  
+
   const [showPassword, setShowPassword] = useState(false);
   const [loginError, setLoginError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -36,7 +36,7 @@ export default function Login() {
       const response = await axios.post("http://localhost:3000/api/user/login", formData);
       login(response.data.user, response.data.token);
       navigate('/dashboard');
-      
+
     } catch (error) {
       setLoginError("Invalid email or password. Please try again.");
     } finally {
@@ -70,14 +70,14 @@ export default function Login() {
     },
     {
       name: "Michael R.",
-      condition: "Rheumatoid Arthritis", 
+      condition: "Rheumatoid Arthritis",
       quote: "The AI insights have improved my discussions with my doctor significantly.",
       rating: 5
     }
   ];
 
   return (
-    <div style={{ paddingTop: '90px', minHeight: '100vh', backgroundColor: '#f8f9fa' }}>
+    <div style={{ paddingTop: '90px', minHeight: '100vh' }}>
       <Container fluid>
         <Row className="min-vh-100">
           {/* Left Side - Login Form */}
@@ -116,6 +116,7 @@ export default function Login() {
                           <i className="fas fa-envelope text-muted"></i>
                         </InputGroup.Text>
                         <Form.Control
+                          className="white-placeholder"
                           type="email"
                           name="email"
                           value={formData.email}
@@ -133,6 +134,7 @@ export default function Login() {
                           <i className="fas fa-lock text-muted"></i>
                         </InputGroup.Text>
                         <Form.Control
+                          className="white-placeholder"
                           type={showPassword ? "text" : "password"}
                           name="password"
                           value={formData.password}
@@ -220,12 +222,12 @@ export default function Login() {
 
           {/* Right Side - Features & Testimonials */}
           <Col lg={6} className="bg-primary text-white d-none d-lg-flex flex-column justify-content-center position-relative">
-            <div className="position-absolute top-0 start-0 w-100 h-100" 
-                 style={{ 
-                   backgroundImage: 'url("data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 1000 1000\'><polygon fill=\'%23ffffff\' fill-opacity=\'0.05\' points=\'0,1000 1000,0 1000,1000\'/></svg>")'
-                 }}>
+            <div className="position-absolute top-0 start-0 w-100 h-100"
+              style={{
+                backgroundImage: 'url("data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 1000 1000\'><polygon fill=\'%23ffffff\' fill-opacity=\'0.05\' points=\'0,1000 1000,0 1000,1000\'/></svg>")'
+              }}>
             </div>
-            
+
             <Container className="position-relative">
               <div className="text-center mb-5">
                 <Badge bg="warning" className="mb-3 px-3 py-2">
@@ -237,7 +239,7 @@ export default function Login() {
                   <span className="d-block text-warning">Health Journey</span>
                 </h1>
                 <p className="lead opacity-90">
-                  Join thousands of patients who are managing their rare conditions 
+                  Join thousands of patients who are managing their rare conditions
                   with AI-powered insights and personalized tracking.
                 </p>
               </div>
@@ -267,7 +269,7 @@ export default function Login() {
                     <Card.Body className="p-4">
                       <div className="d-flex align-items-center mb-3">
                         <div className="bg-warning rounded-circle d-flex align-items-center justify-content-center me-3"
-                             style={{ width: '50px', height: '50px' }}>
+                          style={{ width: '50px', height: '50px' }}>
                           <i className="fas fa-user text-primary"></i>
                         </div>
                         <div>
