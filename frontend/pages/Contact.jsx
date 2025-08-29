@@ -5,6 +5,7 @@ import { UseAuth } from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useTheme } from "../contexts/ThemeContext";
+import Feedback from "../components/Feedback";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -20,7 +21,7 @@ export default function Contact() {
   const [error, setError] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const { isLogin, token } = UseAuth();
+  const { isLogin, token, backendUrl } = UseAuth();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -38,12 +39,11 @@ export default function Contact() {
       setTimeout(() => setShowSuccess(false), 5000);
       return;
     }
-    const res = await axios.post("http://localhost:3000/api/contact", formData, {
+    const res = await axios.post(`${backendUrl}/api/contact`, formData, {
       headers: {
         Authorization: `Bearer ${token}`
       }
     })
-    console.log(res.data);
     setShowSuccess(true);
     setTimeout(() => setShowSuccess(false), 5000);
     // Reset form
@@ -63,7 +63,7 @@ export default function Contact() {
       icon: "fas fa-phone",
       title: "Phone Support",
       description: "Speak with our support team",
-      detail: "+1 (555) 123-4567",
+      detail: "++91 9256******",
       hours: "Mon-Fri: 8AM-8PM EST",
       color: "primary"
     },
@@ -538,6 +538,8 @@ export default function Contact() {
           </Row>
         </Container>
       </section>
+      <Feedback />
+      
 
       {/* Live Chat Modal */}
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
@@ -563,6 +565,7 @@ export default function Contact() {
           </div>
         </Modal.Body>
       </Modal>
+
     </div>
   );
 }

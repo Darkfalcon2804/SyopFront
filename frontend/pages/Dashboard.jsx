@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 
 export default function Dashboard() {
-  const { user, token } = UseAuth();
+  const { user, token, backendUrl } = UseAuth();
   const navigate = useNavigate();
   const [daysAccount, setDaysAccount] = useState(0);
   const [recentActivities, setRecentActivities] = useState([]);
@@ -22,7 +22,7 @@ export default function Dashboard() {
   };
   const handleUserData = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/user/profile", {
+      const res = await axios.get(`${backendUrl}/api/user/profile`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -34,7 +34,7 @@ export default function Dashboard() {
   }
   const handleUserJournal = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/journal/recent-activity", {
+      const res = await axios.get(`${backendUrl}/api/journal/recent-activity`, {
         headers: {
           Authorization: `Bearer ${token}`
         }

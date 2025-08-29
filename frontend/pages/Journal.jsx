@@ -19,7 +19,7 @@ export default function HealthJournal() {
     weight: "",
     height: ""
   });
-  const { token } = UseAuth();
+  const { token,backendUrl } = UseAuth();
   const [prediction, setPrediction] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -94,17 +94,11 @@ export default function HealthJournal() {
 
   const handleSubmit = async () => {
     setIsLoading(true);
-    const response = await axios.post("http://localhost:3000/api/journal", formData, {
+    const response = await axios.post(`${backendUrl}/api/journal`, formData, {
       headers: {
         Authorization: `Bearer ${token}`
       }
     });
-    // const recentActivity = await axios.get("http://localhost:3000/api/journal/recent-activity", {
-    //   headers: {
-    //     Authorization: `Bearer ${token}`
-    //   }
-    // });
-    // console.log(recentActivity)
     const recommended = recommendDisease(formData.symptoms);
     setPrediction(recommended);
     setIsLoading(false);

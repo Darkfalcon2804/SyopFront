@@ -364,6 +364,9 @@
 .dark-mode .card-title {
   color: #f1f5f9 !important;
 }
+.dark-mode .card-title-feedback{
+  color: #343a40 !important; 
+}
 
 .dark-mode .card-text {
   color: #e2e8f0 !important;
@@ -398,6 +401,9 @@
 
 .dark-mode .form-label {
   color: #f1f5f9 !important;
+}
+.dark-mode .form-label-feedback{
+  color: #343a40 !important;
 }
 
 .dark-mode .input-group-text {

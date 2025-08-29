@@ -2,8 +2,10 @@ import { Link } from "react-router-dom";
 import { Container, Row, Col, Card, Button, Badge, Carousel } from "react-bootstrap";
 import { useTheme } from "../contexts/ThemeContext";
 import SymptoScopeLogo  from "../public/SymptoScopeLogo.png";
+import { UseAuth } from "../contexts/AuthContext";
 export default function Index() {
   const { isDarkMode} = useTheme();
+  const { user, isLogin } = UseAuth();
   
   const features = [
     {
@@ -135,7 +137,10 @@ export default function Index() {
                     }}
                   >
                     <i className="fas fa-rocket me-2"></i>
-                    <Link to="/register" style={{ textDecoration:"none", color:"#fff"}}>Get Started <i className="fas fa-arrow-right "></i></Link>
+                    {
+                      !isLogin ? <Link to="/register" style={{ textDecoration:"none", color:"#fff"}}>Get Started <i className="fas fa-arrow-right "></i></Link>
+                      : <Link to="/dashboard" style={{ textDecoration:"none", color:"#fff"}}>Go to Dashboard <i className="fas fa-arrow-right "></i></Link>
+                    }
                   </Button>
                 </div>
               </div>

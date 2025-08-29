@@ -7,10 +7,11 @@ export const AuthProvider = ({ children }) => {
     const [isLogin, setIsLogin] = useState(false)
     const [user, setUser] = useState(null);
     const token = localStorage.getItem("authToken");
+    const backendUrl = "http://localhost:3000"
 
     const fetchProfile = async () => {
         try {
-            const res = await axios.get('http://localhost:3000/api/user/profile', {
+            const res = await axios.get(`${backendUrl}/api/user/profile`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setUser(res.data.user);
@@ -40,7 +41,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider value={{ isLogin, user, login, logout, token }}>
+        <AuthContext.Provider value={{ isLogin, user, login, logout, token, backendUrl }}>
             {children}
         </AuthContext.Provider>
     )

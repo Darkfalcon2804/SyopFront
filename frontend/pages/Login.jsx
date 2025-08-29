@@ -5,7 +5,7 @@ import { UseAuth } from "../contexts/AuthContext";
 import axios from "axios";
 
 export default function Login() {
-  const { login } = UseAuth();
+  const { login, backendUrl } = UseAuth();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -33,7 +33,7 @@ export default function Login() {
     try {
       await new Promise(resolve => setTimeout(resolve, 1500));
       // Handle successful login here
-      const response = await axios.post("http://localhost:3000/api/user/login", formData);
+      const response = await axios.post(`${backendUrl}/api/user/login`, formData);
       login(response.data.user, response.data.token);
       navigate('/dashboard');
 

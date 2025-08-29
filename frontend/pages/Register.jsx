@@ -15,6 +15,7 @@ export default function Register() {
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const { backendUrl } = UseAuth();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -55,7 +56,7 @@ export default function Register() {
     setShowSuccess(false);
 
     try {
-      const response = await axios.post('http://localhost:3000/api/user/register', formData);
+      const response = await axios.post(`${backendUrl}/api/user/register`, formData);
       setShowSuccess(true);
     } catch (error) {
       console.error("Registration Error:", error);
