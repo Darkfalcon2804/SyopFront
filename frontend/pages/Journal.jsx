@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import diseasesData from "../components/Diseases.js";
 import axios from "axios";
 import { UseAuth } from "../contexts/AuthContext.jsx";
 export default function HealthJournal() {
@@ -30,68 +29,6 @@ export default function HealthJournal() {
       [name]: value
     }));
   };
-  const recommendDisease = (symptoms) => {
-    const symptomKeywords = symptoms.toLowerCase().split(/\s*,\s*|\s+/).filter(Boolean); // Split by comma or space, remove empty strings
-
-    // --- Simple Recommendation Logic ---
-    // This is a highly simplified logic for demonstration.
-    // In a real application, this would involve complex NLP, ML models,
-    // and a vast, structured medical knowledge base.
-
-    let matchedDisease = null;
-    let highestMatchCount = 0;
-
-    for (const disease of diseasesData) {
-      let currentMatchCount = 0;
-      const primaryConditionLower = disease.primaryCondition.toLowerCase();
-      const diseaseSymptomsLower = disease.symptoms ? disease.symptoms.map(s => s.toLowerCase()) : [];
-
-      if (symptoms.toLowerCase().trim() === primaryConditionLower) {
-        return disease; // Found an exact primary condition match, return immediately
-      }
-
-      for (const keyword of symptomKeywords) {
-        if (diseaseSymptomsLower.includes(keyword)) {
-          currentMatchCount += 2; // Give higher weight to direct symptom matches
-        } else if (primaryConditionLower.includes(keyword)) {
-          currentMatchCount++;
-        }
-        // Also check if recommendations contain keywords for a slightly better match
-        if (disease.recommendations.some(rec => rec.toLowerCase().includes(keyword))) {
-          currentMatchCount++;
-        }
-      }
-
-      // Prioritize exact or near matches on primary condition
-      // if (primaryConditionLower.includes(symptoms.toLowerCase())) {
-      //   matchedDisease = disease;
-      //   break; // Found a strong match, use this one
-
-      // If no strong match, find the one with most keyword overlaps
-      if (currentMatchCount > highestMatchCount) {
-        highestMatchCount = currentMatchCount;
-        matchedDisease = disease;
-      }
-    }
-    if (!matchedDisease || highestMatchCount < 1) { // If less than 1 keyword matched, consider it no match
-      // A generic or "no specific recommendation" placeholder
-      return {
-        id: 0,
-        primaryCondition: "Symptoms unclear / No specific match",
-        confidence: "Low",
-        riskAssessment: "N/A",
-        riskDetails: "Please provide more specific symptoms or consult a doctor directly.",
-        recommendations: [
-          "Consult a healthcare professional for a proper diagnosis.",
-          "Do not self-diagnose based on limited information.",
-          "If symptoms are severe, seek urgent medical attention."
-        ]
-      };
-    }
-
-    return matchedDisease;
-  };
-
   const handleSubmit = async () => {
     setIsLoading(true);
     const response = await axios.post(`${backendUrl}/api/journal`, formData, {
@@ -99,10 +36,26 @@ export default function HealthJournal() {
         Authorization: `Bearer ${token}`
       }
     });
-    const recommended = recommendDisease(formData.symptoms);
-    setPrediction(recommended);
+    handlegeminiresponse();
     setIsLoading(false);
   };
+const handlegeminiresponse = async () => {
+  try {
+    const gemini_response = await axios.post(`${backendUrl}/api/gemini/generate`, { symptoms: formData.symptoms }, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    const { generatedText } = gemini_response.data;
+    const geminiData = JSON.parse(generatedText);
+    setPrediction(geminiData);
+    console.log("Successfully Parsed Gemini Data:", geminiData);
+    console.log(geminiData.primaryCondition);
+  } catch (error) {
+    console.error("Error generating Gemini response:", error);
+  }
+};
+
 
   const resetForm = () => {
     setFormData({
@@ -155,39 +108,6 @@ export default function HealthJournal() {
       paddingBottom: '2rem'
     }}>
       <div className="container">
-        {/* Journal Header */}
-        {/* <div className="row justify-content-center mb-4">
-          <div className="col-lg-10">
-            <div className="text-center mb-4">
-              <div className="d-inline-block p-4 rounded-circle mb-3" style={{
-                background: 'linear-gradient(45deg, #0ea5e9 0%, #0284c7 100%)',
-                boxShadow: '0 10px 30px rgba(14, 165, 233, 0.3)'
-              }}>
-                <i className="fas fa-book-medical text-white" style={{ fontSize: '2.2rem' }}></i>
-              </div>
-              <h1 className="display-5 text-dark mb-2" style={{
-                fontFamily: "'Playfair Display', serif",
-                fontWeight: '400',
-                letterSpacing: '-0.5px',
-                color: '#0284c7'
-              }}>
-                Health Journal
-              </h1>
-              <p className="lead text-muted" style={{
-                fontSize: '1.1rem',
-                fontWeight: '300'
-              }}>
-                Your daily companion for health insights and wellness tracking
-              </p>
-              <div className="border-bottom mx-auto mt-3" style={{
-                width: '80px',
-                height: '2px',
-                background: 'linear-gradient(45deg, #0ea5e9 0%, #0284c7 100%)'
-              }}></div>
-            </div>
-          </div>
-        </div> */}
-
         {/* Journal Entry Card */}
         <div className="row justify-content-center">
           <div className="col-lg-10">
@@ -704,7 +624,7 @@ export default function HealthJournal() {
                                     color: 'white',
                                     fontSize: '0.85rem'
                                   }}>
-                                    Confidence: {prediction.confidence}
+                                    Confidence: {prediction.percentMatchPrimary}%
                                   </span>
                                 </div>
                               </div>
@@ -754,7 +674,7 @@ export default function HealthJournal() {
                               Recommendations for You
                             </h5>
                             <div className="row g-3">
-                              {prediction.recommendations.map((rec, index) => (
+                              {prediction.recommendation.map((rec, index) => (
                                 <div key={index} className="col-12">
                                   <div className="ai-primary-result d-flex align-items-start p-3 rounded-3" style={{
                                     backgroundColor: '#f0f9ff',
