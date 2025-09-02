@@ -547,7 +547,7 @@ Report ID: ${Date.now()}\`;
   };
 
   //Replace your existing Generate Report button in the Dashboard with this:
-  /*
+  
   <div className="col-md-6 col-lg-3">
     <div className="d-grid">
       <button 
@@ -559,7 +559,7 @@ Report ID: ${Date.now()}\`;
       </button>
     </div>
   </div>
-  */
+  
 
   return user ? (
     <>
