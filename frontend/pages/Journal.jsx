@@ -18,7 +18,7 @@ export default function HealthJournal() {
     weight: "",
     height: ""
   });
-  const { token,backendUrl } = UseAuth();
+  const { token, backendUrl } = UseAuth();
   const [prediction, setPrediction] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -31,32 +31,35 @@ export default function HealthJournal() {
   };
   const handleSubmit = async () => {
     setIsLoading(true);
+    if (!formData.symptoms) {
+      alert("Please enter your symptoms");
+      setIsLoading(false);
+      return;
+    }
     const response = await axios.post(`${backendUrl}/api/journal`, formData, {
       headers: {
         Authorization: `Bearer ${token}`
       }
     });
-    handlegeminiresponse();
+    await handlegeminiresponse();
     setIsLoading(false);
   };
-const handlegeminiresponse = async () => {
-  try {
-    const gemini_response = await axios.post(`${backendUrl}/api/gemini/generate`, { symptoms: formData.symptoms }, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-    const { generatedText } = gemini_response.data;
-    const geminiData = JSON.parse(generatedText);
-    setPrediction(geminiData);
-    console.log("Successfully Parsed Gemini Data:", geminiData);
-    console.log(geminiData.primaryCondition);
-  } catch (error) {
-    console.error("Error generating Gemini response:", error);
-  }
-};
-
-
+  const handlegeminiresponse = async () => {
+    try {
+      const gemini_response = await axios.post(`${backendUrl}/api/gemini/generate`, { symptoms: formData.symptoms }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      const { generatedText } = gemini_response.data;
+      const geminiData = JSON.parse(generatedText);
+      setPrediction(geminiData);
+      console.log("Successfully Parsed Gemini Data:", geminiData);
+      console.log(geminiData.primaryCondition);
+    } catch (error) {
+      console.error("Error generating Gemini response:", error);
+    }
+  };
   const resetForm = () => {
     setFormData({
       name: "",
@@ -76,21 +79,6 @@ const handlegeminiresponse = async () => {
     });
     setPrediction(null);
   };
-  const getRiskColor = (riskAssessment) => {
-    switch (riskAssessment) {
-      case 'Low Risk':
-        return formStyles.riskLow;
-      case 'Moderate Risk':
-        return formStyles.riskModerate;
-      case 'High Risk':
-        return formStyles.riskHigh;
-      case 'Critical Risk':
-        return formStyles.riskCritical;
-      default:
-        return {};
-    }
-  }
-
   const getCurrentDate = () => {
     return new Date().toLocaleDateString('en-US', {
       weekday: 'long',
