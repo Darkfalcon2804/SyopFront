@@ -39,7 +39,6 @@ export default function Dashboard() {
           Authorization: `Bearer ${token}`
         }
       });
-      console.log(res.data)
       setRecentActivities(res.data.activities);
       setRecentActivitiesCount(res.data.activitiesCount);
     } catch (error) {

@@ -15,7 +15,7 @@ export default function Register() {
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
-  const { backendUrl } = UseAuth();
+  const { backendUrl, token } = UseAuth();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -56,15 +56,17 @@ export default function Register() {
     setShowSuccess(false);
 
     try {
-      const response = await axios.post(`${backendUrl}/api/user/register`, formData);
+      const response = await axios.post(`${backendUrl}/api/user/register`, formData, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       setShowSuccess(true);
     } catch (error) {
       console.error("Registration Error:", error);
       const message = error.response?.data?.message || "Registration failed. Please try again.";
       setErrors({ message });
     } finally {
-        setIsLoading(false); //  Hide loading spinner
-      }
+      setIsLoading(false); //  Hide loading spinner
+    }
     // Simulate API call
     setTimeout(() => {
       setIsLoading(false);
@@ -142,7 +144,7 @@ export default function Register() {
                       <Form.Group className="mb-3">
                         <Form.Label>Last Name</Form.Label>
                         <Form.Control
-                        className="white-placeholder"
+                          className="white-placeholder"
                           type="text"
                           name="LastName"
                           value={formData.LastName}
@@ -160,7 +162,7 @@ export default function Register() {
                   <Form.Group className="mb-3">
                     <Form.Label>Email Address</Form.Label>
                     <Form.Control
-                    className="white-placeholder"
+                      className="white-placeholder"
                       type="email"
                       name="email"
                       value={formData.email}
@@ -176,7 +178,7 @@ export default function Register() {
                   <Form.Group className="mb-3">
                     <Form.Label>Password</Form.Label>
                     <Form.Control
-                    className="white-placeholder"
+                      className="white-placeholder"
                       type="password"
                       name="password"
                       value={formData.password}
@@ -192,7 +194,7 @@ export default function Register() {
                   <Form.Group className="mb-4">
                     <Form.Label>Confirm Password</Form.Label>
                     <Form.Control
-                    className="white-placeholder"
+                      className="white-placeholder"
                       type="password"
                       name="ConfirmPassword"
                       value={formData.ConfirmPassword}

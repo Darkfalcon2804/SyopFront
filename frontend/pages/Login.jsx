@@ -31,7 +31,6 @@ export default function Login() {
     setLoginError("");
     // Simulate login process
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
       // Handle successful login here
       const response = await axios.post(`${backendUrl}/api/user/login`, formData);
       login(response.data.user, response.data.token);
