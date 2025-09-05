@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 
 export default function Dashboard() {
-  const { user, token, backendUrl } = UseAuth();
+  const { user, token, backendUrl, isLogin } = UseAuth();
   const navigate = useNavigate();
   const [daysAccount, setDaysAccount] = useState(0);
   const [recentActivities, setRecentActivities] = useState([]);
@@ -57,7 +57,7 @@ export default function Dashboard() {
     { number: `${recentActivitiesCount}`, label: "Symptoms Logged", icon: "fas fa-notes-medical", color: "success" },
     { number: "8", label: "AI Insights", icon: "fas fa-brain", color: "info" },
     { number: "92-95%", label: "Accuracy", icon: "fas fa-chart-line", color: "warning" }
-];
+  ];
 
   const recentActivity = [
     {
@@ -82,7 +82,6 @@ export default function Dashboard() {
       badgeColor: "success"
     }
   ];
-
   const todaysGoals = [
     { task: "Symptom Check-in", progress: 66, current: "2/3", status: "In Progress" },
     { task: "Water Intake", progress: 75, current: "6/8 glasses", status: "Good" },
@@ -545,21 +544,9 @@ Report ID: ${Date.now()}\`;
     reportWindow.document.close();
   };
 
-  //Replace your existing Generate Report button in the Dashboard with this:
-  
-  <div className="col-md-6 col-lg-3">
-    <div className="d-grid">
-      <button 
-        className="btn btn-outline-primary py-3"
-        onClick={handleGenerateReport}
-      >
-        <i className="fas fa-file-pdf d-block mb-2" style={{ fontSize: '1.5rem' }}></i>
-        Generate Report
-      </button>
-    </div>
-  </div>
-  
-
+  if(!isLogin) {
+    return <div style={{ paddingTop: '100px', minHeight: '100vh' }}>Please log in to view your dashboard.</div>
+  }
   return user ? (
     <>
       <div style={{ paddingTop: '100px', minHeight: '100vh' }}>
@@ -598,11 +585,17 @@ Report ID: ${Date.now()}\`;
             {stats.map((stat, index) => (
               <Col md={6} lg={3} key={index}>
                 <Card className="medical-card h-100 text-center">
-                  <Card.Body className="p-4">
+                  <Card.Body className="p-4 flex flex-col">
                     <div className={`bg-${stat.color} rounded-3 d-inline-flex p-3 mb-3`}>
                       <i className={`${stat.icon} text-white`} style={{ fontSize: '1.5rem' }}></i>
                     </div>
-                    <h3 className="fw-bold">{stat.number}</h3>
+                    {stat.number ? (
+                      <h3 className="fw-bold">{stat.number}</h3>
+                    ) : ( <>
+                    <br />
+                    <div className="spinner-border spinner-border-sm me-2" role="status"></div>
+                    </>
+                    )}
                     <p className="text-muted mb-1">{stat.label}</p>
                     <small className="text-success">{stat.change}</small>
                   </Card.Body>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { UseAuth } from "../contexts/AuthContext.jsx";
 export default function HealthJournal() {
@@ -21,6 +21,7 @@ export default function HealthJournal() {
   const { token, backendUrl } = UseAuth();
   const [prediction, setPrediction] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const AiCardRef = useRef(null);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -36,13 +37,22 @@ export default function HealthJournal() {
       setIsLoading(false);
       return;
     }
-    const response = await axios.post(`${backendUrl}/api/journal`, formData, {
-      headers: {
-        Authorization: `Bearer ${token}`
+    try {
+      const response = await axios.post(`${backendUrl}/api/journal`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      await handlegeminiresponse();
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error submitting journal entry:", error);
+      if (error.response.status === 401 && error.response) {
+        alert("Your session has expired. Please log in again.");
       }
-    });
-    await handlegeminiresponse();
-    setIsLoading(false);
+      setIsLoading(false);
+    }
+
   };
   const handlegeminiresponse = async () => {
     try {
@@ -51,12 +61,14 @@ export default function HealthJournal() {
           Authorization: `Bearer ${token}`
         }
       });
+      // console.log(gemini_response);
       const { generatedText } = gemini_response.data;
       const geminiData = JSON.parse(generatedText);
       setPrediction(geminiData);
-      console.log("Successfully Parsed Gemini Data:", geminiData);
-      console.log(geminiData.primaryCondition);
-    } catch (error) {
+      // console.log("Successfully Parsed Gemini Data:", geminiData);
+      // console.log(geminiData.primaryCondition);
+    }
+    catch (error) {
       console.error("Error generating Gemini response:", error);
     }
   };
@@ -87,6 +99,15 @@ export default function HealthJournal() {
       day: 'numeric'
     });
   };
+
+  useEffect(() => {
+    if (prediction && AiCardRef.current) {
+      AiCardRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: "start"
+      });
+    }
+  }, [prediction]);
 
   return (
     <div className="min-vh-100" style={{
@@ -276,7 +297,7 @@ export default function HealthJournal() {
                           name="heartRate"
                           value={formData.heartRate}
                           onChange={handleInputChange}
-                          placeholder="BPM"
+                          placeholder="60-100 BPM"
                           style={{
                             backgroundColor: '#e0f2fe',
                             borderRadius: '12px',
@@ -299,7 +320,7 @@ export default function HealthJournal() {
                           name="temperature"
                           value={formData.temperature}
                           onChange={handleInputChange}
-                          placeholder="°F"
+                          placeholder="98.6°F"
                           style={{
                             backgroundColor: '#e0f2fe',
                             borderRadius: '12px',
@@ -567,7 +588,7 @@ export default function HealthJournal() {
 
                 {/* Prediction Results */}
                 {prediction && (
-                  <div className="mt-5 pt-5">
+                  <div ref={AiCardRef} className="mt-5 pt-5">
                     <div className="card ai-card border-0" style={{
                       borderRadius: '20px',
                       boxShadow: '0 15px 35px rgba(0,0,0,0.08)'
@@ -642,7 +663,13 @@ export default function HealthJournal() {
                                     {prediction.riskAssessment}
                                   </span>
                                 </div>
-                                <p className="text-muted mb-0" style={{ fontSize: '0.9rem' }}>{prediction.riskDetails}</p>
+                                <p className="text-muted mb-0" style={{ fontSize: '0.9rem' }}>{
+                                  prediction.riskAssessment === 'low' ? 'Your risk is low. Keep up the good health!' :
+                                    prediction.riskAssessment === 'medium' ? 'Your risk is moderate. Consider consulting a doctor.' :
+                                      prediction.riskAssessment === 'risk' ? 'Your risk is high. Please seek immediate medical attention.' :
+                                        'Your risk is critical. Please seek immediate medical attention.'
+                                }
+                                </p>
                               </div>
                             </div>
                           </div>
