@@ -1,8 +1,9 @@
 # 🩺 SymptoScope – AI-Based Disease Detection System
 
 A smart healthcare web application that uses Artificial Intelligence (AI) to assist in disease detection, especially for rural areas with limited access to medical professionals.
-
 Built with a focus on accessibility, accuracy, and awareness, SymptoScope empowers users to identify potential health risks based on their symptoms and receive guidance on next steps.
+
+
 ---
 
 ## 🚀 Features
@@ -17,7 +18,7 @@ Built with a focus on accessibility, accuracy, and awareness, SymptoScope empowe
 
 ## 🎥 Demo
    
-[![Demo Video](https://img.youtube.com/vi/3s27Ux-qBAU/2.jpg)](https://youtu.be/3s27Ux-qBAU)
+[![Demo Video](https://img.youtube.com/vi/3s27Ux-qBAU/0.jpg)](https://youtu.be/3s27Ux-qBAU)
  
 
 ---
@@ -39,9 +40,7 @@ Built with a focus on accessibility, accuracy, and awareness, SymptoScope empowe
   ```
 
 2. **Create `.env` file for backend**
-
-Inside the `backend` folder, create a `.env` file and add the following:
-
+**Inside the `backend` folder, create a `.env` file and add the following:**
   ```bash
   # Example .env file
     GEMINI_API_KEY=your_gemini_api_key_here
@@ -69,15 +68,15 @@ npm run start
 ```
 
 ## 📌 Roadmap / Future Improvements
-✅ ChatBot
-✅ Doctor consultation via chat/video
+✅ ChatBot <br>
+✅ Doctor consultation via chat/video <br>
 ✅ Multilingual support for rural accessibility
 
 ## 🧑‍💻 Team SymptoScope
-👨‍💻[Bhavesh Jain](https://www.linkedin.com/in/bhavesh-jain28/)
-👨‍💻[Rohit Kumawat](https://www.linkedin.com/in/rohit-kumawattt/)
+👨‍💻[Bhavesh Jain](https://www.linkedin.com/in/bhavesh-jain28/) <br>
+👨‍💻[Rohit Kumawat](https://www.linkedin.com/in/rohit-kumawattt/) <br>
 👨‍💻[Navita Tulsani](https://www.linkedin.com/in/navita-tulsani-b05607277/)
 
 ## 🤝 Contributing
-Contributions are welcome!
+Contributions are welcome! <br>
 For major changes, please open an issue first to discuss what you’d like to modify or improve.
